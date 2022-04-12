@@ -11,4 +11,16 @@
     <ProjectReference Include="..\Blog.Infra.CrossCutting.Bus\Blog.Infra.CrossCutting.Bus.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Commands\Blog\" />
+    <Folder Include="Common\" />
+    <Folder Include="CommandHandlers\" />
+    <Folder Include="EventHandlers\" />
+    <Folder Include="Events\Blog\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Models\" />
+    <Folder Include="Services\" />
+    <Folder Include="Specifications\Blog\" />
+  </ItemGroup>
+
 </Project>
