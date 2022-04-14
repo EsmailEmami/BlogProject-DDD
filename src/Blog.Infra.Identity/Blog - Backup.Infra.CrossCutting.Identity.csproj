@@ -6,20 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
-	<ItemGroup>
-		<PackageReference Include="AutoMapper" Version="11.0.1" />
-	</ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
-    <ProjectReference Include="..\Blog.Infra.Data\Blog.Infra.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="AutoMapper\" />
-    <Folder Include="Services\" />
-    <Folder Include="ViewModels\User\" />
+    <Folder Include="Authorization\" />
   </ItemGroup>
 
 </Project>

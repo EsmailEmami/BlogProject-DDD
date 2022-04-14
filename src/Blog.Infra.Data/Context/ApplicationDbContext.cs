@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.Core.Models;
+using Blog.Domain.Models;
 using Blog.Infra.Data.Mappings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -12,10 +13,12 @@ public class ApplicationDbContext : DbContext
     }
 
     public DbSet<Domain.Models.Blog> Blogs { get; set; }
+    public DbSet<User> Users { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new BlogMap());
+        modelBuilder.ApplyConfiguration(new UserMap());
 
         base.OnModelCreating(modelBuilder);
     }

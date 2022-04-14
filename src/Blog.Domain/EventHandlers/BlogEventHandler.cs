@@ -1,15 +1,16 @@
-﻿using Blog.Domain.Events.Blog;
+﻿using System.Text.Json;
+using Blog.Domain.Events.Blog;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Blog.Domain.EventHandlers;
 
-public class BlogEventHandler
-: INotificationHandler<BlogRegisteredEvent>,
+public class BlogEventHandler : 
+    INotificationHandler<BlogRegisteredEvent>,
     INotificationHandler<BlogUpdatedEvent>
 {
     public Task Handle(BlogRegisteredEvent notification, CancellationToken cancellationToken)
     {
-        // do some thing
 
         return Task.CompletedTask;
     }

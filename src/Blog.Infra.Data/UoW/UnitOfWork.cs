@@ -3,7 +3,7 @@ using Blog.Infra.Data.Context;
 
 namespace Blog.Infra.Data.UoW;
 
-public class UnitOfWork:IUnitOfWork
+public class UnitOfWork : IUnitOfWork
 {
     private readonly ApplicationDbContext _context;
 

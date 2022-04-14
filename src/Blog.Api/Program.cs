@@ -1,6 +1,26 @@
+using Blog.Infra.CrossCutting.IoC;
+using Blog.Services.Api.Configurations;
+using Blog.Services.Api.SetupExtensions;
+using MediatR;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// ----- Database -----
+builder.Services.AddCustomizedDatabase(builder.Configuration, builder.Environment);
+
+// ----- Auth -----
+builder.Services.AddCustomizedAuth(builder.Configuration);
+
+// ----- Auth -----
+builder.Services.AddAutoMapperSetup();
+
+// Adding MediatR for Domain Events and Notifications
+builder.Services.AddMediatR(typeof(Program).Assembly);
+
+builder.Services.AddCustomizedHash(builder.Configuration);
+
+// .NET Native DI Abstraction
+builder.Services.RegisterServices();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -18,7 +38,14 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+// -----CORS---- 
+app.UseCors(x => x
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
+
+// ----- Auth -----
+app.UseCustomizedAuth();
 
 app.MapControllers();
 
