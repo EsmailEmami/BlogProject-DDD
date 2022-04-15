@@ -27,6 +27,17 @@ public abstract class UserValidation<T> : AbstractValidator<T> where T : UserCom
             .Length(100).WithMessage("The Last Name must have between 100 characters");
     }
 
+    protected void ValidatePassword()
+    {
+        RuleFor(c => c.Password)
+            .NotEmpty().WithMessage("Please ensure you have entered the Password")
+            .Equal(c => c.ConfirmPassword).WithMessage("Please ensure password is match")
+            .Length(6, 50).WithMessage("The Password must have between 3 and 50 characters")
+            .Matches("[A-Z]").WithMessage("The password must be contains uppercase character")
+            .Matches("[a-z]").WithMessage("The password must be contains lowercase character")
+            .Matches("[^#?!@$%^&*-]").WithMessage("special character");
+    }
+
     protected void ValidateId()
     {
         RuleFor(c => c.Id)

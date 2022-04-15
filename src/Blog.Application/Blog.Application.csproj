@@ -19,7 +19,6 @@
     <Folder Include="Interfaces\" />
     <Folder Include="AutoMapper\" />
     <Folder Include="Services\" />
-    <Folder Include="ViewModels\User\" />
   </ItemGroup>
 
 </Project>

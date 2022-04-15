@@ -11,5 +11,11 @@ public class UserRepository : Repository<User>, IUserRepository
     }
 
     public bool IsEmailExists(string email) =>
-        Db.Users.Any(x => x.Email.Equals(email));
+        Db.Users.Any(x => x.Email == email);
+
+    public bool IsUserExists(string email, string password) =>
+        Db.Users.Any(x => x.Email == email && x.Password == password);
+
+    public User? GetUserByEmail(string email) =>
+        Db.Users.SingleOrDefault(x => x.Email == email);
 }

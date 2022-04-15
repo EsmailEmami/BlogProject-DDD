@@ -4,6 +4,7 @@ using Blog.Domain.Core.Notifications;
 using Blog.Domain.Events.User;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
+using Blog.Domain.Services.Hash;
 using MediatR;
 
 namespace Blog.Domain.CommandHandlers;
@@ -15,14 +16,17 @@ public class UserCommandHandler : CommandHandler,
 {
     private readonly IUserRepository _userRepository;
     private readonly IMediatorHandler _bus;
+    private readonly IPasswordHasher _passwordHasher;
 
     public UserCommandHandler(IUnitOfWork uow,
         IMediatorHandler bus,
         INotificationHandler<DomainNotification> notifications,
-        IUserRepository userRepository) : base(uow, bus, notifications)
+        IUserRepository userRepository,
+        IPasswordHasher passwordHasher) : base(uow, bus, notifications)
     {
         _bus = bus;
         _userRepository = userRepository;
+        _passwordHasher = passwordHasher;
     }
 
     public Task<bool> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken)
@@ -33,7 +37,7 @@ public class UserCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        User user = new User(Guid.NewGuid(), request.FirstName, request.LastName, request.Email);
+        User user = new User(Guid.NewGuid(), request.FirstName, request.LastName, request.Email, _passwordHasher.Hash(request.Password));
 
         if (_userRepository.IsEmailExists(user.Email))
         {
@@ -58,7 +62,7 @@ public class UserCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        User user = new User(request.Id, request.FirstName, request.LastName, request.Email);
+        User user = new User(request.Id, request.FirstName, request.LastName, request.Email, _passwordHasher.Hash(request.Password));
         User existingUser = _userRepository.GetById(user.Id);
 
         if (existingUser.Id != user.Id)

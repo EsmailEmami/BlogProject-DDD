@@ -17,13 +17,13 @@ public class JwtFactory : IJwtFactory
         ThrowIfInvalidOptions(_jwtOptions);
     }
 
-    public async Task<JwtToken> GenerateJwtToken(ClaimsIdentity claimsIdentity)
+    public async Task<string> GenerateJwtToken(ClaimsIdentity claimsIdentity)
     {
         claimsIdentity.AddClaims(new Claim[]
         {
             //new Claim(JwtRegisteredClaimNames.Sub, user.Username),
-            new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
-            new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
+            new(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
+            new(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
         });
 
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -37,11 +37,7 @@ public class JwtFactory : IJwtFactory
             SigningCredentials = _jwtOptions.SigningCredentials,
         });
 
-        return new JwtToken
-        {
-            JwtId = token.Id,
-            AccessToken = tokenHandler.WriteToken(token),
-        };
+        return tokenHandler.WriteToken(token);
     }
 
     private static void ThrowIfInvalidOptions(JwtIssuerOptions options)
@@ -69,10 +65,4 @@ public class JwtFactory : IJwtFactory
         => (long)Math.Round((date.ToUniversalTime() -
                              new DateTimeOffset(1970, 1, 1, 0, 0, 0, TimeSpan.Zero))
             .TotalSeconds);
-}
-
-public class JwtToken
-{
-    public string JwtId { get; set; }
-    public string AccessToken { get; set; }
 }

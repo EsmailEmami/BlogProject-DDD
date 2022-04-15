@@ -14,9 +14,9 @@ public class ViewModelToDomainMappingProfile : Profile
             .ConstructUsing(c => new RegisterNewBlogCommand(c.BlogTitle));
         CreateMap<BlogViewModel, UpdateBlogCommand>()
             .ConstructUsing(c => new UpdateBlogCommand(c.Id, c.BlogTitle));
-        CreateMap<UserViewModel, RegisterNewUserCommand>()
-            .ConstructUsing(c => new RegisterNewUserCommand(c.FirstName, c.LastName, c.Email));
-        CreateMap<UserViewModel, UpdateUserCommand>()
+        CreateMap<RegisterViewModel, RegisterNewUserCommand>()
+            .ConstructUsing(c => new RegisterNewUserCommand(c.FirstName, c.LastName, c.Email, c.Password, c.ConfirmPassword));
+        CreateMap<UpdateUserViewModel, UpdateUserCommand>()
             .ConstructUsing(c => new UpdateUserCommand(c.Id, c.FirstName, c.LastName, c.Email));
     }
 }

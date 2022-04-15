@@ -3,6 +3,7 @@ using Blog.Domain.Core.Notifications;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Blog.Services.Api.Controllers;
 
@@ -26,7 +27,7 @@ public abstract class ApiController : ControllerBase
         return (!_notifications.HasNotifications());
     }
 
-    protected new IActionResult Response(object? result)
+    protected new IActionResult Response(object result)
     {
         if (IsValidOperation())
         {
@@ -44,13 +45,30 @@ public abstract class ApiController : ControllerBase
         });
     }
 
+    protected new IActionResult Response()
+    {
+        if (IsValidOperation())
+        {
+            return Ok(new
+            {
+                success = true
+            });
+        }
+
+        return BadRequest(new
+        {
+            success = false,
+            errors = _notifications.GetNotifications().Select(n => n.Value).ToList()
+        });
+    }
+
     protected void NotifyModelStateErrors()
     {
         var errors = ModelState.Values.SelectMany(v => v.Errors);
         foreach (var error in errors)
         {
             var errorMsg = error.Exception == null ? error.ErrorMessage : error.Exception.Message;
-            NotifyError(string.Empty, errorMsg);
+            NotifyError(HttpStatusCode.BadRequest.ToString(), errorMsg);
         }
     }
 

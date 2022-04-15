@@ -9,5 +9,6 @@ public class RegisterNewUserCommandValidation : UserValidation<RegisterNewUserCo
         ValidateFirstName();
         ValidateLastName();
         ValidateEmail();
+        ValidatePassword();
     }
 }

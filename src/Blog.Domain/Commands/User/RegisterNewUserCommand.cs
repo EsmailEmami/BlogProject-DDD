@@ -4,11 +4,13 @@ namespace Blog.Domain.Commands.User;
 
 public class RegisterNewUserCommand : UserCommand
 {
-    public RegisterNewUserCommand(string firstName, string lastName, string email)
+    public RegisterNewUserCommand(string firstName, string lastName, string email, string password, string confirmPassword)
     {
         FirstName = firstName;
         LastName = lastName;
         Email = email;
+        Password = password;
+        ConfirmPassword = confirmPassword;
     }
 
     public override bool IsValid()

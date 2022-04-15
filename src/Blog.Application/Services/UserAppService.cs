@@ -27,13 +27,10 @@ public class UserAppService : IUserAppService
             .ProjectTo<User>(_mapper.ConfigurationProvider)
             .ToList();
 
-    public void Register(UserViewModel user)
-    {
-        RegisterNewUserCommand registerCommand = _mapper.Map<RegisterNewUserCommand>(user);
-        _bus.SendCommand(registerCommand);
-    }
+    public User? GetUserByEmail(string email) =>
+        _userRepository.GetUserByEmail(email);
 
-    public void Update(UserViewModel user)
+    public void Update(UpdateUserViewModel user)
     {
         UpdateUserCommand updateCommand = _mapper.Map<UpdateUserCommand>(user);
         _bus.SendCommand(updateCommand);

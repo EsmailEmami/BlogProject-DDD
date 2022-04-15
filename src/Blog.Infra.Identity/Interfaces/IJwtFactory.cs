@@ -5,5 +5,5 @@ namespace Blog.Infra.CrossCutting.Identity.Interfaces;
 
 public interface IJwtFactory
 {
-    Task<JwtToken> GenerateJwtToken(ClaimsIdentity claimsIdentity);
+    Task<string> GenerateJwtToken(ClaimsIdentity claimsIdentity);
 }

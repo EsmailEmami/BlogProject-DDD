@@ -10,6 +10,6 @@ public class DomainToViewModelMappingProfile : Profile
     public DomainToViewModelMappingProfile()
     {
         CreateMap<Domain.Models.Blog, BlogViewModel>();
-        CreateMap<User, UserViewModel>();
+        CreateMap<User, RegisterViewModel>();
     }
 }

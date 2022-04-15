@@ -38,6 +38,7 @@ public static class NativeInjectorBootstrapper
         // Application
         services.AddScoped<IBlogAppService, BlogAppService>();
         services.AddScoped<IUserAppService, UserAppService>();
+        services.AddScoped<IAccountAppService, AccountAppService>();
 
         // Domain - Events
         services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
