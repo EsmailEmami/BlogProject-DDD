@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using Blog.Application.ViewModels.Blog;
-using Blog.Application.ViewModels.User;
 using Blog.Domain.Models;
+using Blog.Domain.ViewModels.Blog;
+using Blog.Domain.ViewModels.User;
 
 namespace Blog.Application.AutoMapper;
 

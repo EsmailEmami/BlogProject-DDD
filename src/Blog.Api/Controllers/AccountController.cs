@@ -13,9 +13,12 @@ namespace Blog.Services.Api.Controllers;
 
 public class AccountController : ApiController
 {
+    #region constructor
+
     private readonly IAccountAppService _accountAppService;
     private readonly IUserAppService _userAppService;
     private readonly IJwtFactory _jwtFactory;
+
     public AccountController(INotificationHandler<DomainNotification> notifications,
         IMediatorHandler mediator,
         IAccountAppService accountAppService,
@@ -26,6 +29,8 @@ public class AccountController : ApiController
         _userAppService = userAppService;
         _jwtFactory = jwtFactory;
     }
+
+    #endregion
 
     #region register
 
@@ -75,6 +80,8 @@ public class AccountController : ApiController
 
     #endregion
 
+    #region private methods
+
     private async Task<string> GenerateToken(User user)
     {
         // Init ClaimsIdentity
@@ -88,4 +95,6 @@ public class AccountController : ApiController
 
         return jwtToken;
     }
+
+    #endregion
 }

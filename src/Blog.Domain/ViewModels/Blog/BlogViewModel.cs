@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Blog.Application.ViewModels.Blog;
+namespace Blog.Domain.ViewModels.Blog;
 
 public class BlogViewModel
 {

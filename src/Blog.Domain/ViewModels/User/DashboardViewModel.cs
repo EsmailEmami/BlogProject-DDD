@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Blog.Application.ViewModels.User;
+namespace Blog.Domain.ViewModels.User;
 
-public class UpdateUserViewModel
+public class DashboardViewModel
 {
-    [Key]
-    public Guid Id { get; set; }
-
     [Display(Name = "نام")]
     [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
     [MinLength(3, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]

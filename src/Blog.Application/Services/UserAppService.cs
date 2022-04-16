@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Blog.Application.Interfaces;
-using Blog.Application.ViewModels.User;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
+using Blog.Domain.ViewModels.User;
 
 namespace Blog.Application.Services;
 
@@ -41,6 +41,9 @@ public class UserAppService : IUserAppService
         RemoveUserCommand removeCommand = new RemoveUserCommand(userId);
         _bus.SendCommand(removeCommand);
     }
+
+    public DashboardViewModel? GetUserDashboard(Guid userId) =>
+        _userRepository.GetUserDashboard(userId);
 
     public void Dispose() => GC.SuppressFinalize(this);
 }

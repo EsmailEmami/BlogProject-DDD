@@ -55,7 +55,21 @@ public abstract class ApiController : ControllerBase
             });
         }
 
-        return BadRequest(new
+        List<string> notificationKeys = _notifications.GetNotifications()
+            .Select(n => n.Key)
+            .ToList();
+
+        if (notificationKeys.Contains(HttpStatusCode.BadRequest.ToString()) ||
+            notificationKeys.Contains(nameof(DomainNotification)))
+        {
+            return BadRequest(new
+            {
+                success = false,
+                errors = _notifications.GetNotifications().Select(n => n.Value).ToList()
+            });
+        }
+
+        return NotFound(new
         {
             success = false,
             errors = _notifications.GetNotifications().Select(n => n.Value).ToList()

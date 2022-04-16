@@ -1,5 +1,6 @@
 ﻿using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
+using Blog.Domain.ViewModels.User;
 using Blog.Infra.Data.Context;
 
 namespace Blog.Infra.Data.Repository;
@@ -18,4 +19,14 @@ public class UserRepository : Repository<User>, IUserRepository
 
     public User? GetUserByEmail(string email) =>
         Db.Users.SingleOrDefault(x => x.Email == email);
+
+    public DashboardViewModel? GetUserDashboard(Guid userId) =>
+        Db.Users.Where(x => x.Id == userId)
+            .Select(x => new DashboardViewModel()
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Email = x.Email
+            })
+            .SingleOrDefault();
 }
