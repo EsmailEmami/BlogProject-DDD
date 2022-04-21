@@ -1,6 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
-using System.Data;
+﻿using System.Data;
+using System.Data.SqlClient;
 
 namespace Blog.Services.Api.SetupExtensions;
 

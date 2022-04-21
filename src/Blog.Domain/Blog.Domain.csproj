@@ -21,7 +21,6 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
     <Folder Include="Services\Hash\" />
-    <Folder Include="Specifications\Blog\" />
     <Folder Include="Validations\User\" />
   </ItemGroup>
 
