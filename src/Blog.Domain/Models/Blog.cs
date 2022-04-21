@@ -1,8 +1,10 @@
 ﻿using Blog.Domain.Core.Models;
+using Dapper.Contrib.Extensions;
 
 namespace Blog.Domain.Models;
 
-public class Blog : EntityAudit
+[Table("Blog.Blogs")]
+public class Blog : Entity
 {
     public Blog(Guid id, string blogTitle)
     {

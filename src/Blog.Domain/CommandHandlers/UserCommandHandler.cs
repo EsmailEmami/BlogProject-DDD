@@ -87,7 +87,15 @@ public class UserCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        _userRepository.Remove(request.Id);
+        User user = _userRepository.GetById(request.Id);
+
+        if (user.Id != request.Id)
+        {
+            _bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+        }
+
+        _userRepository.Delete(user);
+
         Commit();
 
         return Task.FromResult(true);

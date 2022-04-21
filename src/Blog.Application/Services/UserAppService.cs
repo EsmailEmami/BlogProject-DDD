@@ -22,10 +22,8 @@ public class UserAppService : IUserAppService
         _bus = bus;
     }
 
-    public IList<User> GetAllUsers() =>
-        _userRepository.GetAll()
-            .ProjectTo<User>(_mapper.ConfigurationProvider)
-            .ToList();
+    public List<User> GetAllUsers() =>
+        _userRepository.GetAll();
 
     public User? GetUserByEmail(string email) =>
         _userRepository.GetUserByEmail(email);

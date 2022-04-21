@@ -1,24 +1,39 @@
 ﻿using Blog.Domain.Interfaces;
-using Blog.Infra.Data.Context;
+using System.Data;
 
 namespace Blog.Infra.Data.UoW;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IDbTransaction _dbTransaction;
 
-    public UnitOfWork(ApplicationDbContext context)
+    public UnitOfWork(IDbTransaction dbTransaction)
     {
-        _context = context;
+        _dbTransaction = dbTransaction;
     }
 
     public bool Commit()
     {
-        return _context.SaveChanges() > 0;
+        try
+        {
+            _dbTransaction.Commit();
+            // By adding this we can have muliple transactions as part of a single request
+            _dbTransaction.Connection?.BeginTransaction();
+
+            return true;
+        }
+        catch
+        {
+            _dbTransaction.Rollback();
+            return false;
+        }
     }
 
     public void Dispose()
     {
-        _context.Dispose();
+        //Close the SQL Connection and dispose the objects
+        _dbTransaction.Connection?.Close();
+        _dbTransaction.Connection?.Dispose();
+        _dbTransaction.Dispose();
     }
 }

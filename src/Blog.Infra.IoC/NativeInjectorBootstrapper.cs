@@ -4,7 +4,6 @@ using Blog.Domain.CommandHandlers;
 using Blog.Domain.Commands.Blog;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
-using Blog.Domain.Core.Events;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.EventHandlers;
 using Blog.Domain.Events.Blog;
@@ -13,9 +12,7 @@ using Blog.Domain.Interfaces;
 using Blog.Infra.CrossCutting.Bus;
 using Blog.Infra.CrossCutting.Identity.Interfaces;
 using Blog.Infra.CrossCutting.Identity.Services;
-using Blog.Infra.Data.EventSourcing;
 using Blog.Infra.Data.Repository;
-using Blog.Infra.Data.Repository.EventSourcing;
 using Blog.Infra.Data.UoW;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,10 +63,6 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IBlogRepository, BlogRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
-
-        // Infra - Data EventSourcing
-        services.AddScoped<IEventStoreRepository, EventStoreSqlRepository>();
-        services.AddScoped<IEventStore, SqlEventStore>();
 
         // Infra - Identity Services
         //services.AddTransient<IEmailSender, AuthEmailMessageSender>();

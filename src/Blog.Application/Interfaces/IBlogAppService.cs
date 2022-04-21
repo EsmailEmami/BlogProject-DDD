@@ -1,4 +1,4 @@
-﻿using Blog.Application.ViewModels.Blog;
+﻿using Blog.Domain.ViewModels.Blog;
 
 namespace Blog.Application.Interfaces;
 

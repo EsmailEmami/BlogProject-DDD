@@ -1,5 +1,5 @@
 ﻿using Blog.Application.Interfaces;
-using Blog.Application.ViewModels.User;
+using Blog.Domain.ViewModels.User;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Models;
@@ -64,14 +64,14 @@ public class AccountController : ApiController
         bool loginResult = _accountAppService.Login(login);
         if (!loginResult)
         {
-            NotifyError(HttpStatusCode.BadRequest.ToString(), "کاربری با مشخصات وارد شده یافت نشد.");
+            NotifyError(HttpStatusCode.NotFound.ToString(), "کاربری با مشخصات وارد شده یافت نشد.");
             return Response();
         }
 
         User? user = _userAppService.GetUserByEmail(login.Email);
         if (user == null)
         {
-            NotifyError(HttpStatusCode.BadRequest.ToString(), "کاربری با مشخصات وارد شده یافت نشد.");
+            NotifyError(HttpStatusCode.NotFound.ToString(), "کاربری با مشخصات وارد شده یافت نشد.");
             return Response();
         }
 
@@ -86,7 +86,7 @@ public class AccountController : ApiController
     {
         // Init ClaimsIdentity
         var claimsIdentity = new ClaimsIdentity();
-        claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Email));
+        claimsIdentity.AddClaim(new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()));
         claimsIdentity.AddClaim(new Claim(ClaimTypes.Email, user.Email));
 
 

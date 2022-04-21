@@ -1,33 +1,25 @@
-﻿using Blog.Infra.Data.Context;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Blog.Services.Api.SetupExtensions;
 
 public static class DatabaseExtension
 {
     public static IServiceCollection AddCustomizedDatabase(this IServiceCollection services,
-        IConfiguration configuration, IWebHostEnvironment env)
+        IConfiguration configuration)
     {
-        services.AddDbContext<ApplicationDbContext>(options =>
+
+        services.AddScoped<IDbConnection>(_ =>
+            new SqlConnection(configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddScoped(s =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            // options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-            if (!env.IsProduction())
-            {
-                options.EnableDetailedErrors();
-                options.EnableSensitiveDataLogging();
-            }
+            IDbConnection conn = s.GetRequiredService<IDbConnection>();
+            conn.Open();
+            return conn.BeginTransaction();
         });
 
-        services.AddDbContext<EventStoreSqlContext>(options =>
-        {
-            options.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
-            if (!env.IsProduction())
-            {
-                options.EnableDetailedErrors();
-                options.EnableSensitiveDataLogging();
-            }
-        });
 
         return services;
     }

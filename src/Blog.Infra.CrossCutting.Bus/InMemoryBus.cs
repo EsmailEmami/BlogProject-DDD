@@ -9,11 +9,9 @@ namespace Blog.Infra.CrossCutting.Bus;
 public class InMemoryBus : IMediatorHandler
 {
     private readonly IMediator _mediator;
-    private readonly IEventStore _eventStore;
 
-    public InMemoryBus(IEventStore eventStore, IMediator mediator)
+    public InMemoryBus(IMediator mediator)
     {
-        _eventStore = eventStore;
         _mediator = mediator;
     }
 
@@ -21,9 +19,6 @@ public class InMemoryBus : IMediatorHandler
 
     public Task RaiseEvent<T>(T @event) where T : Event
     {
-        if (!@event.MessageType.Equals(nameof(DomainNotification)))
-            _eventStore.Save(@event);
-
         return _mediator.Publish(@event);
     }
 }

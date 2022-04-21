@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Blog.Application.Interfaces;
-using Blog.Application.ViewModels.User;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Services.Hash;
+using Blog.Domain.ViewModels.User;
 
 namespace Blog.Application.Services;
 
@@ -31,9 +31,9 @@ public class AccountAppService : IAccountAppService
 
     public bool Login(LoginViewModel login)
     {
-        string hashPass = _passwordHasher.Hash(login.Password);
-        bool userExists = _userRepository.IsUserExists(login.Email, hashPass);
-        return userExists;
+        string? userHashPassword = _userRepository.GetUserPasswordByEmail(login.Email);
+        if (string.IsNullOrEmpty(userHashPassword)) return false;
+        return _passwordHasher.Check(userHashPassword, login.Password);
     }
 
     public void Dispose() => GC.SuppressFinalize(this);

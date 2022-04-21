@@ -1,8 +1,10 @@
 ﻿using Blog.Domain.Core.Models;
+using Dapper.Contrib.Extensions;
 
 namespace Blog.Domain.Models;
 
-public class User : EntityAudit
+[Table("User.Users")]
+public class User : Entity
 {
     public User(Guid id, string firstName, string lastName, string email, string password)
     {

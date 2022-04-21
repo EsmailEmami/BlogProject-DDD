@@ -3,7 +3,6 @@ using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Events.Blog;
 using Blog.Domain.Interfaces;
-using Blog.Domain.Services.Hash;
 using MediatR;
 
 namespace Blog.Domain.CommandHandlers;
@@ -15,18 +14,15 @@ public class BlogCommandHandler : CommandHandler,
 {
     private readonly IBlogRepository _blogRepository;
     private readonly IMediatorHandler _bus;
-    private readonly IPasswordHasher _passwordHasher;
 
     public BlogCommandHandler(
         IUnitOfWork uow,
         IMediatorHandler bus,
         INotificationHandler<DomainNotification> notifications,
-        IBlogRepository blogRepository, 
-        IPasswordHasher passwordHasher) : base(uow, bus, notifications)
+        IBlogRepository blogRepository) : base(uow, bus, notifications)
     {
         _bus = bus;
         _blogRepository = blogRepository;
-        _passwordHasher = passwordHasher;
     }
 
     public Task<bool> Handle(RegisterNewBlogCommand request, CancellationToken cancellationToken)
@@ -57,7 +53,14 @@ public class BlogCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        _blogRepository.Remove(request.Id);
+        Models.Blog blog = _blogRepository.GetById(request.Id);
+
+        if (blog.Id != request.Id)
+        {
+            _bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+        }
+
+        _blogRepository.Delete(blog);
 
         if (Commit())
         {

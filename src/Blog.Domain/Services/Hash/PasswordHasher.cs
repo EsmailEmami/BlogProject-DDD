@@ -28,7 +28,7 @@ public sealed class PasswordHasher : IPasswordHasher
         return $"{Options.Iterations}.{salt}.{key}";
     }
 
-    public (bool Verified, bool NeedsUpgrade) Check(string hash, string password)
+    public bool Check(string hash, string password)
     {
         var parts = hash.Split('.', 3);
 
@@ -42,8 +42,6 @@ public sealed class PasswordHasher : IPasswordHasher
         var salt = Convert.FromBase64String(parts[1]);
         var key = Convert.FromBase64String(parts[2]);
 
-        var needsUpgrade = iterations != Options.Iterations;
-
         using var algorithm = new Rfc2898DeriveBytes(
             password,
             salt,
@@ -53,6 +51,6 @@ public sealed class PasswordHasher : IPasswordHasher
 
         var verified = keyToCheck.SequenceEqual(key);
 
-        return (verified, needsUpgrade);
+        return verified;
     }
 }

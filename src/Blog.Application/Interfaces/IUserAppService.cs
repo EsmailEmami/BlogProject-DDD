@@ -5,7 +5,7 @@ namespace Blog.Application.Interfaces;
 
 public interface IUserAppService : IDisposable
 {
-    IList<User> GetAllUsers();
+    List<User> GetAllUsers();
     User? GetUserByEmail(string email);
     void Update(UpdateUserViewModel user);
     void Remove(Guid userId);

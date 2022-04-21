@@ -1,5 +1,5 @@
 ﻿using Blog.Application.Interfaces;
-using Blog.Application.ViewModels.Blog;
+using Blog.Domain.ViewModels.Blog;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using MediatR;

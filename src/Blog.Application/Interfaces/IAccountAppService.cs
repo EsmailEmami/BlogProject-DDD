@@ -1,4 +1,4 @@
-﻿using Blog.Application.ViewModels.User;
+﻿using Blog.Domain.ViewModels.User;
 
 namespace Blog.Application.Interfaces;
 

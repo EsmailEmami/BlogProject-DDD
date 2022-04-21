@@ -21,10 +21,10 @@ public abstract class UserValidation<T> : AbstractValidator<T> where T : UserCom
 
     protected void ValidateEmail()
     {
-        RuleFor(c => c.LastName)
+        RuleFor(c => c.Email)
             .NotEmpty().WithMessage("Please ensure you have entered the Email Address")
             .EmailAddress().WithMessage("Please ensure you have entered the valid Email Address")
-            .Length(100).WithMessage("The Last Name must have between 100 characters");
+            .MaximumLength(100).WithMessage("The Last Name must not be more than 100 characters");
     }
 
     protected void ValidatePassword()

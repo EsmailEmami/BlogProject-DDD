@@ -1,32 +1,72 @@
 ﻿using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.ViewModels.User;
-using Blog.Infra.Data.Context;
+using Dapper;
+using System.Data;
 
 namespace Blog.Infra.Data.Repository;
 
 public class UserRepository : Repository<User>, IUserRepository
 {
-    public UserRepository(ApplicationDbContext context) : base(context)
+    
+
+    public bool IsEmailExists(string email)
     {
+        string query = "SELECT (CASE WHEN EXISTS( " +
+                       "SELECT NULL " +
+                       "FROM [User].[Users] " +
+                       "WHERE [Email] = @email) " +
+                       "THEN 1 ELSE 0 END) AS[Value]";
+
+        return Db.QuerySingleOrDefault<bool>(query, new
+        {
+            email
+        });
     }
 
-    public bool IsEmailExists(string email) =>
-        Db.Users.Any(x => x.Email == email);
+    public User GetUserByEmail(string email)
+    {
+        string query = "SELECT (CASE WHEN EXISTS( " +
+                       "SELECT NULL " +
+                       "FROM [User].[Users] " +
+                       "WHERE [Email] = @email) " +
+                       "THEN 1 ELSE 0 END) AS[Value]";
 
-    public bool IsUserExists(string email, string password) =>
-        Db.Users.Any(x => x.Email == email && x.Password == password);
+        return Db.QuerySingleOrDefault<User>(query, new
+        {
+            email
+        });
+    }
 
-    public User? GetUserByEmail(string email) =>
-        Db.Users.SingleOrDefault(x => x.Email == email);
+    public string GetUserPasswordByEmail(string email)
+    {
+        string query = "SELECT (CASE WHEN EXISTS( " +
+                       "SELECT NULL " +
+                       "FROM [User].[Users] " +
+                       "WHERE [Email] = @email) " +
+                       "THEN 1 ELSE 0 END) AS[Value]";
 
-    public DashboardViewModel? GetUserDashboard(Guid userId) =>
-        Db.Users.Where(x => x.Id == userId)
-            .Select(x => new DashboardViewModel()
-            {
-                FirstName = x.FirstName,
-                LastName = x.LastName,
-                Email = x.Email
-            })
-            .SingleOrDefault();
+        return Db.QuerySingleOrDefault<string>(query, new
+        {
+            email
+        });
+    }
+
+    public DashboardViewModel GetUserDashboard(Guid userId)
+    {
+        string query = "SELECT (CASE WHEN EXISTS( " +
+                       "SELECT NULL " +
+                       "FROM [User].[Users] " +
+                       "WHERE [Email] = @email) " +
+                       "THEN 1 ELSE 0 END) AS[Value]";
+
+        return Db.QuerySingleOrDefault<DashboardViewModel>(query, new
+        {
+            userId
+        });
+    }
+
+    public UserRepository(IDbConnection db, IDbTransaction transaction) : base(db, transaction)
+    {
+    }
 }

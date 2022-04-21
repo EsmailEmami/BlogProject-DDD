@@ -1,20 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Dapper.FluentMap.Mapping;
 
 namespace Blog.Infra.Data.Mappings;
 
-public class BlogMap:IEntityTypeConfiguration<Domain.Models.Blog>
+public class BlogMap : EntityMap<Domain.Models.Blog>
 {
-    public void Configure(EntityTypeBuilder<Domain.Models.Blog> builder)
+    public BlogMap()
     {
-        builder.Property(c => c.Id)
-            .HasColumnName("BlogId");
-
-        builder.Property(c => c.BlogTitle)
-            .HasColumnType("nvarchar(100)")
-            .HasMaxLength(100)
-            .IsRequired();
-
-        builder.HasQueryFilter(p => !p.IsDeleted);
+        Map(x => x.Id).ToColumn("BlogId");
     }
 }

@@ -6,13 +6,16 @@ using MediatR;
 var builder = WebApplication.CreateBuilder(args);
 
 // ----- Database -----
-builder.Services.AddCustomizedDatabase(builder.Configuration, builder.Environment);
+builder.Services.AddCustomizedDatabase(builder.Configuration);
 
 // ----- Auth -----
 builder.Services.AddCustomizedAuth(builder.Configuration);
 
 // ----- Auth -----
 builder.Services.AddAutoMapperSetup();
+
+// ----- Auth -----
+DapperMappingSetup.RegisterDapperMappings();
 
 // Adding MediatR for Domain Events and Notifications
 builder.Services.AddMediatR(typeof(Program).Assembly);

@@ -1,10 +1,9 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Blog.Application.Interfaces;
-using Blog.Application.ViewModels.Blog;
 using Blog.Domain.Commands.Blog;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Interfaces;
+using Blog.Domain.ViewModels.Blog;
 
 namespace Blog.Application.Services;
 
@@ -21,10 +20,8 @@ public class BlogAppService : IBlogAppService
         _bus = bus;
     }
 
-    public List<Domain.Models.Blog> GetAllBlogs() => 
-        _blogRepository.GetAll()
-            .ProjectTo<Domain.Models.Blog>(_mapper.ConfigurationProvider)
-            .ToList();
+    public List<Domain.Models.Blog> GetAllBlogs() =>
+        _blogRepository.GetAll().ToList();
 
     public void Register(BlogViewModel blog)
     {

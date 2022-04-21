@@ -1,69 +1,50 @@
 ﻿using Blog.Domain.Interfaces;
-using Blog.Infra.Data.Context;
-using Microsoft.EntityFrameworkCore;
+using Dapper.Contrib.Extensions;
+using Microsoft.Extensions.Configuration;
+using System.Data;
 
 namespace Blog.Infra.Data.Repository;
 
 public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
-    protected readonly ApplicationDbContext Db;
-    protected readonly DbSet<TEntity> DbSet;
+    protected readonly IDbConnection Db;
+    protected readonly IDbTransaction Transaction;
 
-    protected Repository(ApplicationDbContext context)
+    protected Repository(IDbConnection db, IDbTransaction transaction)
     {
-        Db = context;
-        DbSet = Db.Set<TEntity>();
+        Db = db;
+        Transaction = transaction;
     }
 
-    public virtual void Add(TEntity obj)
-    {
-        DbSet.Add(obj);
-    }
 
-    public virtual TEntity GetById(Guid id)
-    {
-        return DbSet.Find(id);
-    }
+    public TEntity GetById(Guid id) => Db.Get<TEntity>(id);
 
-    public virtual IQueryable<TEntity> GetAll()
-    {
-        return DbSet;
-    }
+    public List<TEntity> GetAll() => Db.GetAll<TEntity>().ToList();
 
-    public virtual IQueryable<TEntity> GetAll(ISpecification<TEntity> spec)
-    {
-        return ApplySpecification(spec);
-    }
+    public void Add(TEntity obj) => Db.Insert(obj, Transaction);
 
-    public virtual IQueryable<TEntity> GetAllSoftDeleted()
-    {
-        return DbSet.IgnoreQueryFilters()
-            .Where(e => EF.Property<bool>(e, "IsDeleted") == true);
-    }
+    public void Update(TEntity obj) => Db.Update(obj, Transaction);
 
-    public virtual void Update(TEntity obj)
-    {
-        DbSet.Update(obj);
-    }
+    public void Delete(TEntity obj) => Db.Delete(obj, Transaction);
 
-    public virtual void Remove(Guid id)
+    public bool Commit()
     {
-        DbSet.Remove(DbSet.Find(id));
-    }
+        try
+        {
+            Transaction.Commit();
 
-    public int SaveChanges()
-    {
-        return Db.SaveChanges();
+            return true;
+        }
+        catch
+        {
+            Transaction.Rollback();
+            return false;
+        }
     }
 
     public void Dispose()
     {
         Db.Dispose();
-        GC.SuppressFinalize(this);
-    }
-
-    private IQueryable<TEntity> ApplySpecification(ISpecification<TEntity> spec)
-    {
-        return SpecificationEvaluator<TEntity>.GetQuery(DbSet.AsQueryable(), spec);
+        Transaction.Dispose();
     }
 }
