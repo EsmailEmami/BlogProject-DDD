@@ -16,31 +16,15 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         Transaction = transaction;
     }
 
+    public TEntity GetById(Guid id) => Db.Get<TEntity>(id, Transaction);
 
-    public TEntity GetById(Guid id) => Db.Get<TEntity>(id);
-
-    public List<TEntity> GetAll() => Db.GetAll<TEntity>().ToList();
+    public List<TEntity> GetAll() => Db.GetAll<TEntity>(Transaction).ToList();
 
     public void Add(TEntity obj) => Db.Insert(obj, Transaction);
 
     public void Update(TEntity obj) => Db.Update(obj, Transaction);
 
     public void Delete(TEntity obj) => Db.Delete(obj, Transaction);
-
-    public bool Commit()
-    {
-        try
-        {
-            Transaction.Commit();
-
-            return true;
-        }
-        catch
-        {
-            Transaction.Rollback();
-            return false;
-        }
-    }
 
     public void Dispose()
     {

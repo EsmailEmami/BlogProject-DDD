@@ -6,6 +6,5 @@ public interface IRepository<TEntity> : IDisposable where TEntity : class
     List<TEntity> GetAll();
     void Add(TEntity obj);
     void Update(TEntity obj);
-    void Delete(TEntity obj);
-    bool Commit();
+    void Delete(TEntity obj);    
 }

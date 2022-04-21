@@ -62,17 +62,16 @@ public class UserCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        User user = new User(request.Id, request.FirstName, request.LastName, request.Email, _passwordHasher.Hash(request.Password));
-        User existingUser = _userRepository.GetById(user.Id);
+        User existingUser = _userRepository.GetById(request.Id);
 
-        if (existingUser.Id != user.Id)
+        if (existingUser == null)
         {
-            if (!existingUser.Equals(user))
-            {
-                _bus.RaiseEvent(new DomainNotification(request.MessageType, "The user has already been taken."));
-                return Task.FromResult(false);
-            }
+            _bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+            return Task.FromResult(false);
         }
+
+        User user = new User(request.Id, request.FirstName, request.LastName, request.Email, existingUser.Password);
+
         _userRepository.Update(user);
         Commit();
 

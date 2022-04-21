@@ -14,9 +14,6 @@ builder.Services.AddCustomizedAuth(builder.Configuration);
 // ----- Auth -----
 builder.Services.AddAutoMapperSetup();
 
-// ----- Auth -----
-DapperMappingSetup.RegisterDapperMappings();
-
 // Adding MediatR for Domain Events and Notifications
 builder.Services.AddMediatR(typeof(Program).Assembly);
 

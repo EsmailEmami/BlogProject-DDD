@@ -9,15 +9,10 @@
 	<ItemGroup>
 		<PackageReference Include="Dapper" Version="2.0.123" />
 		<PackageReference Include="Dapper.Contrib" Version="2.0.78" />
-		<PackageReference Include="Dapper.FluentMap" Version="2.0.0" />
 	</ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Blog.Domain\Blog.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Mappings\" />
   </ItemGroup>
 
 </Project>

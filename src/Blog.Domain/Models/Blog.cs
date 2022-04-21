@@ -3,16 +3,15 @@ using Dapper.Contrib.Extensions;
 
 namespace Blog.Domain.Models;
 
-[Table("Blog.Blogs")]
+[Table("[Blog].[Blogs]")]
 public class Blog : Entity
 {
+    protected Blog() { }
     public Blog(Guid id, string blogTitle)
     {
         Id = id;
         BlogTitle = blogTitle;
     }
-
-    protected Blog() { }
 
     public string BlogTitle { get; private set; }
 }

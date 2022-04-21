@@ -31,7 +31,7 @@ public class AccountAppService : IAccountAppService
 
     public bool Login(LoginViewModel login)
     {
-        string? userHashPassword = _userRepository.GetUserPasswordByEmail(login.Email);
+        string userHashPassword = _userRepository.GetUserPasswordByEmail(login.Email);
         if (string.IsNullOrEmpty(userHashPassword)) return false;
         return _passwordHasher.Check(userHashPassword, login.Password);
     }

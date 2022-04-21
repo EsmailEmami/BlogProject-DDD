@@ -3,9 +3,10 @@ using Dapper.Contrib.Extensions;
 
 namespace Blog.Domain.Models;
 
-[Table("User.Users")]
+[Table("[User].[Users]")]
 public class User : Entity
 {
+    protected User() { }
     public User(Guid id, string firstName, string lastName, string email, string password)
     {
         Id = id;
