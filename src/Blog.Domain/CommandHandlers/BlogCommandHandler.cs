@@ -8,7 +8,7 @@ using MediatR;
 namespace Blog.Domain.CommandHandlers;
 
 public class BlogCommandHandler : CommandHandler,
-    IRequestHandler<RegisterNewBlogCommand, bool>,
+    IRequestHandler<RegisterNewBlogCommand, Guid>,
     IRequestHandler<RemoveBlogCommand, bool>,
     IRequestHandler<UpdateBlogCommand, bool>
 {
@@ -25,12 +25,12 @@ public class BlogCommandHandler : CommandHandler,
         _blogRepository = blogRepository;
     }
 
-    public Task<bool> Handle(RegisterNewBlogCommand request, CancellationToken cancellationToken)
+    public Task<Guid> Handle(RegisterNewBlogCommand request, CancellationToken cancellationToken)
     {
         if (!request.IsValid())
         {
             NotifyValidationErrors(request);
-            return Task.FromResult(false);
+            return Task.FromResult(Guid.Empty);
         }
 
         Models.Blog blog = new Models.Blog(Guid.NewGuid(), request.BlogTitle);
@@ -42,7 +42,7 @@ public class BlogCommandHandler : CommandHandler,
             _bus.RaiseEvent(new BlogRegisteredEvent(blog.Id, blog.BlogTitle));
         }
 
-        return Task.FromResult(true);
+        return Task.FromResult(blog.Id);
     }
 
     public Task<bool> Handle(RemoveBlogCommand request, CancellationToken cancellationToken)

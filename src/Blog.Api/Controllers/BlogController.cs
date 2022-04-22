@@ -1,7 +1,7 @@
 ﻿using Blog.Application.Interfaces;
-using Blog.Domain.ViewModels.Blog;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
+using Blog.Domain.ViewModels.Blog;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -24,16 +24,17 @@ public class BlogController : ApiController
     }
 
     [HttpPost("AddBlog")]
-    public IActionResult Post([FromBody] BlogViewModel customerViewModel)
+    public async Task<IActionResult> AddBlog([FromBody] BlogViewModel blog)
     {
         if (!ModelState.IsValid)
         {
             NotifyModelStateErrors();
-            return Response(customerViewModel);
+            return Response(blog);
         }
 
-        _blogAppService.Register(customerViewModel);
+        Guid blogId = await _blogAppService.Register(blog);
+        blog.Id = blogId;
 
-        return Response(customerViewModel);
+        return Response(blogId);
     }
 }

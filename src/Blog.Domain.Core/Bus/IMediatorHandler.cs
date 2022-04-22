@@ -5,6 +5,6 @@ namespace Blog.Domain.Core.Bus;
 
 public interface IMediatorHandler
 {
-    Task SendCommand<T>(T command) where T : Command;
-    Task RaiseEvent<T>(T @event) where T : Event;
+    Task<TResult> SendCommand<TCommand, TResult>(TCommand command) where TCommand : Command<TResult>;
+    Task RaiseEvent<TEvent>(TEvent @event) where TEvent : Event;
 }

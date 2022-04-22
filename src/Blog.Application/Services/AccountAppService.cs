@@ -26,7 +26,7 @@ public class AccountAppService : IAccountAppService
     public void Register(RegisterViewModel register)
     {
         RegisterNewUserCommand registerCommand = _mapper.Map<RegisterNewUserCommand>(register);
-        _bus.SendCommand(registerCommand);
+        _bus.SendCommand<RegisterNewUserCommand, Guid>(registerCommand);
     }
 
     public bool Login(LoginViewModel login)

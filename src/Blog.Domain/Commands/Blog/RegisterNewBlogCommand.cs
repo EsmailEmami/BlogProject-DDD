@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Blog.Domain.Commands.Blog;
 
-public class RegisterNewBlogCommand : BlogCommand
+public class RegisterNewBlogCommand : BlogCommand<Guid>
 {
     public RegisterNewBlogCommand(string blogTitle)
     {

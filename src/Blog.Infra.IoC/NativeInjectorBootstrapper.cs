@@ -47,11 +47,11 @@ public static class NativeInjectorBootstrapper
 
         // Domain - Commands
         // - Blog
-        services.AddScoped<IRequestHandler<RegisterNewBlogCommand, bool>, BlogCommandHandler>();
+        services.AddScoped<IRequestHandler<RegisterNewBlogCommand, Guid>, BlogCommandHandler>();
         services.AddScoped<IRequestHandler<UpdateBlogCommand, bool>, BlogCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveBlogCommand, bool>, BlogCommandHandler>();
         // - User
-        services.AddScoped<IRequestHandler<RegisterNewUserCommand, bool>, UserCommandHandler>();
+        services.AddScoped<IRequestHandler<RegisterNewUserCommand, Guid>, UserCommandHandler>();
         services.AddScoped<IRequestHandler<UpdateUserCommand, bool>, UserCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveUserCommand, bool>, UserCommandHandler>();
 

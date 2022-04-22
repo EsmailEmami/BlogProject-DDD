@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Commands.Blog;
 
-public class RemoveBlogCommand : BlogCommand
+public class RemoveBlogCommand : BlogCommand<bool>
 {
     public RemoveBlogCommand(Guid id)
     {

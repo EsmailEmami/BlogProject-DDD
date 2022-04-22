@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Blog.Application.Interfaces;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
@@ -31,16 +30,16 @@ public class UserAppService : IUserAppService
     public void Update(UpdateUserViewModel user)
     {
         UpdateUserCommand updateCommand = _mapper.Map<UpdateUserCommand>(user);
-        _bus.SendCommand(updateCommand);
+        _bus.SendCommand<UpdateUserCommand, bool>(updateCommand);
     }
 
     public void Remove(Guid userId)
     {
         RemoveUserCommand removeCommand = new RemoveUserCommand(userId);
-        _bus.SendCommand(removeCommand);
+        _bus.SendCommand<RemoveUserCommand, bool>(removeCommand);
     }
 
-    public DashboardViewModel? GetUserDashboard(Guid userId) =>
+    public DashboardViewModel GetUserDashboard(Guid userId) =>
         _userRepository.GetUserDashboard(userId);
 
     public void Dispose() => GC.SuppressFinalize(this);

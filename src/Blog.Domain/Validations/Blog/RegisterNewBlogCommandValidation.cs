@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Validations.Blog;
 
-public class RegisterNewBlogCommandValidation : BlogValidation<RegisterNewBlogCommand>
+public class RegisterNewBlogCommandValidation : BlogValidation<RegisterNewBlogCommand, Guid>
 {
     public RegisterNewBlogCommandValidation()
     {

@@ -12,13 +12,15 @@ public class CommandHandler
     private readonly IMediatorHandler _bus;
     private readonly DomainNotificationHandler _notifications;
 
-    public CommandHandler(IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications)
+    public CommandHandler(IUnitOfWork uow,
+        IMediatorHandler bus,
+        INotificationHandler<DomainNotification> notifications)
     {
         _uow = uow;
         _bus = bus;
         _notifications = (DomainNotificationHandler)notifications;
     }
-    protected void NotifyValidationErrors(Command message)
+    protected void NotifyValidationErrors<TCommand>(Command<TCommand> message)
     {
         foreach (var error in message.ValidationResult.Errors)
         {
@@ -30,7 +32,7 @@ public class CommandHandler
     {
         if (_notifications.HasNotifications()) return false;
         if (_uow.Commit()) return true;
-        
+
 
         _bus.RaiseEvent(new DomainNotification("Commit", "We had a problem during saving your data."));
         return false;

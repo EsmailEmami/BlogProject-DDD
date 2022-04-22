@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Commands.User;
 
-public class UpdateUserCommand : UserCommand
+public class UpdateUserCommand : UserCommand<bool>
 {
     public UpdateUserCommand(Guid id, string firstName, string lastName, string email)
     {

@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Validations.User;
 
-public class RemoveUserCommandValidation : UserValidation<RemoveUserCommand>
+public class RemoveUserCommandValidation : UserValidation<RemoveUserCommand, bool>
 {
     public RemoveUserCommandValidation()
     {

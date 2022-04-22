@@ -10,7 +10,7 @@ using MediatR;
 namespace Blog.Domain.CommandHandlers;
 
 public class UserCommandHandler : CommandHandler,
-    IRequestHandler<RegisterNewUserCommand, bool>,
+    IRequestHandler<RegisterNewUserCommand, Guid>,
     IRequestHandler<UpdateUserCommand, bool>,
     IRequestHandler<RemoveUserCommand, bool>
 {
@@ -29,12 +29,12 @@ public class UserCommandHandler : CommandHandler,
         _passwordHasher = passwordHasher;
     }
 
-    public Task<bool> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken)
+    public Task<Guid> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken)
     {
         if (!request.IsValid())
         {
             NotifyValidationErrors(request);
-            return Task.FromResult(false);
+            return Task.FromResult(Guid.Empty);
         }
 
         User user = new User(Guid.NewGuid(), request.FirstName, request.LastName, request.Email, _passwordHasher.Hash(request.Password));
@@ -51,7 +51,7 @@ public class UserCommandHandler : CommandHandler,
             _bus.RaiseEvent(new UserRegisteredEvent(user.Id, user.FirstName, user.LastName, user.Email));
         }
 
-        return Task.FromResult(true);
+        return Task.FromResult(user.Id);
     }
 
     public Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)

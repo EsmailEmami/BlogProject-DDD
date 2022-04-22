@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Validations.User;
 
-public class UpdateUserCommandValidation : UserValidation<UpdateUserCommand>
+public class UpdateUserCommandValidation : UserValidation<UpdateUserCommand, bool>
 {
     public UpdateUserCommandValidation()
     {

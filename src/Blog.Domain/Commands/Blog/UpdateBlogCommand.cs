@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Commands.Blog;
 
-public class UpdateBlogCommand : BlogCommand
+public class UpdateBlogCommand : BlogCommand<bool>
 {
     public UpdateBlogCommand(Guid id, string blogTitle)
     {

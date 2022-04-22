@@ -3,7 +3,7 @@ using FluentValidation.Results;
 
 namespace Blog.Domain.Commands.User;
 
-public class RemoveUserCommand : UserCommand
+public class RemoveUserCommand : UserCommand<bool>
 {
     public RemoveUserCommand(Guid id)
     {

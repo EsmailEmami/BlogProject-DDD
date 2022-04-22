@@ -23,22 +23,22 @@ public class BlogAppService : IBlogAppService
     public List<Domain.Models.Blog> GetAllBlogs() =>
         _blogRepository.GetAll().ToList();
 
-    public void Register(BlogViewModel blog)
+    public async Task<Guid> Register(BlogViewModel blog)
     {
         RegisterNewBlogCommand registerCommand = _mapper.Map<RegisterNewBlogCommand>(blog);
-        _bus.SendCommand(registerCommand);
+        return await _bus.SendCommand<RegisterNewBlogCommand, Guid>(registerCommand);
     }
 
     public void Update(BlogViewModel blog)
     {
-        var updateCommand = _mapper.Map<UpdateBlogCommand>(blog);
-        _bus.SendCommand(updateCommand);
+        UpdateBlogCommand updateCommand = _mapper.Map<UpdateBlogCommand>(blog);
+        _bus.SendCommand<UpdateBlogCommand, bool>(updateCommand);
     }
 
     public void Remove(Guid blogId)
     {
         RemoveBlogCommand removeCommand = new RemoveBlogCommand(blogId);
-        _bus.SendCommand(removeCommand);
+        _bus.SendCommand<RemoveBlogCommand, bool>(removeCommand);
     }
 
     public void Dispose()

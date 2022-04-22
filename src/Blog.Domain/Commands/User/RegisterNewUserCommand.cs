@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Commands.User;
 
-public class RegisterNewUserCommand : UserCommand
+public class RegisterNewUserCommand : UserCommand<Guid>
 {
     public RegisterNewUserCommand(string firstName, string lastName, string email, string password, string confirmPassword)
     {

@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Validations.User;
 
-public class RegisterNewUserCommandValidation : UserValidation<RegisterNewUserCommand>
+public class RegisterNewUserCommandValidation : UserValidation<RegisterNewUserCommand, Guid>
 {
     public RegisterNewUserCommandValidation()
     {

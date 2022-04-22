@@ -10,5 +10,5 @@ public interface IUserAppService : IDisposable
     void Update(UpdateUserViewModel user);
     void Remove(Guid userId);
 
-    DashboardViewModel? GetUserDashboard(Guid userId);
+    DashboardViewModel GetUserDashboard(Guid userId);
 }

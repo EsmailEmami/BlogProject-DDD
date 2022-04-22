@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Core.Events;
 
-public abstract class Event : Message, INotification
+public abstract class Event : Message<bool>, INotification
 {
     public DateTime Timestamp { get; private set; }
     protected Event()
