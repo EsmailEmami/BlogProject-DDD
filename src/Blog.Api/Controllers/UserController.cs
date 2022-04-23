@@ -16,6 +16,7 @@ public class UserController : ApiController
 
     private readonly IUserAppService _userAppService;
     private readonly IUser _user;
+
     public UserController(INotificationHandler<DomainNotification> notifications,
         IMediatorHandler mediator,
         IUser user,
@@ -39,7 +40,7 @@ public class UserController : ApiController
             return Response();
         }
 
-        DashboardViewModel? dashboard = _userAppService.GetUserDashboard(userId);
+        DashboardViewModel dashboard = _userAppService.GetUserDashboard(userId);
         if (dashboard == null)
         {
             NotifyError(HttpStatusCode.NotFound.ToString(), "کاربر مورد نظر یافت نشد.");
@@ -78,6 +79,7 @@ public class UserController : ApiController
         };
 
         _userAppService.Update(update);
+
         return Response();
     }
 

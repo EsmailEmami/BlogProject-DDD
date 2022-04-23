@@ -6,6 +6,11 @@ public class RegisterNewBlogCommandValidation : BlogValidation<RegisterNewBlogCo
 {
     public RegisterNewBlogCommandValidation()
     {
+        ValidateAuthorId();
         ValidateTitle();
+        ValidateSummary();
+        ValidateDescription();
+        ValidateImageFile();
+        ValidateReadTime();
     }
 }

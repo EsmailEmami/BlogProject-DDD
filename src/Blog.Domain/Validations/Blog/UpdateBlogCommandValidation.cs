@@ -7,6 +7,11 @@ public class UpdateBlogCommandValidation : BlogValidation<UpdateBlogCommand, boo
     public UpdateBlogCommandValidation()
     {
         ValidateId();
+        ValidateAuthorId();
         ValidateTitle();
+        ValidateSummary();
+        ValidateDescription();
+        ValidateImageFile();
+        ValidateReadTime();
     }
 }

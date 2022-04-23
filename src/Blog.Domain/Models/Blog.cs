@@ -7,11 +7,30 @@ namespace Blog.Domain.Models;
 public class Blog : Entity
 {
     protected Blog() { }
-    public Blog(Guid id, string blogTitle)
+
+    public Blog(Guid id, Guid authorId, string blogTitle, string summary, string description, string imageFile, string readTime)
     {
         Id = id;
+        AuthorId = authorId;
         BlogTitle = blogTitle;
+        Summary = summary;
+        Description = description;
+        ImageFile = imageFile;
+        ReadTime = readTime;
+        WrittenAt = DateTime.Now;
     }
 
+    public Guid AuthorId { get; private set; }
     public string BlogTitle { get; private set; }
+    public string Summary { get; private set; }
+    public string Description { get; private set; }
+    public string ImageFile { get; private set; }
+    public DateTime WrittenAt { get; private set; }
+    public string ReadTime { get; private set; }
+
+    #region Relations
+
+    public User Author { get; private set; } = User.None;
+
+    #endregion
 }

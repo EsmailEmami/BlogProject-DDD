@@ -1,7 +1,10 @@
+using Blog.Application.SignalR;
+using Blog.Application.SignalR.Interfaces;
 using Blog.Infra.CrossCutting.IoC;
 using Blog.Services.Api.Configurations;
 using Blog.Services.Api.SetupExtensions;
 using MediatR;
+using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +21,8 @@ builder.Services.AddAutoMapperSetup();
 builder.Services.AddMediatR(typeof(Program).Assembly);
 
 builder.Services.AddCustomizedHash(builder.Configuration);
+
+builder.Services.AddSignalR();
 
 // .NET Native DI Abstraction
 builder.Services.RegisterServices();
@@ -46,6 +51,8 @@ app.UseCors(x => x
 
 // ----- Auth -----
 app.UseCustomizedAuth();
+
+app.MapHub<TestHub>(nameof(TestHub));
 
 app.MapControllers();
 

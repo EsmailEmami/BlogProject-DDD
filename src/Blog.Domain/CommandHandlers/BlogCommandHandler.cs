@@ -33,7 +33,8 @@ public class BlogCommandHandler : CommandHandler,
             return Task.FromResult(Guid.Empty);
         }
 
-        Models.Blog blog = new Models.Blog(Guid.NewGuid(), request.BlogTitle);
+        Models.Blog blog = new Models.Blog(Guid.NewGuid(), request.AuthorId, request.BlogTitle, request.Summary,
+            request.Description, request.ImageFile, request.ReadTime);
 
         _blogRepository.Add(blog);
 
@@ -78,8 +79,10 @@ public class BlogCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        Models.Blog blog = new Models.Blog(request.Id, request.BlogTitle);
-        Models.Blog existingBlog = _blogRepository.GetById(blog.Id);
+        Models.Blog blog = new Models.Blog(request.Id, request.AuthorId, request.BlogTitle, request.Summary,
+            request.Description, request.ImageFile, request.ReadTime);
+
+        Models.Blog existingBlog = _blogRepository.GetById(request.Id);
 
         if (existingBlog.Id != blog.Id)
         {
