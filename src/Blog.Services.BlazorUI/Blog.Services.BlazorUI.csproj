@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blog.Application\Blog.Application.csproj" />
+    <ProjectReference Include="..\Blog.Infra.CrossCutting.Bus\Blog.Infra.CrossCutting.Bus.csproj" />
+    <ProjectReference Include="..\Blog.Infra.Identity\Blog.Infra.CrossCutting.Identity.csproj" />
+    <ProjectReference Include="..\Blog.Infra.IoC\Blog.Infra.CrossCutting.IoC.csproj" />
+  </ItemGroup>
+
+</Project>
