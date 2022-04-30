@@ -1,0 +1,29 @@
+﻿@using Blog.Domain.ViewModels.Blog
+<div class="latest-posts">
+    <div class="container-fluid">
+        <div class="blog-title-span">
+            <span class="title">آخرین مطالب</span>
+        </div>
+        <div class="row">
+            @for (int i = 0; i < 15; i++)
+            {
+                <div class="col-md-3">
+                    <PostBox Blog="blog" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+
+    readonly BlogForShowViewModel blog = new(
+        Guid.NewGuid(),
+        "چگونه از اشخاص مطالبی که دوست نداریم دوری کنیم ؟",
+        "متن ساختگی با تولید سادگی نامفهوم تولید سادگی از صنعت متن ساختگی با تولید سادگی نامفهوم تولید سادگی از صنعت",
+        DateTime.Now,
+        "unnamed.jpg",
+        10,
+        new List<string>() { "انجمن", "اتاق خبر" });
+
+}
