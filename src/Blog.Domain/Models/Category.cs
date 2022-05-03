@@ -6,6 +6,7 @@ namespace Blog.Domain.Models;
 [Table("[Category].[Categories]")]
 public class Category : Entity
 {
+    protected Category() { }
     public Category(Guid id, string categoryTitle)
     {
         Id = id;
@@ -13,4 +14,10 @@ public class Category : Entity
     }
 
     public string CategoryTitle { get; private set; }
+
+    #region Relations
+
+    public ICollection<BlogCategory> Blogs { get; protected set; }
+
+    #endregion
 }
