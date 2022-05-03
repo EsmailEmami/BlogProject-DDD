@@ -2,5 +2,5 @@
 
 public interface IBlogRepository : IRepository<Models.Blog>
 {
-
+    bool IsBlogExist(Guid blogId);
 }

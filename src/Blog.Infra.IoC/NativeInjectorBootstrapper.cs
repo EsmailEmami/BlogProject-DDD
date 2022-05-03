@@ -2,6 +2,7 @@
 using Blog.Application.Services;
 using Blog.Domain.CommandHandlers;
 using Blog.Domain.Commands.Blog;
+using Blog.Domain.Commands.BlogCategory;
 using Blog.Domain.Commands.Category;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
@@ -57,6 +58,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RemoveUserCommand, bool>, UserCommandHandler>();
         // - Category 
         services.AddScoped<IRequestHandler<RegisterNewCategoryCommand, Guid>, CategoryCommandHandler>();
+        // - BlogCategory 
+        services.AddScoped<IRequestHandler<RegisterNewBlogCategoryCommand, Guid>, BlogCategoryCommandHandler>();
 
         // Domain - 3rd parties
         //services.AddScoped<IHttpService, HttpService>();
@@ -65,6 +68,8 @@ public static class NativeInjectorBootstrapper
         // Infra - Data
         services.AddScoped<IBlogRepository, BlogRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         // Infra - Identity Services

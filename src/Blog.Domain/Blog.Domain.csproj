@@ -15,6 +15,7 @@
     <Folder Include="Commands\Blog\" />
     <Folder Include="CommandHandlers\" />
     <Folder Include="Commands\Category\" />
+    <Folder Include="Commands\BlogCategory\" />
     <Folder Include="Commands\User\" />
     <Folder Include="EventHandlers\" />
     <Folder Include="Events\Blog\" />

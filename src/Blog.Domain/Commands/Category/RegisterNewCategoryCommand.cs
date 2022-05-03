@@ -4,9 +4,8 @@ namespace Blog.Domain.Commands.Category;
 
 public class RegisterNewCategoryCommand : CategoryCommand<Guid>
 {
-    public RegisterNewCategoryCommand(Guid id, string title)
+    public RegisterNewCategoryCommand(string title)
     {
-        Id = id;
         CategoryTitle = title;
     }
     public override bool IsValid()
