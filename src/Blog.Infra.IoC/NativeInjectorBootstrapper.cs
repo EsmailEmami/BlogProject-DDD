@@ -2,6 +2,7 @@
 using Blog.Application.Services;
 using Blog.Domain.CommandHandlers;
 using Blog.Domain.Commands.Blog;
+using Blog.Domain.Commands.Category;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
@@ -54,6 +55,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RegisterNewUserCommand, Guid>, UserCommandHandler>();
         services.AddScoped<IRequestHandler<UpdateUserCommand, bool>, UserCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveUserCommand, bool>, UserCommandHandler>();
+        // - Category 
+        services.AddScoped<IRequestHandler<RegisterNewCategoryCommand, Guid>, CategoryCommandHandler>();
 
         // Domain - 3rd parties
         //services.AddScoped<IHttpService, HttpService>();

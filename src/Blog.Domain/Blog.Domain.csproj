@@ -14,6 +14,7 @@
   <ItemGroup>
     <Folder Include="Commands\Blog\" />
     <Folder Include="CommandHandlers\" />
+    <Folder Include="Commands\Category\" />
     <Folder Include="Commands\User\" />
     <Folder Include="EventHandlers\" />
     <Folder Include="Events\Blog\" />
@@ -21,6 +22,7 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
     <Folder Include="Services\Hash\" />
+    <Folder Include="Validations\Category\" />
     <Folder Include="Validations\User\" />
   </ItemGroup>
 
