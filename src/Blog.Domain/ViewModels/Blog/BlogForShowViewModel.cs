@@ -2,7 +2,6 @@
 
 public class BlogForShowViewModel
 {
-    public static BlogForShowViewModel None = new(Guid.Empty, string.Empty, string.Empty, DateTime.Now, string.Empty, 0, new List<string>());
     protected BlogForShowViewModel() { }
     public BlogForShowViewModel(Guid blogId, string blogTitle, string summary, DateTime postedAt, string imageFile, int commentsCount, List<string> tags)
     {
