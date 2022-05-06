@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-ads',
-  templateUrl: './ads.component.html'
+  selector: 'app-video',
+  templateUrl: './video.component.html'
 })
-export class AdsComponent implements OnInit {
+export class VideoComponent implements OnInit {
 
   constructor() { }
 
