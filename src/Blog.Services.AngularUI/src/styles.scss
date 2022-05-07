@@ -563,7 +563,8 @@ li:focus {
   opacity: 0.7;
 }
 
-.main-content .content-wrapper .most-views .main-post figure:hover img {}
+.main-content .content-wrapper .most-views .main-post figure:hover img {
+}
 
 .main-content .content-wrapper .most-views .main-post .p-div {
   background-color: #fbfbfd;
@@ -1177,14 +1178,14 @@ li:focus {
   font-size: 12px;
 }
 
-.pagination>li:last-child>a,
-.pagination>li:last-child>span {
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
-.pagination>li:first-child>a,
-.pagination>li:first-child>span {
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
 }
@@ -1210,13 +1211,19 @@ li:focus {
   margin-bottom: 30px;
 }
 
+.single_post .post_content h4.top-title {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 15px;
+}
+
 .single_post .post_content img {
   display: table;
   margin: 15px auto;
   border-radius: 20px;
 }
 
-.comments_form {
+.form {
   width: 100%;
   display: inline-block;
   background-color: #fff;
@@ -1229,18 +1236,18 @@ li:focus {
   margin-bottom: 30px;
 }
 
-.comments_form div {
+.form div {
   margin-bottom: 15px;
 }
 
-.comments_form input {
+.form input {
   outline: 0;
   height: 40px;
   border-radius: 3px;
   box-shadow: none !important;
 }
 
-.comments_form textarea {
+.form textarea {
   resize: none;
   box-shadow: none !important;
   height: 200px;

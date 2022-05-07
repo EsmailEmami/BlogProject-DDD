@@ -26,7 +26,7 @@ export class AuthService extends RestService {
     super(http);
   }
 
-  public get currentCustomer(): User | null {
+  public get currentUser(): User | null {
     const storedCustomerData = this.localStorageService
       .getValueByKey(appConstants.storedUser);
 

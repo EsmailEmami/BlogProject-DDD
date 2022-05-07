@@ -1,0 +1,36 @@
+<html>
+
+<body>
+
+<div class="single_post">
+  <div class="container">
+    <div class="post_content">
+      <h4 class="top-title">افزودن مقاله جدید</h4>
+      <form class="form" [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-sm-12 col-md-10">
+            <input type="text" class="form-control" formControlName="actionTitle" placeholder="عنوان مقاله">
+            <span *ngIf="controls.actionTitle.touched">
+          <p *ngIf="controls.actionTitle.errors.required">
+            لطفا عنوان مقاله را وارد کنید
+          </p>
+          <p *ngIf="controls.actionTitle.errors.maxlength">
+            عنوان فعالیت وارد شده نمیتواند بیشتر از 100 کاراکتر باشد
+          </p>
+        </span>
+          </div>
+          <div class="col-sm-4 col-md-2">
+            <input type="text" class="form-control" placeholder="مدت زمان خواندن">
+          </div>
+          <div class="col-12">
+            <textarea type="text" class="form-control" placeholder="خلاصه"></textarea>
+          </div>
+          <div class="col-12">
+            <textarea type="text" class="form-control" placeholder="توضیحات"></textarea>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="clear-fix"></div>

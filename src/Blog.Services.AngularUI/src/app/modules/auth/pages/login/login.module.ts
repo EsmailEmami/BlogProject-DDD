@@ -12,8 +12,7 @@ const routes: Routes = [{path: '', component: LoginComponent}];
   imports: [
     CommonModule,
     RouterModule.forChild(routes)
-  ],
-  exports: [LoginComponent]
+  ]
 })
 export class LoginModule {
 }
