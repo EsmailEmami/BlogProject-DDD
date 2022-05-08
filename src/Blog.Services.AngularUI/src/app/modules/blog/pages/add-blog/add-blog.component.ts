@@ -9,8 +9,7 @@ import {NotificationService} from "../../../../core/services/notification.servic
 
 @Component({
   selector: 'app-add-blog',
-  templateUrl: './add-blog.component.html',
-  styles: []
+  templateUrl: './add-blog.component.html'
 })
 export class AddBlogComponent implements OnInit {
 
@@ -31,13 +30,17 @@ export class AddBlogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const user: User | null = this.authService.currentUser;
-
-    if (!user) {
-      this.router.navigate(['']).then();
-    }
-
-    this.userId = user?.id || '';
+    // const user: User | null = this.authService.currentUser;
+    //
+    // if (!user) {
+    //   this.router.navigate(['']).then();
+    // }
+    //
+    // this.userId = user?.id || '';
+    //
+    // if (!this.userId) {
+    //   this.router.navigate(['']).then();
+    // }
 
     this.blogForm = this.formBuilder.group({
       blogTitle: ['',
@@ -81,7 +84,7 @@ export class AddBlogComponent implements OnInit {
       this.controls['description'].value,
       this.controls['imageFile'].value,
       this.controls['readTime'].value,
-    )
+    );
 
     this.blogService.addBlog(request)
       .then(data => {

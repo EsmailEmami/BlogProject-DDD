@@ -1253,6 +1253,69 @@ li:focus {
   height: 200px;
 }
 
+.form p {
+  color: #dc3545;
+}
+
+.image-field {
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 0 !important;
+}
+
+
+.image-field .image-area {
+  position: relative;
+  height: 270px;
+  width: 350px;
+  margin: 0 auto;
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.image-field .image-area img {
+  width: 100%;
+  height: 100%;
+  padding: 3px;
+  z-index: 1;
+  position: relative;
+  border-radius: 7px;
+  margin: 0;
+}
+
+.image-field .image-area .change-image {
+  width: 100%;
+  height: 100%;
+  line-height: 265px;
+  text-align: center;
+  font-size: 32px;
+  color: #fff;
+  background-color: rgba(228, 235, 245, 0.4);
+  position: absolute;
+  z-index: 2;
+  opacity: 0;
+  border-radius: 5px;
+}
+
+.image-field .image-area .change-image .change-image i {
+  padding: 0;
+}
+
+.image-field .image-area:hover .change-image {
+  opacity: 1;
+}
+
 .posts_meta {
   width: 100%;
   display: inline-block;
@@ -1272,4 +1335,13 @@ li:focus {
 
 .not_found span {
   font-size: 60px;
+}
+
+.file-input {
+  position: absolute;
+  cursor: pointer;
+  opacity: 0 !important;
+  height: 100% !important;
+  width: 100%;
+  right: 0;
 }
