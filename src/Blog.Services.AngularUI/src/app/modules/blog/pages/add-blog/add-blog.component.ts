@@ -30,17 +30,17 @@ export class AddBlogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    // const user: User | null = this.authService.currentUser;
-    //
-    // if (!user) {
-    //   this.router.navigate(['']).then();
-    // }
-    //
-    // this.userId = user?.id || '';
-    //
-    // if (!this.userId) {
-    //   this.router.navigate(['']).then();
-    // }
+    const user: User | null = this.authService.currentUser;
+
+    if (!user) {
+      this.router.navigate(['']).then();
+    }
+
+    this.userId = user?.id || '';
+
+    if (!this.userId) {
+      this.router.navigate(['']).then();
+    }
 
     this.blogForm = this.formBuilder.group({
       blogTitle: ['',
