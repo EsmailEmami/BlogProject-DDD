@@ -9,7 +9,8 @@ using MediatR;
 namespace Blog.Domain.CommandHandlers;
 
 public class CategoryCommandHandler : CommandHandler,
-    IRequestHandler<RegisterNewCategoryCommand, Guid>
+    IRequestHandler<RegisterNewCategoryCommand, Guid>,
+    IRequestHandler<UpdateCategoryCommand, bool>
 {
     private readonly ICategoryRepository _categoryRepository;
     private readonly IMediatorHandler _bus;
@@ -32,5 +33,30 @@ public class CategoryCommandHandler : CommandHandler,
         Commit();
 
         return Task.FromResult(category.Id);
+    }
+
+    public Task<bool> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            return Task.FromResult(false);
+        }
+
+        Category category = new Category(request.Id, request.CategoryTitle);
+        Category existingCategory = _categoryRepository.GetById(request.Id);
+
+        if (existingCategory.Id != category.Id)
+        {
+            if (!existingCategory.Equals(category))
+            {
+                _bus.RaiseEvent(new DomainNotification(request.MessageType, "دسته بندی مورد نظر در سیستم موجود است."));
+                return Task.FromResult(false);
+            }
+        }
+
+        _categoryRepository.Update(category);
+        Commit();
+        return Task.FromResult(true);
     }
 }

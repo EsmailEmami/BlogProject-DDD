@@ -18,14 +18,20 @@ public class CategoryAppService : ICategoryAppService
         _bus = bus;
     }
 
-    public void Dispose()
-    {
-        GC.SuppressFinalize(this);
-    }
-
     public async Task<Guid> AddCategoryAsync(AddCategoryViewModel category)
     {
         RegisterNewCategoryCommand command = _mapper.Map<RegisterNewCategoryCommand>(category);
         return await _bus.SendCommand<RegisterNewCategoryCommand, Guid>(command);
+    }
+
+    public void UpdateCategory(UpdateCategoryViewModel category)
+    {
+        UpdateCategoryCommand command = _mapper.Map<UpdateCategoryCommand>(category);
+        _bus.SendCommand<UpdateCategoryCommand, bool>(command);
+    }
+
+    public void Dispose()
+    {
+        GC.SuppressFinalize(this);
     }
 }

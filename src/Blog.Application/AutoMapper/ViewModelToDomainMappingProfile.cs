@@ -27,6 +27,8 @@ public class ViewModelToDomainMappingProfile : Profile
         // Category
         CreateMap<AddCategoryViewModel, RegisterNewCategoryCommand>()
             .ConstructUsing(c => new RegisterNewCategoryCommand(c.CategoryTitle));
+        CreateMap<UpdateCategoryViewModel, UpdateCategoryCommand>()
+            .ConstructUsing(c => new UpdateCategoryCommand(c.CategoryId, c.CategoryTitle));
         // BlogCategory
         CreateMap<AddBlogCategoryViewModel, RegisterNewBlogCategoryCommand>()
             .ConstructUsing(c => new RegisterNewBlogCategoryCommand(c.BlogId, c.CategoryId));

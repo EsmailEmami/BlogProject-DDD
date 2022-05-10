@@ -31,18 +31,10 @@ public abstract class ApiController : ControllerBase
     {
         if (IsValidOperation())
         {
-            return Ok(new
-            {
-                success = true,
-                data = result
-            });
+            return Ok(result);
         }
 
-        return BadRequest(new
-        {
-            success = false,
-            errors = _notifications.GetNotifications().Select(n => n.Value).ToList()
-        });
+        return BadRequest(_notifications.GetNotifications().Select(n => n.Value).ToList());
     }
 
     protected new IActionResult Response()
