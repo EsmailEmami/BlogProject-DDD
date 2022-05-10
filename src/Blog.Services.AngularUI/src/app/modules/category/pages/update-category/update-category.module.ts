@@ -1,10 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UpdateCategoryComponent } from './update-category.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {UpdateCategoryComponent} from './update-category.component';
 import {SharedModule} from "../../../../shared/shared.module";
 import {RouterModule, Routes} from "@angular/router";
 
-const routes: Routes = [{path: '', component: UpdateCategoryComponent}];
+const routes: Routes = [
+  {path: '', redirectTo: '/', pathMatch: 'full'},
+  {path: ':categoryId', component: UpdateCategoryComponent},
+];
 
 @NgModule({
   declarations: [
@@ -16,4 +19,5 @@ const routes: Routes = [{path: '', component: UpdateCategoryComponent}];
     SharedModule
   ]
 })
-export class UpdateCategoryModule { }
+export class UpdateCategoryModule {
+}

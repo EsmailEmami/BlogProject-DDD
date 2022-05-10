@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {RestService} from "../../../core/services/http/rest.service";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {AddCategoryRequest} from "../../../core/models/requests/category/addCategoryRequest";
 import {UpdateCategoryRequest} from "../../../core/models/requests/category/updateCategoryRequest";
 
@@ -17,6 +17,13 @@ export class CategoryService extends RestService {
 
   public addCategory(request: AddCategoryRequest) {
     return this.post(CONTROLLER_NAME + 'add-category', request).toPromise();
+  }
+
+  public getCategoryForUpdate(categoryId: string) {
+    const params = new HttpParams()
+      .append('categoryId', categoryId);
+
+    return this.get(CONTROLLER_NAME + 'get-category-for-update', params).toPromise();
   }
 
   public updateCategory(request: UpdateCategoryRequest) {
