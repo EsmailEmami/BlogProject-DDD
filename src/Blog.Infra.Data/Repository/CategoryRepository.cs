@@ -1,6 +1,7 @@
 ﻿using System.Data;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
+using Blog.Domain.ViewModels.Category;
 using Dapper;
 
 namespace Blog.Infra.Data.Repository;
@@ -23,5 +24,13 @@ public class CategoryRepository : Repository<Category>, ICategoryRepository
         {
             categoryId
         }, Transaction);
+    }
+
+    public UpdateCategoryViewModel GetCategoryForUpdate(Guid categoryId)
+    {
+        string query = "SELECT [Id] AS [CategoryId],[CategoryTitle] " +
+                       "FROM [Category].[Categories] WHERE [Id] = @CategoryId;";
+
+        return Db.QuerySingleOrDefault<UpdateCategoryViewModel>(query, Transaction);
     }
 }

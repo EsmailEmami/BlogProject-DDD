@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using Blog.Application.Interfaces;
+using Blog.Domain.Common.Extensions;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.ViewModels.Category;
@@ -29,6 +30,28 @@ public class CategoryController : ApiController
 
         _categoryAppService.AddCategoryAsync(category);
         return Response();
+    }
+
+
+    [HttpGet("get-category-for-update")]
+    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.BadRequest)]
+    public IActionResult GetCategoryForUpdate([FromQuery] Guid categoryId)
+    {
+        if (categoryId.IsEmpty())
+        {
+            NotifyError(HttpStatusCode.NotFound.ToString(),'لطفا آدرس را درست وارزدکنیذ');
+            return Response();
+        }
+
+        UpdateCategoryViewModel category = _categoryAppService.GetCategoryForUpdate(categoryId);
+        if (category == null)
+        {
+            NotifyError(HttpStatusCode.BadRequest.ToString(),'دسته بندی یافت نشد');
+            return Response();
+        }
+
+        return Response(category);
     }
 
     [HttpPut("update-category")]

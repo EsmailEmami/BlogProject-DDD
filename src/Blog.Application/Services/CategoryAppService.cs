@@ -11,11 +11,13 @@ public class CategoryAppService : ICategoryAppService
 {
     private readonly IMapper _mapper;
     private readonly IMediatorHandler _bus;
+    private readonly ICategoryRepository _categoryRepository;
 
-    public CategoryAppService(IMapper mapper, IMediatorHandler bus)
+    public CategoryAppService(IMapper mapper, IMediatorHandler bus, ICategoryRepository categoryRepository)
     {
         _mapper = mapper;
         _bus = bus;
+        _categoryRepository = categoryRepository;
     }
 
     public async Task<Guid> AddCategoryAsync(AddCategoryViewModel category)
@@ -29,6 +31,9 @@ public class CategoryAppService : ICategoryAppService
         UpdateCategoryCommand command = _mapper.Map<UpdateCategoryCommand>(category);
         _bus.SendCommand<UpdateCategoryCommand, bool>(command);
     }
+
+    public UpdateCategoryViewModel GetCategoryForUpdate(Guid categoryId) =>
+        _categoryRepository.GetCategoryForUpdate(categoryId);
 
     public void Dispose()
     {
