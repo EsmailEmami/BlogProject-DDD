@@ -1,0 +1,83 @@
+<div class="single_post">
+  <div class="container-fluid container-xxl">
+    <div class="post_content">
+      <h4 class="top-title">ویرایش مقاله</h4>
+      <form class="form" [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+          <div class="col-sm-12 col-md-10">
+            <input type="text" class="form-control" formControlName="blogTitle" placeholder="عنوان مقاله">
+            <span *ngIf="controls['blogTitle'].touched">
+              <p *ngIf="controls['blogTitle'].errors!['required']">
+                لطفا عنوان مقاله را وارد کنید
+              </p>
+               <p *ngIf="controls['blogTitle'].errors!['minLength']">
+                عنوان مقاله وارد شده نمیتواند کمتر از 5 کاراکتر باشد
+              </p>
+              <p *ngIf="controls['blogTitle'].errors!['maxlength']">
+                عنوان مقاله وارد شده نمیتواند بیشتر از 150 کاراکتر باشد
+              </p>
+            </span>
+          </div>
+          <div class="col-sm-12 col-md-2">
+            <input type="text" class="form-control" formControlName="readTime" placeholder="مدت زمان خواندن">
+            <span *ngIf="controls['readTime'].touched">
+              <p *ngIf="controls['readTime'].errors!['required']">
+                لطفا مدت زمان خواندن را وارد کنید
+              </p>
+              <p *ngIf="controls['readTime'].errors!['maxlength']">
+                مدت زمان خواندن وارد شده نمیتواند بیشتر از 10 کاراکتر باشد
+              </p>
+            </span>
+          </div>
+          <div class="col-sm-12 col-lg-8">
+            <textarea type="text" class="form-control" formControlName="summary" placeholder="خلاصه"></textarea>
+            <span *ngIf="controls['summary'].touched">
+              <p *ngIf="controls['summary'].errors!['required']">
+                لطفا خلاصه را وارد کنید
+              </p>
+               <p *ngIf="controls['summary'].errors!['minLength']">
+                خلاصه وارد شده نمیتواند کمتر از 50 کاراکتر باشد
+              </p>
+              <p *ngIf="controls['summary'].errors!['maxlength']">
+                خلاصه وارد شده نمیتواند بیشتر از 1000 کاراکتر باشد
+              </p>
+            </span>
+          </div>
+          <div class="col-sm-12 col-lg-4">
+            <div class="image-field">
+              <div class="image-area">
+                <a href="javascript:void(0)" class="change-image">
+                  <input type="file" formControlName="imageFile" class="file-input" onchange="readURL(this, 'imgProduct1')">
+                  <i class="far fa-camera"></i>
+                </a>
+                <img src="assets/img/placeholder-image.png" alt="تصویر کالا" id="imgProduct1">
+              </div>
+            </div>
+
+            <span *ngIf="controls['imageFile'].touched">
+              <p *ngIf="controls['imageFile'].errors!['required']"
+                 class="text-center">
+                لطفا تصویر را وارد کنید
+              </p>
+            </span>
+          </div>
+
+          <div class="col-12">
+            <textarea type="text" class="form-control" formControlName="description" placeholder="توضیحات"></textarea>
+            <span *ngIf="controls['description'].touched">
+              <p *ngIf="controls['description'].errors!['required']">
+                لطفا توضیحات را وارد کنید
+              </p>
+               <p *ngIf="controls['description'].errors!['minLength']">
+                توضیحات وارد شده نمیتواند کمتر از 2000 کاراکتر باشد
+              </p>
+            </span>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-success w-100">ثبت</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

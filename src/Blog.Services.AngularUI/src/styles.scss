@@ -1233,24 +1233,21 @@ li:focus {
   padding: 15px;
   line-height: 2.2;
   color: #515151;
-  margin-bottom: 30px;
+  margin: 0;
 }
-
-.form div {
-  margin-bottom: 15px;
-}
-
 .form input {
   outline: 0;
   height: 40px;
   border-radius: 3px;
   box-shadow: none !important;
+  margin-bottom: 15px;
 }
 
 .form textarea {
   resize: none;
   box-shadow: none !important;
-  height: 200px;
+  min-height: 200px;
+  margin-bottom: 15px;
 }
 
 .form p {
@@ -1261,6 +1258,7 @@ li:focus {
   border-radius: 5px;
   width: 100%;
   margin-bottom: 0 !important;
+  margin-bottom: 15px;
 }
 
 

@@ -31,7 +31,7 @@ export class AddCategoryComponent implements OnInit {
     this.categoryForm = this.formBuilder.group({
       categoryTitle: ['',
         Validators.required,
-        Validators.minLength(2),
+        Validators.minLength(3),
         Validators.maxLength(20)
       ],
     });
