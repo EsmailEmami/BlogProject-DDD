@@ -16,7 +16,7 @@ export class BlogService extends RestService {
   }
 
   public addBlog(request: AddBlogRequest) {
-    return this.post(CONTROLLER_NAME + 'AddBlog', request).toPromise();
+    return this.post(CONTROLLER_NAME + 'add-blog', request).toPromise();
   }
 
   public getBlogForUpdate(blogId: string) {

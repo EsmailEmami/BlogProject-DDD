@@ -48,26 +48,34 @@ export class UpdateBlogComponent implements OnInit {
 
     this.blogForm = this.formBuilder.group({
       blogTitle: [this.blog.blogTitle,
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(150)
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(150)
+        ])
       ],
       summary: [this.blog.summary,
-        Validators.required,
-        Validators.minLength(50),
-        Validators.maxLength(1000)
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(50),
+          Validators.maxLength(1000)
+        ])
       ],
       description: [this.blog.description,
-        Validators.required,
-        Validators.minLength(2000)
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(2000)
+        ])
       ],
       imageFile: [this.blog.imageFile,
         Validators.required
       ],
       readTime: [this.blog.readTime,
-        Validators.required,
-        Validators.maxLength(10)
-      ],
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(10)
+        ])
+      ]
     });
   }
 

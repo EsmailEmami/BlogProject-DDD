@@ -32,38 +32,46 @@ export class AddBlogComponent implements OnInit {
 
     const user: User | null = this.authService.currentUser;
 
-    if (!user) {
-      this.router.navigate(['']).then();
-    }
-
-    this.userId = user?.id || '';
-
-    if (!this.userId) {
-      this.router.navigate(['']).then();
-    }
+    // if (!user) {
+    //   this.router.navigate(['']).then();
+    // }
+    //
+    // this.userId = user?.id || '';
+    //
+    // if (!this.userId) {
+    //   this.router.navigate(['']).then();
+    // }
 
     this.blogForm = this.formBuilder.group({
       blogTitle: ['',
-        Validators.required,
-        Validators.minLength(5),
-        Validators.maxLength(150)
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(150)
+        ])
       ],
       summary: ['',
-        Validators.required,
-        Validators.minLength(50),
-        Validators.maxLength(1000)
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(50),
+          Validators.maxLength(1000)
+        ])
       ],
       description: ['',
-        Validators.required,
-        Validators.minLength(2000)
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(2000)
+        ])
       ],
       imageFile: ['',
         Validators.required
       ],
       readTime: ['',
-        Validators.required,
-        Validators.maxLength(10)
-      ],
+        Validators.compose([
+          Validators.required,
+          Validators.maxLength(10)
+        ])
+      ]
     });
   }
 
@@ -71,7 +79,24 @@ export class AddBlogComponent implements OnInit {
     return this.blogForm.controls;
   }
 
+  uploadFile(files: FileList | null) {
+    if (!files?.length || files == null) {
+      return;
+    }
+
+    const file: File = files[0];
+    this.blogForm.patchValue({
+      imageFile: file
+    });
+  }
+
   onSubmit() {
+
+    debugger;
+
+    let file = this.controls['imageFile'].value;
+
+
     if (this.blogForm.invalid) {
       return;
     }

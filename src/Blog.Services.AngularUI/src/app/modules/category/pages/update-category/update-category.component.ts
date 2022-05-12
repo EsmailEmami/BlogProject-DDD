@@ -45,9 +45,11 @@ export class UpdateCategoryComponent implements OnInit {
 
     this.categoryForm = this.formBuilder.group({
       categoryTitle: [this.category.categoryTitle,
-        Validators.required,
-        Validators.minLength(3),
-        Validators.maxLength(20)
+        Validators.compose([
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20)
+        ])
       ],
     });
   }

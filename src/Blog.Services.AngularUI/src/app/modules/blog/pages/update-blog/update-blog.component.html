@@ -7,13 +7,13 @@
           <div class="col-sm-12 col-md-10">
             <input type="text" class="form-control" formControlName="blogTitle" placeholder="عنوان مقاله">
             <span *ngIf="controls['blogTitle'].touched">
-              <p *ngIf="controls['blogTitle'].errors!['required']">
+              <p *ngIf="controls['blogTitle'].errors?.['required']">
                 لطفا عنوان مقاله را وارد کنید
               </p>
-               <p *ngIf="controls['blogTitle'].errors!['minLength']">
+               <p *ngIf="controls['blogTitle'].errors?.['minlength']">
                 عنوان مقاله وارد شده نمیتواند کمتر از 5 کاراکتر باشد
               </p>
-              <p *ngIf="controls['blogTitle'].errors!['maxlength']">
+              <p *ngIf="controls['blogTitle'].errors?.['maxlength']">
                 عنوان مقاله وارد شده نمیتواند بیشتر از 150 کاراکتر باشد
               </p>
             </span>
@@ -21,10 +21,10 @@
           <div class="col-sm-12 col-md-2">
             <input type="text" class="form-control" formControlName="readTime" placeholder="مدت زمان خواندن">
             <span *ngIf="controls['readTime'].touched">
-              <p *ngIf="controls['readTime'].errors!['required']">
+              <p *ngIf="controls['readTime'].errors?.['required']">
                 لطفا مدت زمان خواندن را وارد کنید
               </p>
-              <p *ngIf="controls['readTime'].errors!['maxlength']">
+              <p *ngIf="controls['readTime'].errors?.['maxlength']">
                 مدت زمان خواندن وارد شده نمیتواند بیشتر از 10 کاراکتر باشد
               </p>
             </span>
@@ -32,13 +32,13 @@
           <div class="col-sm-12 col-lg-8">
             <textarea type="text" class="form-control" formControlName="summary" placeholder="خلاصه"></textarea>
             <span *ngIf="controls['summary'].touched">
-              <p *ngIf="controls['summary'].errors!['required']">
+              <p *ngIf="controls['summary'].errors?.['required']">
                 لطفا خلاصه را وارد کنید
               </p>
-               <p *ngIf="controls['summary'].errors!['minLength']">
+               <p *ngIf="controls['summary'].errors?.['minlength']">
                 خلاصه وارد شده نمیتواند کمتر از 50 کاراکتر باشد
               </p>
-              <p *ngIf="controls['summary'].errors!['maxlength']">
+              <p *ngIf="controls['summary'].errors?.['maxlength']">
                 خلاصه وارد شده نمیتواند بیشتر از 1000 کاراکتر باشد
               </p>
             </span>
@@ -55,7 +55,7 @@
             </div>
 
             <span *ngIf="controls['imageFile'].touched">
-              <p *ngIf="controls['imageFile'].errors!['required']"
+              <p *ngIf="controls['imageFile'].errors?.['required']"
                  class="text-center">
                 لطفا تصویر را وارد کنید
               </p>
@@ -65,10 +65,10 @@
           <div class="col-12">
             <textarea type="text" class="form-control" formControlName="description" placeholder="توضیحات"></textarea>
             <span *ngIf="controls['description'].touched">
-              <p *ngIf="controls['description'].errors!['required']">
+              <p *ngIf="controls['description'].errors?.['required']">
                 لطفا توضیحات را وارد کنید
               </p>
-               <p *ngIf="controls['description'].errors!['minLength']">
+               <p *ngIf="controls['description'].errors?.['minlength']">
                 توضیحات وارد شده نمیتواند کمتر از 2000 کاراکتر باشد
               </p>
             </span>

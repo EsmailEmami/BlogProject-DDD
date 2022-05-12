@@ -7,13 +7,13 @@
           <div class="col-12">
             <input type="text" class="form-control" formControlName="categoryTitle" placeholder="عنوان دسته بندی">
             <span *ngIf="controls['categoryTitle'].touched">
-              <p *ngIf="controls['categoryTitle'].errors!['required']">
+              <p *ngIf="controls['categoryTitle'].errors?.['required']">
                 لطفا عنوان دسته بندی را وارد کنید
               </p>
-               <p *ngIf="controls['categoryTitle'].errors!['minLength']">
+               <p *ngIf="controls['categoryTitle'].errors?.['minlength']">
                 عنوان دسته بندی وارد شده نمیتواند کمتر از 3 کاراکتر باشد
               </p>
-              <p *ngIf="controls['categoryTitle'].errors!['maxlength']">
+              <p *ngIf="controls['categoryTitle'].errors?.['maxlength']">
                 عنوان دسته بندی وارد شده نمیتواند بیشتر از 20 کاراکتر باشد
               </p>
             </span>
