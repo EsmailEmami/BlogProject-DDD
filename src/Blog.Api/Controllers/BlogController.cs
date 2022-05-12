@@ -1,4 +1,7 @@
-﻿using Blog.Application.Interfaces;
+﻿using System.Drawing;
+using Blog.Application.Interfaces;
+using Blog.Domain.Common.Constants;
+using Blog.Domain.Common.Extensions;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.ViewModels.Blog;
@@ -31,6 +34,12 @@ public class BlogController : ApiController
             NotifyModelStateErrors();
             return Response(blog);
         }
+
+        string imageName = Guid.NewGuid().ToString("N") + ".jpeg";
+        Image image = ImageUploaderExtension.Base64ToImage(blog.Base64Image);
+        image.AddImage(imageName,PathConstant.BlogImageServer);
+
+        blog.ImageFile = imageName;
 
         Guid blogId = await _blogAppService.Register(blog);
         blog.Id = blogId;

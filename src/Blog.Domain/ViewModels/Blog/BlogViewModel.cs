@@ -18,6 +18,7 @@ public class BlogViewModel
     public string BlogTitle { get; set; }
     public string Summary { get; set; }
     public string Description { get; set; }
+    public string Base64Image { get; set; }
     public string ImageFile { get; set; }
     public DateTime WrittenAt { get; set; }
     public string ReadTime { get; set; }
