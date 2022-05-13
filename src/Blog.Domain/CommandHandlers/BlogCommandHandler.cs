@@ -33,14 +33,16 @@ public class BlogCommandHandler : CommandHandler,
             return Task.FromResult(Guid.Empty);
         }
 
+        string imageFile = Guid.NewGuid().ToString("N") + ".jpeg";
+
         Models.Blog blog = new Models.Blog(Guid.NewGuid(), request.AuthorId, request.BlogTitle, request.Summary,
-            request.Description, request.ImageFile, request.ReadTime);
+            request.Description, imageFile, request.ReadTime);
 
         _blogRepository.Add(blog);
 
         if (Commit())
         {
-            _bus.RaiseEvent(new BlogRegisteredEvent(blog.Id, blog.BlogTitle));
+            _bus.RaiseEvent(new BlogRegisteredEvent(request.ImageFile, imageFile));
         }
 
         return Task.FromResult(blog.Id);
@@ -65,7 +67,7 @@ public class BlogCommandHandler : CommandHandler,
 
         if (Commit())
         {
-            //_bus.RaiseEvent(new BlogRemovedEvent(request.Id));
+            _bus.RaiseEvent(new BLogDeletedEvent(blog.ImageFile));
         }
 
         return Task.FromResult(true);
@@ -79,8 +81,10 @@ public class BlogCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
+        string imageFile = Guid.NewGuid().ToString("N") + ".jpeg";
+
         Models.Blog blog = new Models.Blog(request.Id, request.AuthorId, request.BlogTitle, request.Summary,
-            request.Description, request.ImageFile, request.ReadTime);
+            request.Description, imageFile, request.ReadTime);
 
         Models.Blog existingBlog = _blogRepository.GetById(request.Id);
 
@@ -97,7 +101,7 @@ public class BlogCommandHandler : CommandHandler,
 
         if (Commit())
         {
-            _bus.RaiseEvent(new BlogUpdatedEvent(blog.Id, blog.BlogTitle));
+            _bus.RaiseEvent(new BlogUpdatedEvent(request.ImageFile, imageFile, existingBlog.ImageFile));
         }
 
         return Task.FromResult(true);

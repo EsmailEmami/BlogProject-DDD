@@ -4,12 +4,12 @@ namespace Blog.Domain.Events.Blog;
 
 public class BlogRegisteredEvent : Event
 {
-    public BlogRegisteredEvent(Guid id, string blogTitle)
+    public BlogRegisteredEvent(string imageBase64String, string imageName)
     {
-        Id = id;
-        BlogTitle = blogTitle;
+        ImageBase64String = imageBase64String;
+        ImageName = imageName;
     }
 
-    public Guid Id { get; set; }
-    public string BlogTitle { get; private set; }
+    public string ImageBase64String { get; private set; }
+    public string ImageName { get; private set; }
 }

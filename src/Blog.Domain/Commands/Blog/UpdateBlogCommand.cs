@@ -4,7 +4,7 @@ namespace Blog.Domain.Commands.Blog;
 
 public class UpdateBlogCommand : BlogCommand<bool>
 {
-    public UpdateBlogCommand(Guid id,Guid authorId, string blogTitle, string summary, string description,
+    public UpdateBlogCommand(Guid id, Guid authorId, string blogTitle, string summary, string description,
         string imageFile, string readTime)
     {
         Id = id;
