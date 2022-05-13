@@ -1,3 +1,6 @@
+# Wellcome to Blog DDD
+This Project is a full-stack application of Asp.Net Core 6.0. It is based on Domain-Driven Design at its core for implementing a clean-architectured API that powers up an Angular-based SPA application.
+
 # Techical Stack
 - ASP.NET Core 6.0 (with .NET Core 6.0)
 - ASP.NET WebApi Core
