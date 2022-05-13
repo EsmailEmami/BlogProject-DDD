@@ -1,1 +1,46 @@
-<p>login works!</p>
+<div class="single_post">
+  <div class="container-fluid container-xxl">
+    <div class="post_content">
+      <h4 class="top-title">ثبت نام در وبسایت</h4>
+      <form class="form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+
+          <div class="col-sm-12">
+            <input type="email" class="form-control" formControlName="email" placeholder="ایمیل">
+            <span *ngIf="controls['email'].touched">
+              <p *ngIf="controls['email'].errors?.['required']">
+                لطفا ایمیل را وارد کنید
+              </p>
+               <p *ngIf="controls['email'].errors?.['email']">
+                 لطفا ایمیل خود را درست وارد کنید
+              </p>
+              <p *ngIf="controls['email'].errors?.['maxlength']">
+                ایمیل وارد شده نمیتواند بیشتر از 100 کاراکتر باشد
+              </p>
+            </span>
+          </div>
+
+          <div class="col-sm-12">
+            <input type="password" class="form-control" formControlName="password" placeholder="رمز عبور">
+            <span *ngIf="controls['password'].touched">
+              <p *ngIf="controls['password'].errors?.['required']">
+                لطفا رمز عبور را وارد کنید
+              </p>
+               <p *ngIf="controls['password'].errors?.['minlength']">
+                رمز عبور وارد شده نمیتواند کمتر از 6 کاراکتر باشد
+              </p>
+              <p *ngIf="controls['password'].errors?.['maxlength']">
+                رمز عبور وارد شده نمیتواند بیشتر از 50 کاراکتر باشد
+              </p>
+            </span>
+          </div>
+
+          <div class="col-12">
+            <button type="submit" class="btn btn-success w-100">ثبت</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="clear-fix"></div>

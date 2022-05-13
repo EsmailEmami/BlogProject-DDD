@@ -7,15 +7,12 @@ import {RegisterUserRequest} from "../../../../core/models/requests/user/Registe
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
-  encapsulation: ViewEncapsulation.None
+  templateUrl: './register.component.html'
 })
 export class RegisterComponent implements OnInit {
 
   public registerForm!: FormGroup;
   public loading = false;
-  public submitted = false;
   private returnUrl!: '';
 
   constructor(
@@ -67,8 +64,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-
     if (this.registerForm.invalid) {
       return;
     }
@@ -82,12 +77,12 @@ export class RegisterComponent implements OnInit {
     );
 
     this.accountService.registerUser(register)
-      .then(data => {
+      .then(_ => {
         this.notificationService.showSuccess("ثبت نام با موفقیت انجام شد.");
         this.router.navigate([this.returnUrl]).then();
-      }, error => {
-        this.loading = false;
       });
+
+    this.loading = false;
   }
 
 }

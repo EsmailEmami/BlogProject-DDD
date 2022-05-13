@@ -41,11 +41,11 @@ export class AuthService extends RestService {
   login(email: string, password: string) {
     return this.post("account/login", {email, password})
       .pipe(map(result => {
-        const data = result.data;
+        const data = result;
 
         // login successful if there's a jwt token in the response
-        if (data.token) {
-          this.tokenStorageToken.saveToken(data.token);
+        if (data) {
+          this.tokenStorageToken.saveToken(data);
 
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           this.localStorageService.setValue(appConstants.storedUser, JSON.stringify(data));
