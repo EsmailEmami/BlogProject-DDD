@@ -40,14 +40,14 @@ public class CategoryController : ApiController
     {
         if (categoryId.IsEmpty())
         {
-            NotifyError(HttpStatusCode.NotFound.ToString(),'لطفا آدرس را درست وارزدکنیذ');
+            NotifyError(HttpStatusCode.NotFound.ToString(),"متاسفانه مشکلی پیش آمده است! لطفا دوباره تلاش کنید.");
             return Response();
         }
 
         UpdateCategoryViewModel category = _categoryAppService.GetCategoryForUpdate(categoryId);
         if (category == null)
         {
-            NotifyError(HttpStatusCode.BadRequest.ToString(),'دسته بندی یافت نشد');
+            NotifyError(HttpStatusCode.BadRequest.ToString(), "متاسفانه مشکلی پیش آمده است! لطفا دوباره تلاش کنید.");
             return Response();
         }
 

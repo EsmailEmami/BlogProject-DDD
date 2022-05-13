@@ -2,5 +2,5 @@
 
 public static class PathConstant
 {
-    public static string BlogImageServer = Path.Combine(Directory.GetCurrentDirectory(), "/images/blog/");
+    public static string BlogImageServer = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/blog/");
 }

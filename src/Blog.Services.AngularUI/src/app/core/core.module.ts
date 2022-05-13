@@ -4,15 +4,21 @@ import {ToastrModule} from "ngx-toastr";
 import {AuthService} from "./services/auth.service";
 import {NotificationService} from "./services/notification.service";
 import {LocalStorageService} from "./services/local-storage.service";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
-  declarations: [],
   imports: [
     HttpClientModule,
-    ToastrModule.forRoot()
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot({
+      progressBar: true,
+      progressAnimation: 'increasing',
+      extendedTimeOut: 3000
+    })
   ],
-  providers:[
+  providers: [
     AuthService,
+    BrowserAnimationsModule,
     ToastrModule,
     NotificationService,
     LocalStorageService,

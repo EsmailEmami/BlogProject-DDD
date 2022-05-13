@@ -4,10 +4,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../../../core/services/auth.service";
 import {BlogService} from "../../services/blog.service";
 import {NotificationService} from "../../../../core/services/notification.service";
-import {User} from "../../../../core/models/User";
-import {AddBlogRequest} from "../../../../core/models/requests/blog/addBlogRequest";
 import {UpdateBlogRequest} from "../../../../core/models/requests/blog/updateBlogRequest";
-import {UpdateCategoryRequest} from "../../../../core/models/requests/category/updateCategoryRequest";
 
 @Component({
   selector: 'app-update-blog',
@@ -17,10 +14,7 @@ export class UpdateBlogComponent implements OnInit {
 
   public blogForm!: FormGroup;
   public loading = false;
-  public errors!: string[];
   private blog!: UpdateBlogRequest;
-
-  private userId!: string;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -83,6 +77,12 @@ export class UpdateBlogComponent implements OnInit {
     return this.blogForm.controls;
   }
 
+  uploadFile(event: any) {
+    this.blogForm.patchValue({
+      imageFile: event
+    });
+  }
+
   onSubmit() {
     if (this.blogForm.invalid) {
       return;
@@ -100,13 +100,9 @@ export class UpdateBlogComponent implements OnInit {
     );
 
     this.blogService.updateBlog(request)
-      .then(data => {
+      .then(_ => {
         this.notificationService.showSuccess("مقاله با موفقیت ویرایش شد.");
-        this.router.navigate(['']).then();
-      }, error => {
-        for (const message of error.errors) {
-          this.errors.push(message);
-        }
+        this.router.navigate(['']).then(_=> this.blogForm.reset());
       });
 
     this.loading = false;

@@ -23,13 +23,13 @@ public class BlogAppService : IBlogAppService
     public List<Domain.Models.Blog> GetAllBlogs() =>
         _blogRepository.GetAll().ToList();
 
-    public async Task<Guid> Register(BlogViewModel blog)
+    public async Task<Guid> Register(AddBlogViewModel blog)
     {
         RegisterNewBlogCommand registerCommand = _mapper.Map<RegisterNewBlogCommand>(blog);
         return await _bus.SendCommand<RegisterNewBlogCommand, Guid>(registerCommand);
     }
 
-    public void Update(BlogViewModel blog)
+    public void Update(UpdateBlogViewModel blog)
     {
         UpdateBlogCommand updateCommand = _mapper.Map<UpdateBlogCommand>(blog);
         _bus.SendCommand<UpdateBlogCommand, bool>(updateCommand);

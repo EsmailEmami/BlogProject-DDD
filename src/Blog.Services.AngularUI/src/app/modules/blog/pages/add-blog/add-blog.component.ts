@@ -15,7 +15,6 @@ export class AddBlogComponent implements OnInit {
 
   public blogForm!: FormGroup;
   public loading = false;
-  public errors!: string[];
 
   private userId!: string;
 
@@ -79,31 +78,20 @@ export class AddBlogComponent implements OnInit {
     return this.blogForm.controls;
   }
 
-  uploadFile(files: FileList | null) {
-    if (!files?.length || files == null) {
-      return;
-    }
-
-    const file: File = files[0];
+  uploadFile(event: any) {
     this.blogForm.patchValue({
-      imageFile: file
+      imageFile: event
     });
   }
 
   onSubmit() {
-
-    debugger;
-
-    let file = this.controls['imageFile'].value;
-
-
     if (this.blogForm.invalid) {
       return;
     }
     this.loading = true;
 
     const request = new AddBlogRequest(
-      this.userId,
+      "270c45dd-6bdc-46ca-8113-d06914be6ac5",
       this.controls['blogTitle'].value,
       this.controls['summary'].value,
       this.controls['description'].value,
@@ -112,13 +100,9 @@ export class AddBlogComponent implements OnInit {
     );
 
     this.blogService.addBlog(request)
-      .then(data => {
+      .then(_ => {
         this.notificationService.showSuccess("مقاله با موفقیت منتشر شد.");
-        this.router.navigate(['']).then();
-      }, error => {
-        for (const message of error.errors) {
-          this.errors.push(message);
-        }
+        this.router.navigate(['']).then(_ => this.blogForm.reset());
       });
 
     this.loading = false;

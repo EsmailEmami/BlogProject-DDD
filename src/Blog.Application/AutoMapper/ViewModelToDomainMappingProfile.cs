@@ -15,10 +15,10 @@ public class ViewModelToDomainMappingProfile : Profile
     public ViewModelToDomainMappingProfile()
     {
         // Blog
-        CreateMap<BlogViewModel, RegisterNewBlogCommand>()
+        CreateMap<AddBlogViewModel, RegisterNewBlogCommand>()
             .ConstructUsing(c => new RegisterNewBlogCommand(c.AuthorId, c.BlogTitle, c.Summary, c.Description, c.ImageFile, c.ReadTime));
-        CreateMap<BlogViewModel, UpdateBlogCommand>()
-            .ConstructUsing(c => new UpdateBlogCommand(c.Id, c.AuthorId, c.BlogTitle, c.Summary, c.Description, c.ImageFile, c.ReadTime));
+        //CreateMap<AddBlogViewModel, UpdateBlogCommand>()
+        //    .ConstructUsing(c => new UpdateBlogCommand(c.Id, c.AuthorId, c.BlogTitle, c.Summary, c.Description, c.ImageFile, c.ReadTime));
         // User
         CreateMap<RegisterViewModel, RegisterNewUserCommand>()
             .ConstructUsing(c => new RegisterNewUserCommand(c.FirstName, c.LastName, c.Email, c.Password, c.ConfirmPassword));

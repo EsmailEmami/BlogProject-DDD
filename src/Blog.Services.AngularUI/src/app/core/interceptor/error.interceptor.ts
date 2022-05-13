@@ -15,30 +15,25 @@ import {NotificationService} from "../services/notification.service";
 export class ServerErrorInterceptor implements HttpInterceptor {
 
   constructor(
-    private injector: Injector) { }
+    private injector: Injector) {
+  }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let errorResult;
+    let errorResult: string[];
     const errorService = this.injector.get(ErrorService);
     const notifier = this.injector.get(NotificationService);
 
     return next.handle(request)
       .pipe(
-        retry(1),
         catchError((error: HttpErrorResponse) => {
-          errorResult = errorService.getServerErrorMessage(error);
-          const errorObject = errorResult.error;
+          errorResult = errorService.getServerErrorMessage(error).error;
 
-          if (errorObject) {
-            if(errorObject.errors) {
-              Object.keys(errorObject.errors).forEach(function (key, index) {
-                const error = errorObject.errors[key];
-                notifier.showError(error);
-              });
-            }
+          debugger;
 
-            if(errorObject.message)
-              notifier.showError(errorObject.message);
+          if (errorResult.length > 0) {
+            errorResult.forEach(value => {
+              notifier.showError(value);
+            })
           }
 
           return throwError(error);

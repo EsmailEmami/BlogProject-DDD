@@ -35,7 +35,7 @@ public abstract class BlogValidation<TCommand, TResult> : AbstractValidator<TCom
 
     protected void ValidateDescription()
     {
-        RuleFor(c => c.Summary)
+        RuleFor(c => c.Description)
             .NotEmpty().WithMessage("لطفا متن مقاله را وارد کنید")
             .MinimumLength(2000).WithMessage("متن مقاله وارد شده باید حداقل 2000 کاراکتر باشد");
     }
@@ -44,8 +44,6 @@ public abstract class BlogValidation<TCommand, TResult> : AbstractValidator<TCom
     {
         RuleFor(c => c.ImageFile)
             .NotEmpty().WithMessage("لطفا تصویر مقاله را وارد کنید")
-            .MinimumLength(42).WithMessage("لطفا تصویر مقاله را وارد کنید")
-            .Must(x => x.ToLower().Contains(".jpg") || x.ToLower().Contains(".jpeg") || x.ToLower().Contains(".png"))
             .WithMessage("تصویر ارسالی باید یکی از فرمت های PNG,JPG,JPEG باشد");
     }
 

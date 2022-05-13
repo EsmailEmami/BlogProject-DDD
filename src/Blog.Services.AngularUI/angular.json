@@ -35,6 +35,7 @@
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/owl.carousel.css",
               "src/assets/css/owl.theme.default.css",
+              "node_modules/ngx-toastr/toastr.css",
               "src/styles.scss"
             ],
             "scripts": [

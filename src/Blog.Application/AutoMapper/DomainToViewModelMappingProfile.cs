@@ -9,7 +9,7 @@ public class DomainToViewModelMappingProfile : Profile
 {
     public DomainToViewModelMappingProfile()
     {
-        CreateMap<Domain.Models.Blog, BlogViewModel>();
+        CreateMap<Domain.Models.Blog, AddBlogViewModel>();
         CreateMap<User, RegisterViewModel>();
     }
 }

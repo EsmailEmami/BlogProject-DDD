@@ -26,8 +26,8 @@ public class BlogController : ApiController
         return Response(_blogAppService.GetAllBlogs());
     }
 
-    [HttpPost("AddBlog")]
-    public async Task<IActionResult> AddBlog([FromBody] BlogViewModel blog)
+    [HttpPost("add-blog")]
+    public async Task<IActionResult> AddBlog([FromBody] AddBlogViewModel blog)
     {
         if (!ModelState.IsValid)
         {
@@ -35,15 +35,22 @@ public class BlogController : ApiController
             return Response(blog);
         }
 
-        string imageName = Guid.NewGuid().ToString("N") + ".jpeg";
-        Image image = ImageUploaderExtension.Base64ToImage(blog.Base64Image);
-        image.AddImage(imageName,PathConstant.BlogImageServer);
-
-        blog.ImageFile = imageName;
-
         Guid blogId = await _blogAppService.Register(blog);
-        blog.Id = blogId;
 
         return Response(blogId);
+    }
+
+    [HttpPut("update-blog")]
+    public IActionResult UpdateBlog([FromBody] UpdateBlogViewModel blog)
+    {
+        if (!ModelState.IsValid)
+        {
+            NotifyModelStateErrors();
+            return Response(blog);
+        }
+
+        _blogAppService.Update(blog);
+
+        return Response();
     }
 }

@@ -3,11 +3,15 @@ import {CommonModule} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {SiteHeaderComponent} from './components/site-header/site-header.component';
 import {SiteFooterComponent} from './components/site-footer/site-footer.component';
+import {ImagePickerComponent} from './components/image-picker/image-picker.component';
+import {NgxImageCompressService} from "ngx-image-compress";
 
 @NgModule({
   declarations: [
     SiteHeaderComponent,
-    SiteFooterComponent
+    SiteFooterComponent,
+    ImagePickerComponent,
+    ImagePickerComponent
   ],
   imports: [
     CommonModule,
@@ -17,9 +21,14 @@ import {SiteFooterComponent} from './components/site-footer/site-footer.componen
   exports: [
     SiteHeaderComponent,
     SiteFooterComponent,
+    ImagePickerComponent,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
+  ],
+  providers: [
+    NgxImageCompressService
   ]
+
 })
 export class SharedModule {
 }

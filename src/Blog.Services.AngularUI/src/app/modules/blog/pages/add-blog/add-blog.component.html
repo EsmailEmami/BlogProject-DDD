@@ -44,17 +44,8 @@
             </span>
           </div>
           <div class="col-sm-12 col-lg-4">
-            <div class="image-field">
-              <div class="image-area">
-                <a href="javascript:void(0)" class="change-image">
-                  <input type="file" #file class="file-input"
-                         onchange="readURL(this, 'imgProduct1')"
-                         (change)="uploadFile(file.files || null)">
-                  <i class="far fa-camera"></i>
-                </a>
-                <img src="assets/img/placeholder-image.png" alt="تصویر کالا" id="imgProduct1">
-              </div>
-            </div>
+            <app-image-picker (imagePick)="uploadFile($event)"></app-image-picker>
+
 
             <span *ngIf="controls['imageFile'].touched">
               <p *ngIf="controls['imageFile'].errors?.['required']"
