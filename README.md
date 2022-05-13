@@ -2,14 +2,20 @@
 This Project is a full-stack application of Asp.Net Core 6.0. It is based on Domain-Driven Design at its core for implementing a clean-architectured API that powers up an Angular-based SPA application.
 
 # Techical Stack
-- ASP.NET Core 6.0 (with .NET Core 6.0)
-- ASP.NET WebApi Core
-- Angular
-- AutoMapper
-- FluentValidator
-- MediatR
-- Swagger UI
-- MSSQL
+
+- Asp.Net Core and C# 10 for cross-platform back-end with:
+  - .Net 6
+  - ASP.NET WebApi Core
+  - AutoMapper
+  - FluentValidator
+  - JWT Bearer Authentication
+  - MediatR
+  - Swagger UI
+  - MSSQL
+- Angular 12 and TypeScript for the front-end with:
+  -  NgBootstrap
+  -  Toastr
+  -  Angular JWT
 
 # Design Patterns
 - Domain Driven Design
@@ -34,7 +40,6 @@ This Project is a full-stack application of Asp.Net Core 6.0. It is based on Dom
 - [x] JWT
 - [x] Mapping (AutoMapper)
 - [x] API Specification, API Definition (Swagger)
-- [x] ORM {Entity Framework Core}
 - [x] Middleware
 - [x] CORS
 - [x] Error Handling, Global Exception
