@@ -50,4 +50,5 @@ This Project is a full-stack application of Asp.Net Core 6.0. It is based on Dom
 - [x] Use `IQueryable`, `IEnumerable`, `IList` interfaces
 - [x] Use .Net Core 6.0 for Class Library
 - [x] Hashing
+- [x] File storage: Upload/Download
 - [x] Dapper, Dapper Contrib (Optional)
