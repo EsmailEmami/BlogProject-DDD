@@ -1,4 +1,4 @@
-﻿using Blog.Domain.Validations.Blog;
+﻿using Blog.Domain.Validations.Command.Blog;
 
 namespace Blog.Domain.Commands.Blog;
 

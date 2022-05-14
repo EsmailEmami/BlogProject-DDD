@@ -1,8 +1,8 @@
 ﻿using Blog.Domain.Commands.Blog;
 
-namespace Blog.Domain.Validations.Blog;
+namespace Blog.Domain.Validations.Command.Blog;
 
-public class UpdateBlogCommandValidation : BlogValidation<UpdateBlogCommand, bool>
+public class UpdateBlogCommandValidation : BlogCommandValidation<UpdateBlogCommand, bool>
 {
     public UpdateBlogCommandValidation()
     {

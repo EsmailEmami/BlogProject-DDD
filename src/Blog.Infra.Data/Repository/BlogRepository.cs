@@ -1,6 +1,7 @@
 ﻿using Blog.Domain.Interfaces;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using Blog.Domain.ViewModels.Blog;
 using Dapper;
 
 namespace Blog.Infra.Data.Repository;
@@ -23,5 +24,10 @@ public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
         {
             blogId
         }, Transaction);
+    }
+
+    public UpdateBlogViewModel GetBlogForUpdate(Guid blogId)
+    {
+        return null;
     }
 }

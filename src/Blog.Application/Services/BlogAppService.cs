@@ -3,6 +3,7 @@ using Blog.Application.Interfaces;
 using Blog.Domain.Commands.Blog;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Interfaces;
+using Blog.Domain.Queries.Blog;
 using Blog.Domain.ViewModels.Blog;
 
 namespace Blog.Application.Services;
@@ -39,6 +40,12 @@ public class BlogAppService : IBlogAppService
     {
         RemoveBlogCommand removeCommand = new RemoveBlogCommand(blogId);
         _bus.SendCommand<RemoveBlogCommand, bool>(removeCommand);
+    }
+
+    public UpdateBlogViewModel TestQuery()
+    {
+        GetBlogForUpdateQuery query = new GetBlogForUpdateQuery(Guid.Empty);
+        return _bus.SendQuery<GetBlogForUpdateQuery, UpdateBlogViewModel>(query).Result;
     }
 
     public void Dispose()

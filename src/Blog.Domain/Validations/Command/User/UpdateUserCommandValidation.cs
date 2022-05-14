@@ -1,6 +1,6 @@
 ﻿using Blog.Domain.Commands.User;
 
-namespace Blog.Domain.Validations.User;
+namespace Blog.Domain.Validations.Command.User;
 
 public class UpdateUserCommandValidation : UserValidation<UpdateUserCommand, bool>
 {

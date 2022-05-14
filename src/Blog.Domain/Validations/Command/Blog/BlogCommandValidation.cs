@@ -1,9 +1,10 @@
 ﻿using Blog.Domain.Commands.Blog;
 using FluentValidation;
 
-namespace Blog.Domain.Validations.Blog;
+namespace Blog.Domain.Validations.Command.Blog;
 
-public abstract class BlogValidation<TCommand, TResult> : AbstractValidator<TCommand> where TCommand : BlogCommand<TResult>
+public abstract class BlogCommandValidation<TCommand, TResult> : AbstractValidator<TCommand> 
+    where TCommand : BlogCommand<TResult>
 {
     protected void ValidateTitle()
     {

@@ -11,6 +11,9 @@ using Blog.Domain.EventHandlers;
 using Blog.Domain.Events.Blog;
 using Blog.Domain.Events.User;
 using Blog.Domain.Interfaces;
+using Blog.Domain.Queries.Blog;
+using Blog.Domain.QueryHandlers;
+using Blog.Domain.ViewModels.Blog;
 using Blog.Infra.CrossCutting.Bus;
 using Blog.Infra.CrossCutting.Identity.Interfaces;
 using Blog.Infra.CrossCutting.Identity.Services;
@@ -62,9 +65,9 @@ public static class NativeInjectorBootstrapper
         // - BlogCategory 
         services.AddScoped<IRequestHandler<RegisterNewBlogCategoryCommand, Guid>, BlogCategoryCommandHandler>();
 
-        // Domain - 3rd parties
-        //services.AddScoped<IHttpService, HttpService>();
-        //services.AddScoped<IMailService, MailService>();
+        // Domain - Queries
+        // - Blog
+        services.AddScoped<IRequestHandler<GetBlogForUpdateQuery, UpdateBlogViewModel>, BlogQueryHandler>();
 
         // Infra - Data
         services.AddScoped<IBlogRepository, BlogRepository>();

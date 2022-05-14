@@ -18,14 +18,17 @@
     <Folder Include="Commands\BlogCategory\" />
     <Folder Include="Commands\User\" />
     <Folder Include="Common\Constants\" />
+    <Folder Include="Common\Exceptions\" />
     <Folder Include="EventHandlers\" />
     <Folder Include="Events\Blog\" />
     <Folder Include="Events\User\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
+    <Folder Include="Queries\Blog\" />
     <Folder Include="Services\Hash\" />
-    <Folder Include="Validations\Category\" />
-    <Folder Include="Validations\User\" />
+    <Folder Include="Validations\Command\Category\" />
+    <Folder Include="Validations\Command\User\" />
+    <Folder Include="Validations\Query\Blog\" />
     <Folder Include="ViewModels\BlogCategory\" />
   </ItemGroup>
 

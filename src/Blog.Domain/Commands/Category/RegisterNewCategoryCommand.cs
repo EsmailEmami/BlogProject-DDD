@@ -1,4 +1,4 @@
-﻿using Blog.Domain.Validations.Category;
+﻿using Blog.Domain.Validations.Command.Category;
 
 namespace Blog.Domain.Commands.Category;
 

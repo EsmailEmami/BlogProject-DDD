@@ -1,8 +1,8 @@
 ﻿using Blog.Domain.Commands.Blog;
 
-namespace Blog.Domain.Validations.Blog;
+namespace Blog.Domain.Validations.Command.Blog;
 
-public class RegisterNewBlogCommandValidation : BlogValidation<RegisterNewBlogCommand, Guid>
+public class RegisterNewBlogCommandValidation : BlogCommandValidation<RegisterNewBlogCommand, Guid>
 {
     public RegisterNewBlogCommandValidation()
     {

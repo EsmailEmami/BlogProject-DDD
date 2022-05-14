@@ -53,4 +53,10 @@ public class BlogController : ApiController
 
         return Response();
     }
+
+    [HttpGet("[action]")]
+    public IActionResult Test()
+    {
+        return Response(_blogAppService.TestQuery());
+    }
 }

@@ -1,4 +1,4 @@
-﻿using Blog.Domain.Validations.User;
+﻿using Blog.Domain.Validations.Command.User;
 
 namespace Blog.Domain.Commands.User;
 

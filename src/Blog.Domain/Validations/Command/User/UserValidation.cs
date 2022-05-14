@@ -1,7 +1,7 @@
 ﻿using Blog.Domain.Commands.User;
 using FluentValidation;
 
-namespace Blog.Domain.Validations.User;
+namespace Blog.Domain.Validations.Command.User;
 
 public abstract class UserValidation<TCommand, TResult> : AbstractValidator<TCommand> 
     where TCommand : UserCommand<TResult>

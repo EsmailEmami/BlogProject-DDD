@@ -1,7 +1,7 @@
 ﻿using Blog.Domain.Commands.Category;
 using FluentValidation;
 
-namespace Blog.Domain.Validations.Category;
+namespace Blog.Domain.Validations.Command.Category;
 
 public abstract class CategoryValidation<TCommand, TResult> : AbstractValidator<TCommand> where TCommand : CategoryCommand<TResult>
 {

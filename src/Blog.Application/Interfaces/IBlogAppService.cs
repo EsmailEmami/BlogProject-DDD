@@ -8,4 +8,5 @@ public interface IBlogAppService : IDisposable
     Task<Guid> Register(AddBlogViewModel blog);
     void Update(UpdateBlogViewModel blog);
     void Remove(Guid blogId);
+    UpdateBlogViewModel TestQuery();
 }
