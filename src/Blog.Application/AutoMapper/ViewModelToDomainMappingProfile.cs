@@ -3,6 +3,7 @@ using Blog.Domain.Commands.Blog;
 using Blog.Domain.Commands.BlogCategory;
 using Blog.Domain.Commands.Category;
 using Blog.Domain.Commands.User;
+using Blog.Domain.Queries.User;
 using Blog.Domain.ViewModels.Blog;
 using Blog.Domain.ViewModels.BlogCategory;
 using Blog.Domain.ViewModels.Category;
@@ -14,6 +15,7 @@ public class ViewModelToDomainMappingProfile : Profile
 {
     public ViewModelToDomainMappingProfile()
     {
+        // Commands 
         // Blog
         CreateMap<AddBlogViewModel, RegisterNewBlogCommand>()
             .ConstructUsing(c => new RegisterNewBlogCommand(c.AuthorId, c.BlogTitle, c.Summary, c.Description, c.ImageFile, c.ReadTime));
@@ -32,5 +34,10 @@ public class ViewModelToDomainMappingProfile : Profile
         // BlogCategory
         CreateMap<AddBlogCategoryViewModel, RegisterNewBlogCategoryCommand>()
             .ConstructUsing(c => new RegisterNewBlogCategoryCommand(c.BlogId, c.CategoryId));
+
+        // Query
+        // User
+        CreateMap<LoginViewModel, IsUserExistsQuery>()
+            .ConstructUsing(c => new IsUserExistsQuery(c.Email, c.Password));
     }
 }

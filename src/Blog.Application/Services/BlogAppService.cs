@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Blog.Application.Interfaces;
 using Blog.Domain.Commands.Blog;
+using Blog.Domain.Common.Exceptions;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Queries.Blog;
@@ -11,18 +12,13 @@ namespace Blog.Application.Services;
 public class BlogAppService : IBlogAppService
 {
     private readonly IMapper _mapper;
-    private readonly IBlogRepository _blogRepository;
     private readonly IMediatorHandler _bus;
 
-    public BlogAppService(IMapper mapper, IBlogRepository blogRepository, IMediatorHandler bus)
+    public BlogAppService(IMapper mapper, IMediatorHandler bus)
     {
         _mapper = mapper;
-        _blogRepository = blogRepository;
         _bus = bus;
     }
-
-    public List<Domain.Models.Blog> GetAllBlogs() =>
-        _blogRepository.GetAll().ToList();
 
     public async Task<Guid> Register(AddBlogViewModel blog)
     {
@@ -42,10 +38,18 @@ public class BlogAppService : IBlogAppService
         _bus.SendCommand<RemoveBlogCommand, bool>(removeCommand);
     }
 
-    public UpdateBlogViewModel TestQuery()
+    public UpdateBlogViewModel? TestQuery()
     {
         GetBlogForUpdateQuery query = new GetBlogForUpdateQuery(Guid.Empty);
-        return _bus.SendQuery<GetBlogForUpdateQuery, UpdateBlogViewModel>(query).Result;
+
+        try
+        {
+            return _bus.SendQuery<GetBlogForUpdateQuery, UpdateBlogViewModel>(query).Result;
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public void Dispose()

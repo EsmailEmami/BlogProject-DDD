@@ -20,11 +20,6 @@ public class BlogController : ApiController
         _blogAppService = blogAppService;
     }
 
-    [HttpGet("[action]")]
-    public IActionResult GetAll()
-    {
-        return Response(_blogAppService.GetAllBlogs());
-    }
 
     [HttpPost("add-blog")]
     public async Task<IActionResult> AddBlog([FromBody] AddBlogViewModel blog)

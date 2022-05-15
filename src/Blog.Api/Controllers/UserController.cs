@@ -31,7 +31,7 @@ public class UserController : ApiController
     #region Dashboard
 
     [HttpGet("dashboard")]
-    public IActionResult Dashboard()
+    public async Task<IActionResult> Dashboard()
     {
         Guid userId = _user.UserId;
         if (userId.IsEmpty())
@@ -40,12 +40,7 @@ public class UserController : ApiController
             return Response();
         }
 
-        DashboardViewModel dashboard = _userAppService.GetUserDashboard(userId);
-        if (dashboard == null)
-        {
-            NotifyError(HttpStatusCode.NotFound.ToString(), "کاربر مورد نظر یافت نشد.");
-            return Response();
-        }
+        DashboardViewModel? dashboard = await _userAppService.GetUserDashboardAsync(userId);
 
         return Response(dashboard);
     }

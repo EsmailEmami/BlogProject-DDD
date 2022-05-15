@@ -1,4 +1,5 @@
-﻿using Blog.Domain.Core.Bus;
+﻿using Blog.Domain.Common.Exceptions;
+using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Queries.Blog;
@@ -21,7 +22,7 @@ public class BlogQueryHandler : QueryHandler,
         if (!request.IsValid())
         {
             NotifyValidationErrors(request);
-            return Task.FromResult(new UpdateBlogViewModel());
+            throw new InvalidOperationException();
         }
 
         UpdateBlogViewModel blog = _blogRepository.GetBlogForUpdate(request.Id);
@@ -30,7 +31,7 @@ public class BlogQueryHandler : QueryHandler,
         {
             Bus.RaiseEvent(new DomainNotification("blog not found", "مقاله مورد نظر یافت نشد"));
 
-            return Task.FromResult(new UpdateBlogViewModel());
+            throw new EntityNotFoundException();
         }
 
         return Task.FromResult(blog);

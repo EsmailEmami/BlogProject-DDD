@@ -25,10 +25,12 @@
     <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
     <Folder Include="Queries\Blog\" />
+    <Folder Include="Queries\User\" />
     <Folder Include="Services\Hash\" />
     <Folder Include="Validations\Command\Category\" />
     <Folder Include="Validations\Command\User\" />
     <Folder Include="Validations\Query\Blog\" />
+    <Folder Include="Validations\Query\User\" />
     <Folder Include="ViewModels\BlogCategory\" />
   </ItemGroup>
 

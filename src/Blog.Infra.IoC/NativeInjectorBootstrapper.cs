@@ -11,9 +11,12 @@ using Blog.Domain.EventHandlers;
 using Blog.Domain.Events.Blog;
 using Blog.Domain.Events.User;
 using Blog.Domain.Interfaces;
+using Blog.Domain.Models;
 using Blog.Domain.Queries.Blog;
+using Blog.Domain.Queries.User;
 using Blog.Domain.QueryHandlers;
 using Blog.Domain.ViewModels.Blog;
+using Blog.Domain.ViewModels.User;
 using Blog.Infra.CrossCutting.Bus;
 using Blog.Infra.CrossCutting.Identity.Interfaces;
 using Blog.Infra.CrossCutting.Identity.Services;
@@ -68,6 +71,10 @@ public static class NativeInjectorBootstrapper
         // Domain - Queries
         // - Blog
         services.AddScoped<IRequestHandler<GetBlogForUpdateQuery, UpdateBlogViewModel>, BlogQueryHandler>();
+        // - User
+        services.AddScoped<IRequestHandler<GetUserByEmailQuery, User>, UserQueryHandler>();
+        services.AddScoped<IRequestHandler<GetUserDashboardQuery, DashboardViewModel>, UserQueryHandler>();
+        services.AddScoped<IRequestHandler<IsUserExistsQuery, bool>, UserQueryHandler>();
 
         // Infra - Data
         services.AddScoped<IBlogRepository, BlogRepository>();

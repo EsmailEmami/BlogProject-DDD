@@ -5,10 +5,9 @@ namespace Blog.Application.Interfaces;
 
 public interface IUserAppService : IDisposable
 {
-    List<User> GetAllUsers();
-    User? GetUserByEmail(string email);
+    Task<User?> GetUserByEmailAsync(string email);
     void Update(UpdateUserViewModel user);
     void Remove(Guid userId);
 
-    DashboardViewModel GetUserDashboard(Guid userId);
+    Task<DashboardViewModel?> GetUserDashboardAsync(Guid userId);
 }
