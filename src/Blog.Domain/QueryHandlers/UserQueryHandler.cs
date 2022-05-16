@@ -4,6 +4,7 @@ using Blog.Domain.Core.Notifications;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.Queries.User;
+using Blog.Domain.Services.Hash;
 using Blog.Domain.ViewModels.User;
 using MediatR;
 
@@ -15,9 +16,12 @@ public class UserQueryHandler : QueryHandler,
     IRequestHandler<GetUserDashboardQuery, DashboardViewModel>
 {
     private readonly IUserRepository _userRepository;
-    public UserQueryHandler(IMediatorHandler bus, IUserRepository userRepository) : base(bus)
+    private readonly IPasswordHasher _passwordHasher;
+
+    public UserQueryHandler(IMediatorHandler bus, IUserRepository userRepository, IPasswordHasher passwordHasher) : base(bus)
     {
         _userRepository = userRepository;
+        _passwordHasher = passwordHasher;
     }
 
     public Task<bool> Handle(IsUserExistsQuery request, CancellationToken cancellationToken)
@@ -29,14 +33,18 @@ public class UserQueryHandler : QueryHandler,
         }
 
         string existedHashPassword = _userRepository.GetUserPasswordByEmail(request.Email);
-        if (!string.IsNullOrEmpty(existedHashPassword) &&
-            existedHashPassword != request.Password)
+        if (string.IsNullOrEmpty(existedHashPassword))
         {
             Bus.RaiseEvent(new DomainNotification("Password not match", "کاربری با مشخصات وارد شده یافت نشد"));
             return Task.FromResult(false);
         }
 
-        return Task.FromResult(true);
+        if (_passwordHasher.Check(existedHashPassword, request.Password)) 
+            return Task.FromResult(true);
+
+
+        Bus.RaiseEvent(new DomainNotification("Password not match", "کاربری با مشخصات وارد شده یافت نشد"));
+        return Task.FromResult(false);
     }
 
     public Task<User> Handle(GetUserByEmailQuery request, CancellationToken cancellationToken)
@@ -47,11 +55,12 @@ public class UserQueryHandler : QueryHandler,
             throw new InvalidOperationException();
         }
 
-        User user = _userRepository.GetById(request.UserId);
+        User user = _userRepository.GetUserByEmail(request.Email);
 
-        if (user.Email != request.Email)
+        if (user == null)
         {
             Bus.RaiseEvent(new DomainNotification("user not exists", "کاربر مورد نظر یافت نشد."));
+            throw new EntityNotFoundException();
         }
 
         return Task.FromResult(user);

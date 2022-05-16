@@ -28,12 +28,12 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           errorResult = errorService.getServerErrorMessage(error).error;
 
-          debugger;
-
           if (errorResult.length > 0) {
             errorResult.forEach(value => {
               notifier.showError(value);
             })
+          } else {
+            notifier.showError('متاسفانه مشکلی غیر منتظره پیش آمده است. لطفا با پشتیبانی تماس بگیرید');
           }
 
           return throwError(error);

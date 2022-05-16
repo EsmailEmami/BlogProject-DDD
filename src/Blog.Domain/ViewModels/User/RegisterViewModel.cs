@@ -4,8 +4,6 @@ namespace Blog.Domain.ViewModels.User;
 
 public class RegisterViewModel
 {
-    [Key]
-    public Guid Id { get; set; }
 
     [Display(Name = "نام")]
     [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]

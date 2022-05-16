@@ -41,10 +41,7 @@ public abstract class ApiController : ControllerBase
     {
         if (IsValidOperation())
         {
-            return Ok(new
-            {
-                success = true
-            });
+            return Ok();
         }
 
         List<string> notificationKeys = _notifications.GetNotifications()
@@ -54,18 +51,10 @@ public abstract class ApiController : ControllerBase
         if (notificationKeys.Contains(HttpStatusCode.BadRequest.ToString()) ||
             notificationKeys.Contains(nameof(DomainNotification)))
         {
-            return BadRequest(new
-            {
-                success = false,
-                errors = _notifications.GetNotifications().Select(n => n.Value).ToList()
-            });
+            return BadRequest(_notifications.GetNotifications().Select(n => n.Value).ToList());
         }
 
-        return NotFound(new
-        {
-            success = false,
-            errors = _notifications.GetNotifications().Select(n => n.Value).ToList()
-        });
+        return NotFound(_notifications.GetNotifications().Select(n => n.Value).ToList());
     }
 
     protected void NotifyModelStateErrors()

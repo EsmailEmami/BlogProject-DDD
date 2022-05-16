@@ -24,6 +24,7 @@ public class User : Entity
 
     #region Relations
 
+    [Write(false)]
     public ICollection<Blog> Blogs { get; protected set; }
 
     #endregion

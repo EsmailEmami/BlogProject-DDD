@@ -4,10 +4,10 @@ namespace Blog.Domain.Queries.User;
 
 public class IsUserExistsQuery : UserQuery<bool>
 {
-    public IsUserExistsQuery(string email, string hashPassword)
+    public IsUserExistsQuery(string email, string password)
     {
         Email = email;
-        Password = hashPassword;
+        Password = password;
     }
 
     public override bool IsValid()

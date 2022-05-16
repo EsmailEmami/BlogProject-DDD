@@ -3,7 +3,7 @@ import {RestService} from "../../../core/services/http/rest.service";
 import {HttpClient} from "@angular/common/http";
 import {RegisterUserRequest} from "../../../core/models/requests/user/RegisterUserRequest";
 
-const CONTROLLER_NAME: string = 'Account';
+const CONTROLLER_NAME: string = 'account/';
 
 @Injectable({
   providedIn: 'root'

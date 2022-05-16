@@ -67,7 +67,16 @@ public class AccountController : ApiController
         User? user = await _userAppService.GetUserByEmailAsync(login.Email);
         if (user == null) return Response();
 
-        return Response(await GenerateToken(user));
+        string token = await GenerateToken(user);
+
+        return Response(new
+        {
+            id = user.Id,
+            firstName = user.FirstName,
+            lastName = user.LastName,
+            email = user.Email,
+            token
+        });
     }
 
     #endregion
