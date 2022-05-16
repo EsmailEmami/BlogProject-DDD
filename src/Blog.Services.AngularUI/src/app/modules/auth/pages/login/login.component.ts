@@ -45,11 +45,12 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) {
       return;
     }
+
     this.loading = true;
     this.authenticationService.login(this.controls['email'].value, this.controls['password'].value)
       .subscribe(data => {
-          this.router.navigate([this.returnUrl]).then();
-        });
+        this.router.navigate([this.returnUrl]).then(_ => this.loginForm.reset());
+      });
 
     this.loading = false;
   }

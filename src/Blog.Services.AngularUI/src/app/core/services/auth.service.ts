@@ -39,26 +39,26 @@ export class AuthService extends RestService {
   }
 
   login(email: string, password: string) {
-    return this.post("account/login", {email, password})
-      .pipe(map(result => {
-        const data = result;
+    return this.post("customers/login", {email, password})
+      .pipe(map(data => {
 
         // login successful if there's a jwt token in the response
-        if (data) {
-          this.tokenStorageToken.saveToken(data);
+        if (data.token) {
+          this.tokenStorageToken.saveToken(data.token);
 
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           this.localStorageService.setValue(appConstants.storedUser, JSON.stringify(data));
           this.isLogged.next(true);
         } else {
-          for (const error of data.errors) {
-            this.notificationService.showError(error);
-          }
+          data.forEach((error: string) => {
+            this.notificationService.showError(error)
+          })
         }
 
-        return result;
+        return data;
       }));
   }
+
 
   logout() {
     // remove user from local storage to log user out
