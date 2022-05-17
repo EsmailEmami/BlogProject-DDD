@@ -5,6 +5,7 @@ import {SiteHeaderComponent} from './components/site-header/site-header.componen
 import {SiteFooterComponent} from './components/site-footer/site-footer.component';
 import {ImagePickerComponent} from './components/image-picker/image-picker.component';
 import {NgxImageCompressService} from "ngx-image-compress";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import {NgxImageCompressService} from "ngx-image-compress";
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
+    RouterModule
   ],
   exports: [
     SiteHeaderComponent,

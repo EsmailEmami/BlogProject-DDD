@@ -4,7 +4,7 @@ import {TokenStorageService} from "../token-storage.service";
 import {HttpClient} from "@angular/common/http";
 import {LocalStorageService} from "./local-storage.service";
 import {Router} from "@angular/router";
-import {map, Subject} from "rxjs";
+import {BehaviorSubject, map, Observable, Subject} from "rxjs";
 import {NotificationService} from "./notification.service";
 import {appConstants} from "../constants/appConstants";
 import {User} from "../models/User";
@@ -15,8 +15,8 @@ import {User} from "../models/User";
 export class AuthService extends RestService {
   private isLogged = new Subject<boolean>();
 
-  // Observable string streams
-  isLoggedAnnounced$ = this.isLogged.asObservable();
+  // @ts-ignore
+  private currentUser$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   constructor(http: HttpClient,
               private tokenStorageToken: TokenStorageService,
@@ -26,15 +26,31 @@ export class AuthService extends RestService {
     super(http);
   }
 
-  public get currentUser(): User | null {
-    const storedCustomerData = this.localStorageService
+  setCurrentUser(): void {
+    const storedUserData = this.localStorageService
       .getValueByKey(appConstants.storedUser);
 
-    if (storedCustomerData) {
-      const storedCustomer = JSON.parse(storedCustomerData);
-      return storedCustomer as User;
+    if (storedUserData) {
+      const storedCustomer = JSON.parse(storedUserData);
+      this.currentUser$.next(storedCustomer as User)
+    }else {
+      // @ts-ignore
+      this.currentUser$.next(null);
     }
+  }
 
+  public get currentUser(): Observable<User> {
+    return this.currentUser$;
+  }
+
+  public get userId(): string | null {
+    const storedUserData = this.localStorageService
+      .getValueByKey(appConstants.storedUser);
+
+    if (storedUserData) {
+      const storedUser = JSON.parse(storedUserData);
+      return storedUser.id as string;
+    }
     return null;
   }
 
@@ -47,6 +63,16 @@ export class AuthService extends RestService {
 
           // store user details and jwt token in local storage to keep user logged in between page refreshes
           this.localStorageService.setValue(appConstants.storedUser, JSON.stringify(data));
+
+          const user = new User(
+            data.id,
+            data.firstName,
+            data.lastName,
+            data.email
+          );
+
+          this.currentUser$.next(user);
+
           this.isLogged.next(true);
         } else {
           data.forEach((error: string) => {
@@ -58,7 +84,6 @@ export class AuthService extends RestService {
       }));
   }
 
-
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem(appConstants.storedUser);
@@ -66,6 +91,9 @@ export class AuthService extends RestService {
 
     // broadcasting to listeners
     this.isLogged.next(false);
+
+    // @ts-ignore
+    this.currentUser$.next(null);
 
     // redirects
     this.router.navigate(["/login"]);

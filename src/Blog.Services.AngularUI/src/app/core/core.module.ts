@@ -5,6 +5,7 @@ import {AuthService} from "./services/auth.service";
 import {NotificationService} from "./services/notification.service";
 import {LocalStorageService} from "./services/local-storage.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {AuthGuard} from "./guards/auth.guard";
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   ],
   providers: [
     AuthService,
+    AuthGuard,
     BrowserAnimationsModule,
     ToastrModule,
     NotificationService,

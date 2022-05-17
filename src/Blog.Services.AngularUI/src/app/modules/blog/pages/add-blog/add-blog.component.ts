@@ -4,7 +4,6 @@ import {Router} from "@angular/router";
 import {AuthService} from "../../../../core/services/auth.service";
 import {BlogService} from "../../services/blog.service";
 import {AddBlogRequest} from "../../../../core/models/requests/blog/addBlogRequest";
-import {User} from "../../../../core/models/User";
 import {NotificationService} from "../../../../core/services/notification.service";
 
 @Component({
@@ -29,17 +28,11 @@ export class AddBlogComponent implements OnInit {
 
   ngOnInit(): void {
 
-    const user: User | null = this.authService.currentUser;
+    this.userId = this.authService.userId || '';
 
-    // if (!user) {
-    //   this.router.navigate(['']).then();
-    // }
-    //
-    // this.userId = user?.id || '';
-    //
-    // if (!this.userId) {
-    //   this.router.navigate(['']).then();
-    // }
+    if (!this.userId) {
+      this.router.navigate(['']).then();
+    }
 
     this.blogForm = this.formBuilder.group({
       blogTitle: ['',

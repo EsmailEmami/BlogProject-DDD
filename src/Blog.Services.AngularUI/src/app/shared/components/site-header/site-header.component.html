@@ -11,6 +11,9 @@
           <div class="col-md-12">
             <div class="menu">
               <ul>
+                <li><a *ngIf="user">{{user.firstName}} {{user.lastName}}</a></li>
+                <li><a *ngIf="!user" [routerLink]="['register']">ثبت نام</a></li>
+                <li><a *ngIf="!user" [routerLink]="['login']">ورود</a></li>
                 <li><a href="#">تماس با ما</a></li>
                 <li><a href="#">درباره ما</a></li>
                 <li><a href="#">مقالات</a></li>

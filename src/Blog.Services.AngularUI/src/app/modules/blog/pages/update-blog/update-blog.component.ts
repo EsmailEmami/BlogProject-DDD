@@ -29,6 +29,9 @@ export class UpdateBlogComponent implements OnInit {
   ngOnInit(): void {
 
     const blogId: string = this.route.snapshot.params['blogId'];
+
+    debugger;
+
     if (!blogId) {
       this.router.navigate(['']).then();
     }

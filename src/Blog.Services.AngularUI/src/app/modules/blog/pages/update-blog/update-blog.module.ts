@@ -1,10 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UpdateBlogComponent } from './update-blog.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {UpdateBlogComponent} from './update-blog.component';
 import {RouterModule, Routes} from "@angular/router";
 import {SharedModule} from "../../../../shared/shared.module";
 
-const routes: Routes = [{path: ':blogId', component: UpdateBlogComponent}];
+const routes: Routes = [{path: '', component: UpdateBlogComponent}];
 
 @NgModule({
   declarations: [
@@ -16,4 +16,5 @@ const routes: Routes = [{path: ':blogId', component: UpdateBlogComponent}];
     SharedModule
   ]
 })
-export class UpdateBlogModule { }
+export class UpdateBlogModule {
+}

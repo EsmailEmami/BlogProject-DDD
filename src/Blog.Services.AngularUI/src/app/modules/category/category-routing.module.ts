@@ -10,7 +10,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/add-category/add-category.module').then(m => m.AddCategoryModule)
   },
   {
-    path: 'update',
+    path: 'update/:categoryId',
     loadChildren: () => import('./pages/update-category/update-category.module').then(m => m.UpdateCategoryModule)
   }
 ];
