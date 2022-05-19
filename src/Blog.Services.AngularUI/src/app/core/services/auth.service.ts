@@ -31,9 +31,26 @@ export class AuthService extends RestService {
       .getValueByKey(appConstants.storedUser);
 
     if (storedUserData) {
-      const storedCustomer = JSON.parse(storedUserData);
-      this.currentUser$.next(storedCustomer as User)
-    }else {
+      const storedUser = JSON.parse(storedUserData);
+
+      const expire: number = Date.parse(storedUser['expire'])
+
+      if (!expire) {
+        this.logout();
+
+        // @ts-ignore
+        this.currentUser$.next(null);
+      } else {
+        if (expire < Date.now()) {
+          this.logout();
+
+          // @ts-ignore
+          this.currentUser$.next(null);
+        }
+      }
+
+      this.currentUser$.next(storedUser as User);
+    } else {
       // @ts-ignore
       this.currentUser$.next(null);
     }
@@ -61,15 +78,24 @@ export class AuthService extends RestService {
         if (data.token) {
           this.tokenStorageToken.saveToken(data.token);
 
-          // store user details and jwt token in local storage to keep user logged in between page refreshes
-          this.localStorageService.setValue(appConstants.storedUser, JSON.stringify(data));
-
           const user = new User(
             data.id,
             data.firstName,
             data.lastName,
             data.email
           );
+          const date = new Date();
+
+          let storedData: any = {
+            id: data.id,
+            firstName: data.firstName,
+            lastName: data.lastName,
+            email: data.email,
+            expire: new Date(date.setDate(date.getDate() + 30)).toLocaleDateString()
+          }
+
+          // store user details and jwt token in local storage to keep user logged in between page refreshes
+          this.localStorageService.setValue(appConstants.storedUser, JSON.stringify(storedData));
 
           this.currentUser$.next(user);
 

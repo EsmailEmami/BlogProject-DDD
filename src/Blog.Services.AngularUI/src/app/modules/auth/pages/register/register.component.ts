@@ -3,7 +3,7 @@ import {AccountService} from "../../services/account.service";
 import {NotificationService} from "../../../../core/services/notification.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
-import {RegisterUserRequest} from "../../../../core/models/requests/user/RegisterUserRequest";
+import {RegisterUserRequest} from "../../../../core/models/requests/user/registerUserRequest";
 
 @Component({
   selector: 'app-register',

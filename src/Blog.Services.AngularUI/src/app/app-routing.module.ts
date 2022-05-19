@@ -13,8 +13,8 @@ const routes: Routes = [
     loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule)
   },
   {
-    path:'login',
-    loadChildren: () => import('./modules/auth/pages/login/login.module').then(m=> m.LoginModule)
+    path: 'login',
+    loadChildren: () => import('./modules/auth/pages/login/login.module').then(m => m.LoginModule)
   },
   {
     path: 'blog',
@@ -24,6 +24,11 @@ const routes: Routes = [
   {
     path: 'category',
     loadChildren: () => import('./modules/category/category.module').then(m => m.CategoryModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'account',
+    loadChildren: () => import('./modules/user/user.module').then(m => m.UserModule),
     canActivate: [AuthGuard]
   }
 ];

@@ -57,7 +57,7 @@ public class UserRepository : Repository<User>, IUserRepository
 
         return Db.QuerySingleOrDefault<DashboardViewModel>(query, new
         {
-            userId
+            Id = userId
         }, Transaction);
     }
 }

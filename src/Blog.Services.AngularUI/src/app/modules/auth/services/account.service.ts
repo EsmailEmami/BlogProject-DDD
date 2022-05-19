@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {RestService} from "../../../core/services/http/rest.service";
 import {HttpClient} from "@angular/common/http";
-import {RegisterUserRequest} from "../../../core/models/requests/user/RegisterUserRequest";
+import {RegisterUserRequest} from "../../../core/models/requests/user/registerUserRequest";
 
 const CONTROLLER_NAME: string = 'account/';
 
