@@ -1,12 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterContentInit, Component, OnInit} from '@angular/core';
 import {AuthService} from "./core/services/auth.service";
+
+declare function stopLoading(): any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterContentInit {
   title = 'صفحه اصلی';
 
   constructor(private authService: AuthService) {
@@ -14,5 +16,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.authService.setCurrentUser();
+  }
+
+  ngAfterContentInit(): void {
+    stopLoading();
   }
 }

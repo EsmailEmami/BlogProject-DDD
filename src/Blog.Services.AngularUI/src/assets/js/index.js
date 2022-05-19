@@ -33,3 +33,13 @@ function readURL(input, imgId) {
     reader.readAsDataURL(input.files[0]);
   }
 }
+
+function startLoading(){
+  const sniper = document.querySelector('.snippet');
+  sniper.style.display = 'block';
+}
+
+function stopLoading(){
+  const sniper = document.querySelector('.snippet');
+  sniper.style.display = 'none';
+}
