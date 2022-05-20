@@ -4,7 +4,7 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {AddBlogRequest} from "../../../core/models/requests/blog/addBlogRequest";
 import {UpdateBlogRequest} from "../../../core/models/requests/blog/updateBlogRequest";
 
-const CONTROLLER_NAME: string = 'Blog/';
+const CONTROLLER_NAME: string = 'blog/';
 
 @Injectable({
   providedIn: 'root'

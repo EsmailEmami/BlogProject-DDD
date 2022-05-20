@@ -6,6 +6,7 @@ import {NotificationService} from "./services/notification.service";
 import {LocalStorageService} from "./services/local-storage.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthGuard} from "./guards/auth.guard";
+import {LoaderService} from "./services/loader.service";
 
 @NgModule({
   imports: [
@@ -14,11 +15,13 @@ import {AuthGuard} from "./guards/auth.guard";
     ToastrModule.forRoot({
       progressBar: true,
       progressAnimation: 'increasing',
-      extendedTimeOut: 3000
+      timeOut: 7000,
+      extendedTimeOut: 5000
     })
   ],
   providers: [
     AuthService,
+    LoaderService,
     AuthGuard,
     BrowserAnimationsModule,
     ToastrModule,

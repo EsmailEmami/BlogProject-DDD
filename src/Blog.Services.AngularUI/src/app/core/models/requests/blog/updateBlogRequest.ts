@@ -1,5 +1,5 @@
 export class UpdateBlogRequest {
-  blogId:string
+  id:string
   authorId: string;
   blogTitle: string;
   summary: string;
@@ -8,7 +8,7 @@ export class UpdateBlogRequest {
   readTime: string;
 
   constructor(blogId:string, authorId: string, blogTitle: string, summary: string, description: string, imageFile: string, readTime: string) {
-    this.blogId = blogId;
+    this.id = blogId;
     this.authorId = authorId;
     this.blogTitle = blogTitle;
     this.summary = summary;

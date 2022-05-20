@@ -5,6 +5,7 @@ import {AuthService} from "../../../../core/services/auth.service";
 import {BlogService} from "../../services/blog.service";
 import {AddBlogRequest} from "../../../../core/models/requests/blog/addBlogRequest";
 import {NotificationService} from "../../../../core/services/notification.service";
+import {LoaderService} from "../../../../core/services/loader.service";
 
 @Component({
   selector: 'app-add-blog',
@@ -13,7 +14,6 @@ import {NotificationService} from "../../../../core/services/notification.servic
 export class AddBlogComponent implements OnInit {
 
   public blogForm!: FormGroup;
-  public loading = false;
 
   private userId!: string;
 
@@ -22,7 +22,8 @@ export class AddBlogComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private blogService: BlogService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private loader: LoaderService
   ) {
   }
 
@@ -81,10 +82,10 @@ export class AddBlogComponent implements OnInit {
     if (this.blogForm.invalid) {
       return;
     }
-    this.loading = true;
+    this.loader.start();
 
     const request = new AddBlogRequest(
-      "270c45dd-6bdc-46ca-8113-d06914be6ac5",
+      this.userId,
       this.controls['blogTitle'].value,
       this.controls['summary'].value,
       this.controls['description'].value,
@@ -98,6 +99,6 @@ export class AddBlogComponent implements OnInit {
         this.router.navigate(['']).then(_ => this.blogForm.reset());
       });
 
-    this.loading = false;
+    this.loader.stop();
   }
 }

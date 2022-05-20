@@ -5,6 +5,7 @@ import {AuthService} from "../../../../core/services/auth.service";
 import {BlogService} from "../../services/blog.service";
 import {NotificationService} from "../../../../core/services/notification.service";
 import {UpdateBlogRequest} from "../../../../core/models/requests/blog/updateBlogRequest";
+import {blogImagePath} from "../../../../core/constants/pathConstants";
 
 @Component({
   selector: 'app-update-blog',
@@ -15,6 +16,7 @@ export class UpdateBlogComponent implements OnInit {
   public blogForm!: FormGroup;
   public loading = false;
   private blog!: UpdateBlogRequest;
+  public imageSrc: string = blogImagePath;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,8 +32,6 @@ export class UpdateBlogComponent implements OnInit {
 
     const blogId: string = this.route.snapshot.params['blogId'];
 
-    debugger;
-
     if (!blogId) {
       this.router.navigate(['']).then();
     }
@@ -39,41 +39,44 @@ export class UpdateBlogComponent implements OnInit {
     this.blogService.getBlogForUpdate(blogId)
       .then((data: UpdateBlogRequest) => {
         this.blog = data;
-      }, error => {
+
+        this.imageSrc = this.imageSrc + this.blog.imageFile;
+
+        this.blogForm = this.formBuilder.group({
+          blogTitle: [this.blog.blogTitle,
+            Validators.compose([
+              Validators.required,
+              Validators.minLength(5),
+              Validators.maxLength(150)
+            ])
+          ],
+          summary: [this.blog.summary,
+            Validators.compose([
+              Validators.required,
+              Validators.minLength(50),
+              Validators.maxLength(1000)
+            ])
+          ],
+          description: [this.blog.description,
+            Validators.compose([
+              Validators.required,
+              Validators.minLength(2000)
+            ])
+          ],
+          imageFile: [this.blog.imageFile,
+            Validators.required
+          ],
+          readTime: [this.blog.readTime,
+            Validators.compose([
+              Validators.required,
+              Validators.maxLength(10)
+            ])
+          ]
+        });
+
+      }, () => {
         this.router.navigate(['']).then();
       });
-
-    this.blogForm = this.formBuilder.group({
-      blogTitle: [this.blog.blogTitle,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(5),
-          Validators.maxLength(150)
-        ])
-      ],
-      summary: [this.blog.summary,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(50),
-          Validators.maxLength(1000)
-        ])
-      ],
-      description: [this.blog.description,
-        Validators.compose([
-          Validators.required,
-          Validators.minLength(2000)
-        ])
-      ],
-      imageFile: [this.blog.imageFile,
-        Validators.required
-      ],
-      readTime: [this.blog.readTime,
-        Validators.compose([
-          Validators.required,
-          Validators.maxLength(10)
-        ])
-      ]
-    });
   }
 
   get controls() {
@@ -93,7 +96,7 @@ export class UpdateBlogComponent implements OnInit {
     this.loading = true;
 
     const request = new UpdateBlogRequest(
-      this.blog.blogId,
+      this.blog.id,
       this.blog.authorId,
       this.controls['blogTitle'].value,
       this.controls['summary'].value,
@@ -105,7 +108,7 @@ export class UpdateBlogComponent implements OnInit {
     this.blogService.updateBlog(request)
       .then(_ => {
         this.notificationService.showSuccess("مقاله با موفقیت ویرایش شد.");
-        this.router.navigate(['']).then(_=> this.blogForm.reset());
+        this.router.navigate(['']).then(_ => this.blogForm.reset());
       });
 
     this.loading = false;

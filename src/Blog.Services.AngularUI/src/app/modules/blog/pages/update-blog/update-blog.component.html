@@ -2,7 +2,7 @@
   <div class="container-fluid container-xxl">
     <div class="post_content">
       <h4 class="top-title">ویرایش مقاله</h4>
-      <form class="form" [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+      <form class="form" [formGroup]="blogForm" (ngSubmit)="onSubmit()" *ngIf="blogForm">
         <div class="row">
           <div class="col-sm-12 col-md-10">
             <input type="text" class="form-control" formControlName="blogTitle" placeholder="عنوان مقاله">
@@ -44,7 +44,7 @@
             </span>
           </div>
           <div class="col-sm-12 col-lg-4">
-            <app-image-picker (imagePick)="uploadFile($event)"></app-image-picker>
+            <app-image-picker (imagePick)="uploadFile($event)" [src]="imageSrc"></app-image-picker>
 
             <span *ngIf="controls['imageFile'].touched">
               <p *ngIf="controls['imageFile'].errors?.['required']"
@@ -53,7 +53,6 @@
               </p>
             </span>
           </div>
-
           <div class="col-12">
             <textarea type="text" class="form-control" formControlName="description" placeholder="توضیحات"></textarea>
             <span *ngIf="controls['description'].touched">
