@@ -4,6 +4,7 @@ using Blog.Domain.CommandHandlers;
 using Blog.Domain.Commands.Blog;
 using Blog.Domain.Commands.BlogCategory;
 using Blog.Domain.Commands.Category;
+using Blog.Domain.Commands.Comment;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
@@ -14,10 +15,12 @@ using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.Queries.Blog;
 using Blog.Domain.Queries.Category;
+using Blog.Domain.Queries.Comment;
 using Blog.Domain.Queries.User;
 using Blog.Domain.QueryHandlers;
 using Blog.Domain.ViewModels.Blog;
 using Blog.Domain.ViewModels.Category;
+using Blog.Domain.ViewModels.Comment;
 using Blog.Domain.ViewModels.User;
 using Blog.Infra.CrossCutting.Bus;
 using Blog.Infra.CrossCutting.Identity.Interfaces;
@@ -72,6 +75,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<UpdateCategoryCommand, bool>, CategoryCommandHandler>();
         // - BlogCategory 
         services.AddScoped<IRequestHandler<RegisterNewBlogCategoryCommand, Guid>, BlogCategoryCommandHandler>();
+        // - Comments 
+        services.AddScoped<IRequestHandler<RegisterNewCommentCommand, Guid>, CommentCommandHandler>();
 
         // Domain - Queries
         // - Blog
@@ -83,6 +88,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<IsUserExistsQuery, bool>, UserQueryHandler>();
         // - Category
         services.AddScoped<IRequestHandler<GetCategoryForUpdateQuery, UpdateCategoryViewModel>, CategoryQueryHandler>();
+        // - Comments 
+        services.AddScoped<IRequestHandler<GetBlogCommentsQuery, List<CommentForShowViewModel>>, CommentQueryHandler>();
 
         // Infra - Data
         services.AddScoped<IBlogRepository, BlogRepository>();
