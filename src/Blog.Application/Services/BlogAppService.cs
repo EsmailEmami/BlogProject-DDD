@@ -52,6 +52,12 @@ public class BlogAppService : IBlogAppService
         }
     }
 
+    public async Task<List<BlogForShowViewModel>> GetAuthorBlogs(Guid authorId)
+    {
+        GetAuthorBlogsQuery query = new GetAuthorBlogsQuery(authorId);
+        return await _bus.SendQuery<GetAuthorBlogsQuery, List<BlogForShowViewModel>>(query);
+    }
+
     public void Dispose()
     {
         GC.SuppressFinalize(this);

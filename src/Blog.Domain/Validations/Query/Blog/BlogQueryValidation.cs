@@ -11,4 +11,10 @@ public abstract class BlogQueryValidation<TQuery, TResult> : AbstractValidator<T
         RuleFor(c => c.Id)
             .NotEqual(Guid.Empty).WithMessage("لطفا آیدی مقاله را وارد کنید");
     }
+
+    protected void ValidateAuthorId()
+    {
+        RuleFor(c => c.AuthorId)
+            .NotEqual(Guid.Empty);
+    }
 }

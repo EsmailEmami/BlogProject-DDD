@@ -76,6 +76,7 @@ public static class NativeInjectorBootstrapper
         // Domain - Queries
         // - Blog
         services.AddScoped<IRequestHandler<GetBlogForUpdateQuery, UpdateBlogViewModel>, BlogQueryHandler>();
+        services.AddScoped<IRequestHandler<GetAuthorBlogsQuery, List<BlogForShowViewModel>>, BlogQueryHandler>();
         // - User
         services.AddScoped<IRequestHandler<GetUserByEmailQuery, User>, UserQueryHandler>();
         services.AddScoped<IRequestHandler<GetUserDashboardQuery, DashboardViewModel>, UserQueryHandler>();

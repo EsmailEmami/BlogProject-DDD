@@ -32,8 +32,15 @@ public class Blog : Entity
 
     [Write(false)]
     public User Author { get; protected set; }
+
     [Write(false)]
     public ICollection<BlogCategory> Categories { get; protected set; }
+
+    [Write(false)]
+    public ICollection<BlogTag> Tags { get; protected set; }
+
+    [Write(false)]
+    public ICollection<Comment> Comments { get; protected set; }
 
     #endregion
 }

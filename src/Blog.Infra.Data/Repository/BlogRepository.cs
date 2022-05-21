@@ -37,4 +37,9 @@ public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
             blogId
         }, Transaction);
     }
+
+    public List<BlogForShowViewModel> GetAuthorBlogs(Guid authorId)
+    {
+        return new List<BlogForShowViewModel>();
+    }
 }

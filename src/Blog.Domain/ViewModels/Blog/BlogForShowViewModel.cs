@@ -2,7 +2,7 @@
 
 public class BlogForShowViewModel
 {
-    protected BlogForShowViewModel() { }
+    public BlogForShowViewModel() { }
     public BlogForShowViewModel(Guid blogId, string blogTitle, string summary, DateTime postedAt, string imageFile, int commentsCount, List<string> tags)
     {
         BlogId = blogId;

@@ -9,7 +9,8 @@ using MediatR;
 namespace Blog.Domain.QueryHandlers;
 
 public class BlogQueryHandler : QueryHandler,
-    IRequestHandler<GetBlogForUpdateQuery, UpdateBlogViewModel>
+    IRequestHandler<GetBlogForUpdateQuery, UpdateBlogViewModel>,
+    IRequestHandler<GetAuthorBlogsQuery,List<BlogForShowViewModel>>
 {
     private readonly IBlogRepository _blogRepository;
     public BlogQueryHandler(IMediatorHandler bus, IBlogRepository blogRepository) : base(bus)
@@ -25,7 +26,7 @@ public class BlogQueryHandler : QueryHandler,
             throw new InvalidOperationException();
         }
 
-        UpdateBlogViewModel blog = _blogRepository.GetBlogForUpdate(request.Id);
+        UpdateBlogViewModel? blog = _blogRepository.GetBlogForUpdate(request.Id);
 
         if (blog == null)
         {
@@ -35,5 +36,18 @@ public class BlogQueryHandler : QueryHandler,
         }
 
         return Task.FromResult(blog);
+    }
+
+    public Task<List<BlogForShowViewModel>> Handle(GetAuthorBlogsQuery request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            throw new InvalidOperationException();
+        }
+
+        List<BlogForShowViewModel> blogs = _blogRepository.GetAuthorBlogs(request.AuthorId);
+
+        return Task.FromResult(blogs);
     }
 }

@@ -20,6 +20,13 @@ public class BlogController : ApiController
         _blogAppService = blogAppService;
     }
 
+    [HttpGet("author-blogs")]
+    public async Task<IActionResult> AuthorBlogs([FromQuery] Guid authorId)
+    {
+        List<BlogForShowViewModel> blogs = await _blogAppService.GetAuthorBlogs(authorId);
+        return Response(blogs);
+    }
+
 
     [HttpPost("add-blog")]
     public async Task<IActionResult> AddBlog([FromBody] AddBlogViewModel blog)

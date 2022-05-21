@@ -26,6 +26,8 @@ public class User : Entity
 
     [Write(false)]
     public ICollection<Blog> Blogs { get; protected set; }
+    [Write(false)]
+    public ICollection<Comment> Comments { get; protected set; }
 
     #endregion
 
