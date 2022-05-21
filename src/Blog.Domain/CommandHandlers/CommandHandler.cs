@@ -9,7 +9,7 @@ namespace Blog.Domain.CommandHandlers;
 public class CommandHandler
 {
     private readonly IUnitOfWork _uow;
-    private readonly IMediatorHandler _bus;
+    protected readonly IMediatorHandler Bus;
     private readonly DomainNotificationHandler _notifications;
 
     public CommandHandler(IUnitOfWork uow,
@@ -17,14 +17,14 @@ public class CommandHandler
         INotificationHandler<DomainNotification> notifications)
     {
         _uow = uow;
-        _bus = bus;
+        Bus = bus;
         _notifications = (DomainNotificationHandler)notifications;
     }
     protected void NotifyValidationErrors<TCommand>(Command<TCommand> message)
     {
         foreach (var error in message.ValidationResult.Errors)
         {
-            _bus.RaiseEvent(new DomainNotification(message.MessageType, error.ErrorMessage));
+            Bus.RaiseEvent(new DomainNotification(message.MessageType, error.ErrorMessage));
         }
     }
 
@@ -34,7 +34,7 @@ public class CommandHandler
         if (_uow.Commit()) return true;
 
 
-        _bus.RaiseEvent(new DomainNotification("Commit", "We had a problem during saving your data."));
+        Bus.RaiseEvent(new DomainNotification("Commit", "We had a problem during saving your data."));
         return false;
     }
 }

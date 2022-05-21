@@ -13,7 +13,6 @@ public class BlogCommandHandler : CommandHandler,
     IRequestHandler<UpdateBlogCommand, bool>
 {
     private readonly IBlogRepository _blogRepository;
-    private readonly IMediatorHandler _bus;
 
     public BlogCommandHandler(
         IUnitOfWork uow,
@@ -21,7 +20,6 @@ public class BlogCommandHandler : CommandHandler,
         INotificationHandler<DomainNotification> notifications,
         IBlogRepository blogRepository) : base(uow, bus, notifications)
     {
-        _bus = bus;
         _blogRepository = blogRepository;
     }
 
@@ -42,7 +40,7 @@ public class BlogCommandHandler : CommandHandler,
 
         if (Commit())
         {
-            _bus.RaiseEvent(new BlogRegisteredEvent(request.ImageFile, imageFile));
+            Bus.RaiseEvent(new BlogRegisteredEvent(request.ImageFile, imageFile));
         }
 
         return Task.FromResult(blog.Id);
@@ -60,14 +58,14 @@ public class BlogCommandHandler : CommandHandler,
 
         if (blog.Id != request.Id)
         {
-            _bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
         }
 
         _blogRepository.Delete(blog);
 
         if (Commit())
         {
-            _bus.RaiseEvent(new BLogDeletedEvent(blog.ImageFile));
+            Bus.RaiseEvent(new BLogDeletedEvent(blog.ImageFile));
         }
 
         return Task.FromResult(true);
@@ -92,7 +90,7 @@ public class BlogCommandHandler : CommandHandler,
         {
             if (!existingBlog.Equals(blog))
             {
-                _bus.RaiseEvent(new DomainNotification(request.MessageType, "The blog has already been taken."));
+                Bus.RaiseEvent(new DomainNotification(request.MessageType, "The blog has already been taken."));
                 return Task.FromResult(false);
             }
         }
@@ -101,7 +99,7 @@ public class BlogCommandHandler : CommandHandler,
 
         if (Commit())
         {
-            _bus.RaiseEvent(new BlogUpdatedEvent(request.ImageFile, imageFile, existingBlog.ImageFile));
+            Bus.RaiseEvent(new BlogUpdatedEvent(request.ImageFile, imageFile, existingBlog.ImageFile));
         }
 
         return Task.FromResult(true);

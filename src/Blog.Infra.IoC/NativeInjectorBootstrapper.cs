@@ -13,9 +13,11 @@ using Blog.Domain.Events.User;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.Queries.Blog;
+using Blog.Domain.Queries.Category;
 using Blog.Domain.Queries.User;
 using Blog.Domain.QueryHandlers;
 using Blog.Domain.ViewModels.Blog;
+using Blog.Domain.ViewModels.Category;
 using Blog.Domain.ViewModels.User;
 using Blog.Infra.CrossCutting.Bus;
 using Blog.Infra.CrossCutting.Identity.Interfaces;
@@ -44,12 +46,15 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IBlogAppService, BlogAppService>();
         services.AddScoped<IUserAppService, UserAppService>();
         services.AddScoped<IAccountAppService, AccountAppService>();
+        services.AddScoped<ICategoryAppService, CategoryAppService>();
+        services.AddScoped<IBlogCategoryAppService, BlogCategoryAppService>();
 
         // Domain - Events
         services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
         // - Blog
         services.AddScoped<INotificationHandler<BlogRegisteredEvent>, BlogEventHandler>();
         services.AddScoped<INotificationHandler<BlogUpdatedEvent>, BlogEventHandler>();
+        services.AddScoped<INotificationHandler<BLogDeletedEvent>, BlogEventHandler>();
         // - User
         services.AddScoped<INotificationHandler<UserRegisteredEvent>, UserEventHandler>();
 
@@ -75,6 +80,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<GetUserByEmailQuery, User>, UserQueryHandler>();
         services.AddScoped<IRequestHandler<GetUserDashboardQuery, DashboardViewModel>, UserQueryHandler>();
         services.AddScoped<IRequestHandler<IsUserExistsQuery, bool>, UserQueryHandler>();
+        // - Category
+        services.AddScoped<IRequestHandler<GetCategoryForUpdateQuery, UpdateCategoryViewModel>, CategoryQueryHandler>();
 
         // Infra - Data
         services.AddScoped<IBlogRepository, BlogRepository>();

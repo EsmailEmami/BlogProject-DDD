@@ -35,6 +35,13 @@ public class BlogController : ApiController
         return Response(blogId);
     }
 
+    [HttpGet("get-blog-for-update")]
+    public async Task<IActionResult> UpdateBlog([FromQuery] Guid blogId)
+    {
+        UpdateBlogViewModel? blog = await _blogAppService.GetBlogForUpdate(blogId);
+        return Response(blog);
+    }
+
     [HttpPut("update-blog")]
     public IActionResult UpdateBlog([FromBody] UpdateBlogViewModel blog)
     {
@@ -47,11 +54,5 @@ public class BlogController : ApiController
         _blogAppService.Update(blog);
 
         return Response();
-    }
-
-    [HttpGet("[action]")]
-    public IActionResult Test()
-    {
-        return Response(_blogAppService.TestQuery());
     }
 }

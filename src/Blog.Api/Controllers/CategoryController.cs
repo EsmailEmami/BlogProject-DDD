@@ -34,23 +34,11 @@ public class CategoryController : ApiController
 
 
     [HttpGet("get-category-for-update")]
-    [ProducesResponseType((int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(UpdateCategoryViewModel), (int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.BadRequest)]
-    public IActionResult GetCategoryForUpdate([FromQuery] Guid categoryId)
+    public async Task<IActionResult> GetCategoryForUpdate([FromQuery] Guid categoryId)
     {
-        if (categoryId.IsEmpty())
-        {
-            NotifyError(HttpStatusCode.NotFound.ToString(),"متاسفانه مشکلی پیش آمده است! لطفا دوباره تلاش کنید.");
-            return Response();
-        }
-
-        UpdateCategoryViewModel category = _categoryAppService.GetCategoryForUpdate(categoryId);
-        if (category == null)
-        {
-            NotifyError(HttpStatusCode.BadRequest.ToString(), "متاسفانه مشکلی پیش آمده است! لطفا دوباره تلاش کنید.");
-            return Response();
-        }
-
+        UpdateCategoryViewModel? category = await _categoryAppService.GetCategoryForUpdate(categoryId);
         return Response(category);
     }
 

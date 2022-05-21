@@ -17,6 +17,7 @@ public class Category : Entity
 
     #region Relations
 
+    [Write(false)]
     public ICollection<BlogCategory> Blogs { get; protected set; }
 
     #endregion

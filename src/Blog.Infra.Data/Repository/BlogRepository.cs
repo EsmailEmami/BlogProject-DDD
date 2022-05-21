@@ -26,8 +26,15 @@ public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
         }, Transaction);
     }
 
-    public UpdateBlogViewModel GetBlogForUpdate(Guid blogId)
+    public UpdateBlogViewModel? GetBlogForUpdate(Guid blogId)
     {
-        return null;
+        string query = "SELECT [Id],[AuthorId],[BlogTitle],[Summary],[Description],[ImageFile],[ReadTime] " +
+                       "FROM[Blog].[Blogs] " +
+                       "WHERE [Id] = @BlogId";
+
+        return Db.QuerySingleOrDefault<UpdateBlogViewModel>(query, new
+        {
+            blogId
+        }, Transaction);
     }
 }

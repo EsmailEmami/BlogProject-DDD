@@ -26,7 +26,7 @@ public class CategoryRepository : Repository<Category>, ICategoryRepository
         }, Transaction);
     }
 
-    public UpdateCategoryViewModel GetCategoryForUpdate(Guid categoryId)
+    public UpdateCategoryViewModel? GetCategoryForUpdate(Guid categoryId)
     {
         string query = "SELECT [Id] AS [CategoryId],[CategoryTitle] " +
                        "FROM [Category].[Categories] WHERE [Id] = @CategoryId;";

@@ -20,7 +20,9 @@ public class BlogCategory : Entity
 
     #region Relations
 
+    [Write(false)]
     public Blog Blog { get; protected set; }
+    [Write(false)]
     public Category Category { get; protected set; }
 
     #endregion

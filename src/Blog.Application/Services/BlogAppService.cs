@@ -38,13 +38,13 @@ public class BlogAppService : IBlogAppService
         _bus.SendCommand<RemoveBlogCommand, bool>(removeCommand);
     }
 
-    public UpdateBlogViewModel? TestQuery()
+    public async Task<UpdateBlogViewModel?> GetBlogForUpdate(Guid blogId)
     {
-        GetBlogForUpdateQuery query = new GetBlogForUpdateQuery(Guid.Empty);
+        GetBlogForUpdateQuery query = new GetBlogForUpdateQuery(blogId);
 
         try
         {
-            return _bus.SendQuery<GetBlogForUpdateQuery, UpdateBlogViewModel>(query).Result;
+            return await _bus.SendQuery<GetBlogForUpdateQuery, UpdateBlogViewModel>(query);
         }
         catch
         {

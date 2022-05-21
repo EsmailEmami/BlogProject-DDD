@@ -30,7 +30,9 @@ public class Blog : Entity
 
     #region Relations
 
-    public User Author { get; set; }
+    [Write(false)]
+    public User Author { get; protected set; }
+    [Write(false)]
     public ICollection<BlogCategory> Categories { get; protected set; }
 
     #endregion
