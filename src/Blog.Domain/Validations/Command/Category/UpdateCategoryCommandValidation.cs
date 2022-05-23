@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Validations.Command.Category;
 
-public class UpdateCategoryCommandValidation : CategoryValidation<UpdateCategoryCommand, bool>
+public class UpdateCategoryCommandValidation : CategoryCommandValidation<UpdateCategoryCommand, bool>
 {
     public UpdateCategoryCommandValidation()
     {

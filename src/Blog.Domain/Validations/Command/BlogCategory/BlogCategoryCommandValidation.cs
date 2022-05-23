@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Blog.Domain.Validations.Command.BlogCategory;
 
-public abstract class BlogCategoryValidation<TCommand, TResult> : AbstractValidator<TCommand> where TCommand : BlogCategoryCommand<TResult>
+public abstract class BlogCategoryCommandValidation<TCommand, TResult> : AbstractValidator<TCommand> where TCommand : BlogCategoryCommand<TResult>
 {
     protected void ValidateBlogId()
     {

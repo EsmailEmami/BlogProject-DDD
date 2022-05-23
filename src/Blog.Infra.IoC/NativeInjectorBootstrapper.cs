@@ -5,6 +5,7 @@ using Blog.Domain.Commands.Blog;
 using Blog.Domain.Commands.BlogCategory;
 using Blog.Domain.Commands.Category;
 using Blog.Domain.Commands.Comment;
+using Blog.Domain.Commands.Tag;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
@@ -16,6 +17,7 @@ using Blog.Domain.Models;
 using Blog.Domain.Queries.Blog;
 using Blog.Domain.Queries.Category;
 using Blog.Domain.Queries.Comment;
+using Blog.Domain.Queries.Tag;
 using Blog.Domain.Queries.User;
 using Blog.Domain.QueryHandlers;
 using Blog.Domain.ViewModels.Blog;
@@ -77,6 +79,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RegisterNewBlogCategoryCommand, Guid>, BlogCategoryCommandHandler>();
         // - Comments 
         services.AddScoped<IRequestHandler<RegisterNewCommentCommand, Guid>, CommentCommandHandler>();
+        // - Tag
+        services.AddScoped<IRequestHandler<RegisterNewTagCommand, Guid>, TagCommandHandler>();
 
         // Domain - Queries
         // - Blog
@@ -90,12 +94,16 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<GetCategoryForUpdateQuery, UpdateCategoryViewModel>, CategoryQueryHandler>();
         // - Comments 
         services.AddScoped<IRequestHandler<GetBlogCommentsQuery, List<CommentForShowViewModel>>, CommentQueryHandler>();
+        // - Tag
+        services.AddScoped<IRequestHandler<GetTagsQuery, List<Tag>>, TagQueryHandler>();
 
         // Infra - Data
         services.AddScoped<IBlogRepository, BlogRepository>();
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<ICategoryRepository, CategoryRepository>();
         services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
+        services.AddScoped<ICommentRepository, CommentRepository>();
+        services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         // Infra - Identity Services

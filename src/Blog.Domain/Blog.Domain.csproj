@@ -17,6 +17,7 @@
     <Folder Include="Commands\Category\" />
     <Folder Include="Commands\BlogCategory\" />
     <Folder Include="Commands\Comment\" />
+    <Folder Include="Commands\Tag\" />
     <Folder Include="Commands\User\" />
     <Folder Include="Common\Constants\" />
     <Folder Include="Common\Exceptions\" />
@@ -27,14 +28,15 @@
     <Folder Include="Models\" />
     <Folder Include="Queries\Category\" />
     <Folder Include="Queries\Comment\" />
+    <Folder Include="Queries\Tag\" />
     <Folder Include="Queries\User\" />
     <Folder Include="Services\Hash\" />
-    <Folder Include="Validations\Command\Category\" />
     <Folder Include="Validations\Command\Comment\" />
-    <Folder Include="Validations\Command\User\" />
+    <Folder Include="Validations\Command\Tag\" />
     <Folder Include="Validations\Query\Blog\" />
     <Folder Include="Validations\Query\Category\" />
     <Folder Include="Validations\Query\Comment\" />
+    <Folder Include="Validations\Query\Tag\" />
     <Folder Include="Validations\Query\User\" />
     <Folder Include="ViewModels\BlogCategory\" />
     <Folder Include="ViewModels\Comment\" />
