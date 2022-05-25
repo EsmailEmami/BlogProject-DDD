@@ -16,7 +16,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         Transaction = transaction;
     }
 
-    public TEntity GetById(Guid id) => Db.Get<TEntity>(id, Transaction);
+    public TEntity? GetById(Guid id) => Db.Get<TEntity>(id, Transaction);
 
     public List<TEntity> GetAll() => Db.GetAll<TEntity>(Transaction).ToList();
 

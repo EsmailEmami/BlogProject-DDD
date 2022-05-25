@@ -40,6 +40,7 @@
     <Folder Include="Validations\Query\User\" />
     <Folder Include="ViewModels\BlogCategory\" />
     <Folder Include="ViewModels\Comment\" />
+    <Folder Include="ViewModels\Tag\" />
   </ItemGroup>
 
   <ItemGroup>

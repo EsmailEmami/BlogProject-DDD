@@ -54,6 +54,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IAccountAppService, AccountAppService>();
         services.AddScoped<ICategoryAppService, CategoryAppService>();
         services.AddScoped<IBlogCategoryAppService, BlogCategoryAppService>();
+        services.AddScoped<ITagAppService, TagAppService>();
 
         // Domain - Events
         services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
@@ -82,6 +83,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RegisterNewCommentCommand, Guid>, CommentCommandHandler>();
         // - Tag
         services.AddScoped<IRequestHandler<RegisterNewTagCommand, Guid>, TagCommandHandler>();
+        services.AddScoped<IRequestHandler<UpdateTagCommand, bool>, TagCommandHandler>();
+        services.AddScoped<IRequestHandler<RemoveTagCommand, bool>, TagCommandHandler>();
         // _ BlogTag
         services.AddScoped<IRequestHandler<RegisterNewBlogTagCommand, bool>, BlogTagCommandHandler>();
 

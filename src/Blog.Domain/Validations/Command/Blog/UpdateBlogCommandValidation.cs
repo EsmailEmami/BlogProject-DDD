@@ -13,5 +13,7 @@ public class UpdateBlogCommandValidation : BlogCommandValidation<UpdateBlogComma
         ValidateDescription();
         ValidateImageFile();
         ValidateReadTime();
+        ValidateTags();
+        ValidateCategories();
     }
 }
