@@ -3,7 +3,7 @@ using FluentValidation;
 
 namespace Blog.Domain.Validations.Command.User;
 
-public abstract class UserValidation<TCommand, TResult> : AbstractValidator<TCommand> 
+public abstract class UserCommandValidation<TCommand, TResult> : AbstractValidator<TCommand> 
     where TCommand : UserCommand<TResult>
 {
     protected void ValidateFirstName()

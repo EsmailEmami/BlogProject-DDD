@@ -1,15 +1,22 @@
 ﻿using Blog.Domain.Core.Events;
+using Blog.Domain.Models;
 
 namespace Blog.Domain.Events.Blog;
 
 public class BlogRegisteredEvent : Event
 {
-    public BlogRegisteredEvent(string imageBase64String, string imageName)
+    public BlogRegisteredEvent(Guid blogId, string imageBase64String, string imageName, List<Guid> tags, List<Guid> categories)
     {
+        BlogId = blogId;
         ImageBase64String = imageBase64String;
         ImageName = imageName;
+        Tags = tags;
+        Categories = categories;
     }
 
+    public Guid BlogId { get; private set; }
     public string ImageBase64String { get; private set; }
     public string ImageName { get; private set; }
+    public List<Guid> Tags { get; private set; }
+    public List<Guid> Categories { get; private set; }
 }

@@ -3,6 +3,7 @@ using Blog.Application.Services;
 using Blog.Domain.CommandHandlers;
 using Blog.Domain.Commands.Blog;
 using Blog.Domain.Commands.BlogCategory;
+using Blog.Domain.Commands.BlogTag;
 using Blog.Domain.Commands.Category;
 using Blog.Domain.Commands.Comment;
 using Blog.Domain.Commands.Tag;
@@ -81,6 +82,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RegisterNewCommentCommand, Guid>, CommentCommandHandler>();
         // - Tag
         services.AddScoped<IRequestHandler<RegisterNewTagCommand, Guid>, TagCommandHandler>();
+        // _ BlogTag
+        services.AddScoped<IRequestHandler<RegisterNewBlogTagCommand, bool>, BlogTagCommandHandler>();
 
         // Domain - Queries
         // - Blog
@@ -104,6 +107,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IBlogCategoryRepository, BlogCategoryRepository>();
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
+        services.AddScoped<IBlogTagRepository, BlogTagRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         // Infra - Identity Services

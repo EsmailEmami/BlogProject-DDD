@@ -5,7 +5,7 @@ namespace Blog.Domain.Commands.Blog;
 public class RegisterNewBlogCommand : BlogCommand<Guid>
 {
     public RegisterNewBlogCommand(Guid authorId, string blogTitle, string summary, string description,
-        string imageFile, string readTime)
+        string imageFile, string readTime, List<Guid> tags, List<Guid> categories)
     {
         AuthorId = authorId;
         BlogTitle = blogTitle;
@@ -13,6 +13,8 @@ public class RegisterNewBlogCommand : BlogCommand<Guid>
         Description = description;
         ImageFile = imageFile;
         ReadTime = readTime;
+        Tags = tags;
+        Categories = categories;
     }
 
     public override bool IsValid()

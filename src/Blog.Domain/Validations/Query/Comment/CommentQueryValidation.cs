@@ -23,5 +23,4 @@ public abstract class CommentQueryValidation<TQuery, TResult> : AbstractValidato
         RuleFor(c => c.BlogId)
             .NotEqual(Guid.Empty);
     }
-    }
 }
