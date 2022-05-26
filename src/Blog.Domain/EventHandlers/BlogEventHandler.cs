@@ -1,16 +1,11 @@
-﻿using System.Drawing;
-using System.Text.Json;
-using Blog.Domain.Commands.BlogCategory;
-using Blog.Domain.Commands.BlogTag;
-using Blog.Domain.Commands.Tag;
-using Blog.Domain.Common.Constants;
+﻿using Blog.Domain.Common.Constants;
 using Blog.Domain.Common.Extensions;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Events.Blog;
 using Blog.Domain.Interfaces;
 using MediatR;
-using Microsoft.Extensions.Logging;
+using System.Drawing;
 
 namespace Blog.Domain.EventHandlers;
 
@@ -36,38 +31,37 @@ public class BlogEventHandler :
         {
             Image image = ImageExtension.Base64ToImage(notification.ImageBase64String);
             image.AddImage(notification.ImageName, PathConstant.BlogImageServer);
+
+            return Task.CompletedTask;
         }
         catch
         {
-            Models.Blog blog = _blogRepository.GetById(notification.BlogId);
-            _blogRepository.Delete(blog);
-            _uow.Commit();
+            Models.Blog? blog = _blogRepository.GetById(notification.BlogId);
+
+            if (blog != null)
+            {
+                _blogRepository.Delete(blog);
+                _uow.Commit();
+            }
 
             _bus.RaiseEvent(new DomainNotification("image not found error", "تصویر یافت نشد"));
             return Task.FromCanceled(cancellationToken);
         }
-
-        foreach (Guid tag in notification.Tags)
-        {
-            RegisterNewBlogTagCommand blogTagCommand = new RegisterNewBlogTagCommand(notification.BlogId, tag);
-            _bus.SendCommand<RegisterNewBlogTagCommand, bool>(blogTagCommand);
-        }
-
-        foreach (Guid category in notification.Categories)
-        {
-            RegisterNewBlogCategoryCommand blogCategory = new RegisterNewBlogCategoryCommand(notification.BlogId, category);
-            _bus.SendCommand<RegisterNewBlogCategoryCommand, Guid>(blogCategory);
-        }
-
-        return Task.CompletedTask;
     }
 
     public Task Handle(BlogUpdatedEvent notification, CancellationToken cancellationToken)
     {
-        Image image = ImageExtension.Base64ToImage(notification.ImageBase64String);
-        image.AddImage(notification.ImageName, PathConstant.BlogImageServer, notification.LastImageName);
-
-        return Task.CompletedTask;
+        try
+        {
+            Image image = ImageExtension.Base64ToImage(notification.ImageBase64String);
+            image.AddImage(notification.ImageName, PathConstant.BlogImageServer, notification.LastImageName);
+            return Task.CompletedTask;
+        }
+        catch
+        {
+            _bus.RaiseEvent(new DomainNotification("image not found error", "تصویر یافت نشد"));
+            return Task.FromCanceled(cancellationToken);
+        }
     }
 
     public Task Handle(BLogDeletedEvent notification, CancellationToken cancellationToken)

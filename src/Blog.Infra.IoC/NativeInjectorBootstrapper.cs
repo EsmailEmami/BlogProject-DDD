@@ -16,6 +16,8 @@ using Blog.Domain.Events.User;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.Queries.Blog;
+using Blog.Domain.Queries.BlogCategory;
+using Blog.Domain.Queries.BlogTag;
 using Blog.Domain.Queries.Category;
 using Blog.Domain.Queries.Comment;
 using Blog.Domain.Queries.Tag;
@@ -55,6 +57,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<ICategoryAppService, CategoryAppService>();
         services.AddScoped<IBlogCategoryAppService, BlogCategoryAppService>();
         services.AddScoped<ITagAppService, TagAppService>();
+        services.AddScoped<IBlogTagAppService, BlogTagAppService>();
 
         // Domain - Events
         services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
@@ -79,6 +82,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<UpdateCategoryCommand, bool>, CategoryCommandHandler>();
         // - BlogCategory 
         services.AddScoped<IRequestHandler<RegisterNewBlogCategoryCommand, Guid>, BlogCategoryCommandHandler>();
+        services.AddScoped<IRequestHandler<RemoveBlogCategoryCommand, bool>, BlogCategoryCommandHandler>();
         // - Comments 
         services.AddScoped<IRequestHandler<RegisterNewCommentCommand, Guid>, CommentCommandHandler>();
         // - Tag
@@ -87,6 +91,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RemoveTagCommand, bool>, TagCommandHandler>();
         // _ BlogTag
         services.AddScoped<IRequestHandler<RegisterNewBlogTagCommand, bool>, BlogTagCommandHandler>();
+        services.AddScoped<IRequestHandler<RemoveBlogTagCommand, bool>, BlogTagCommandHandler>();
 
         // Domain - Queries
         // - Blog
@@ -98,10 +103,14 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<IsUserExistsQuery, bool>, UserQueryHandler>();
         // - Category
         services.AddScoped<IRequestHandler<GetCategoryForUpdateQuery, UpdateCategoryViewModel>, CategoryQueryHandler>();
+        // - Blog Category
+        services.AddScoped<IRequestHandler<GetBlogCategoriesIdByBlogQuery, List<Guid>>, BlogCategoryQueryHandler>();
         // - Comments 
         services.AddScoped<IRequestHandler<GetBlogCommentsQuery, List<CommentForShowViewModel>>, CommentQueryHandler>();
         // - Tag
         services.AddScoped<IRequestHandler<GetTagsQuery, List<Tag>>, TagQueryHandler>();
+        // - Blog Tag
+        services.AddScoped<IRequestHandler<GetBlogTagsIdByBlogQuery, List<Guid>>, BlogTagQueryHandler>();
 
         // Infra - Data
         services.AddScoped<IBlogRepository, BlogRepository>();

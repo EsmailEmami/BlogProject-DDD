@@ -1,8 +1,8 @@
-﻿using Blog.Domain.ViewModels.BlogCategory;
-
-namespace Blog.Application.Interfaces;
+﻿namespace Blog.Application.Interfaces;
 
 public interface IBlogCategoryAppService : IDisposable
 {
-    void AddBlogCategory(AddBlogCategoryViewModel blogCategory);
+    void AddBlogCategory(Guid blogId, Guid categoryId);
+    void DeleteBlogCategory(Guid blogCategoryId);
+    Task<List<Guid>> GetBlogCategories(Guid blogId);
 }

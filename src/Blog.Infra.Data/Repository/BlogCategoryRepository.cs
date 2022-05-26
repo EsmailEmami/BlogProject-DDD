@@ -9,4 +9,9 @@ public class BlogCategoryRepository : Repository<BlogCategory>, IBlogCategoryRep
     public BlogCategoryRepository(IDbConnection db, IDbTransaction transaction) : base(db, transaction)
     {
     }
+
+    public List<Guid> GetBlogCategoriesIdByBlog(Guid blogId)
+    {
+        throw new NotImplementedException();
+    }
 }

@@ -9,4 +9,9 @@ public class BlogTagRepository : Repository<BlogTag>, IBlogTagRepository
     public BlogTagRepository(IDbConnection db, IDbTransaction transaction) : base(db, transaction)
     {
     }
+
+    public List<Guid> GetBlogTagsIdByBlog(Guid blogId)
+    {
+        throw new NotImplementedException();
+    }
 }

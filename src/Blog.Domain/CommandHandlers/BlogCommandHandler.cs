@@ -40,7 +40,7 @@ public class BlogCommandHandler : CommandHandler,
 
         if (Commit())
         {
-            Bus.RaiseEvent(new BlogRegisteredEvent(request.ImageFile, imageFile));
+            Bus.RaiseEvent(new BlogRegisteredEvent(blog.Id, request.ImageFile, imageFile));
         }
 
         return Task.FromResult(blog.Id);
@@ -54,11 +54,11 @@ public class BlogCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        Models.Blog blog = _blogRepository.GetById(request.Id);
+        Models.Blog? blog = _blogRepository.GetById(request.Id);
 
-        if (blog.Id != request.Id)
+        if (blog == null && blog.Id != request.Id)
         {
-            Bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "مقاله مورد نظر یافت نشد."));
         }
 
         _blogRepository.Delete(blog);

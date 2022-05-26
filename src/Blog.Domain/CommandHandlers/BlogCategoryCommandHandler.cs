@@ -8,7 +8,8 @@ using MediatR;
 namespace Blog.Domain.CommandHandlers;
 
 public class BlogCategoryCommandHandler : CommandHandler,
-    IRequestHandler<RegisterNewBlogCategoryCommand, Guid>
+    IRequestHandler<RegisterNewBlogCategoryCommand, Guid>, 
+    IRequestHandler<RemoveBlogCategoryCommand, bool>
 {
     private readonly IBlogCategoryRepository _blogCategoryRepository;
     private readonly IBlogRepository _blogRepository;
@@ -45,5 +46,25 @@ public class BlogCategoryCommandHandler : CommandHandler,
         Commit();
 
         return Task.FromResult(blogCategory.Id);
+    }
+
+    public Task<bool> Handle(RemoveBlogCategoryCommand request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            return Task.FromResult(false);
+        }
+
+        BlogCategory? blogCategory = _blogCategoryRepository.GetById(request.Id);
+
+        if (blogCategory == null)
+        {
+            _bus.RaiseEvent(new DomainNotification("blog category not found", "دسته بندی یافت نشد"));
+            return Task.FromResult(false);
+        }
+
+        _blogCategoryRepository.Delete(blogCategory);
+        return Task.FromResult(Commit());
     }
 }

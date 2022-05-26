@@ -34,4 +34,6 @@ public class TagAppService : ITagAppService
         RemoveTagCommand command = _mapper.Map<RemoveTagCommand>(tagId);
         _bus.SendCommand<RemoveTagCommand, bool>(command);
     }
+
+    public void Dispose() => GC.SuppressFinalize(this);
 }

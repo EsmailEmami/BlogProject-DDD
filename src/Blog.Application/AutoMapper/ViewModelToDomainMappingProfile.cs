@@ -6,7 +6,6 @@ using Blog.Domain.Commands.Tag;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Queries.User;
 using Blog.Domain.ViewModels.Blog;
-using Blog.Domain.ViewModels.BlogCategory;
 using Blog.Domain.ViewModels.Category;
 using Blog.Domain.ViewModels.Tag;
 using Blog.Domain.ViewModels.User;
@@ -33,9 +32,6 @@ public class ViewModelToDomainMappingProfile : Profile
             .ConstructUsing(c => new RegisterNewCategoryCommand(c.CategoryTitle));
         CreateMap<UpdateCategoryViewModel, UpdateCategoryCommand>()
             .ConstructUsing(c => new UpdateCategoryCommand(c.CategoryId, c.CategoryTitle));
-        // BlogCategory
-        CreateMap<AddBlogCategoryViewModel, RegisterNewBlogCategoryCommand>()
-            .ConstructUsing(c => new RegisterNewBlogCategoryCommand(c.BlogId, c.CategoryId));
         // Tag
         CreateMap<AddTagViewModel, RegisterNewTagCommand>()
             .ConstructUsing(c => new RegisterNewTagCommand(c.TagName));

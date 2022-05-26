@@ -2,7 +2,7 @@
 
 namespace Blog.Application.Interfaces;
 
-public interface ITagAppService
+public interface ITagAppService : IDisposable
 {
     void AddTag(AddTagViewModel tag);
     void UpdateTag(UpdateTagViewModel tag);
