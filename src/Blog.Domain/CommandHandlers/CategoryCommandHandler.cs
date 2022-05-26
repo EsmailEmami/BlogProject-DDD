@@ -1,4 +1,5 @@
-﻿using Blog.Domain.Commands.Category;
+﻿using System.Data.SqlClient;
+using Blog.Domain.Commands.Category;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Interfaces;
@@ -29,7 +30,19 @@ public class CategoryCommandHandler : CommandHandler,
         }
 
         Category category = new Category(Guid.NewGuid(), request.CategoryTitle);
-        _categoryRepository.Add(category);
+
+        try
+        {
+            _categoryRepository.Add(category);
+        }
+        catch (SqlException error)
+        {
+            if (error.Number == 2601)
+            {
+                Bus.RaiseEvent(new DomainNotification("index errror from SQL", "نام دسته بندی وارد شده ثبت شده است"));
+            }
+        }
+
         Commit();
 
         return Task.FromResult(category.Id);

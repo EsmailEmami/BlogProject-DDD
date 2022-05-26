@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [Blog_DB]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Database [Blog_DB]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE DATABASE [Blog_DB]
 GO
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
@@ -70,19 +70,19 @@ ALTER DATABASE [Blog_DB] SET QUERY_STORE = OFF
 GO
 USE [Blog_DB]
 GO
-/****** Object:  Schema [Blog]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Schema [Blog]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE SCHEMA [Blog]
 GO
-/****** Object:  Schema [Category]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Schema [Category]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE SCHEMA [Category]
 GO
-/****** Object:  Schema [Tag]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Schema [Tag]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE SCHEMA [Tag]
 GO
-/****** Object:  Schema [User]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Schema [User]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE SCHEMA [User]
 GO
-/****** Object:  Table [Blog].[Blogs]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Table [Blog].[Blogs]    Script Date: 5/26/2022 6:39:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -103,7 +103,7 @@ CREATE TABLE [Blog].[Blogs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [Category].[BlogCategories]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Table [Category].[BlogCategories]    Script Date: 5/26/2022 6:39:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -112,14 +112,14 @@ CREATE TABLE [Category].[BlogCategories](
 	[Id] [uniqueidentifier] NOT NULL,
 	[BlogId] [uniqueidentifier] NOT NULL,
 	[CategoryId] [uniqueidentifier] NOT NULL,
-	[IsDelete] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
  CONSTRAINT [PK_BlogCategories] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Category].[Categories]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Table [Category].[Categories]    Script Date: 5/26/2022 6:39:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -127,14 +127,14 @@ GO
 CREATE TABLE [Category].[Categories](
 	[Id] [uniqueidentifier] NOT NULL,
 	[CategoryTitle] [nvarchar](20) NOT NULL,
-	[IsDelete] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
  CONSTRAINT [PK_Category] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Tag].[BlogTags]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Table [Tag].[BlogTags]    Script Date: 5/26/2022 6:39:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -143,29 +143,29 @@ CREATE TABLE [Tag].[BlogTags](
 	[Id] [uniqueidentifier] NOT NULL,
 	[BlogId] [uniqueidentifier] NOT NULL,
 	[TagId] [uniqueidentifier] NOT NULL,
-	[IsDelete] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
  CONSTRAINT [PK_BlogTags] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Tag].[Tags]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Table [Tag].[Tags]    Script Date: 5/26/2022 6:39:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [Tag].[Tags](
-	[Id] [uniqueidentifier] NOT NULL,
+	[Id] [uniqueidentifier] ROWGUIDCOL  NOT NULL,
 	[TagName] [nvarchar](20) NOT NULL,
-	[IsDelete] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
  CONSTRAINT [PK_Tags] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [User].[Comments]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Table [User].[Comments]    Script Date: 5/26/2022 6:39:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -177,14 +177,14 @@ CREATE TABLE [User].[Comments](
 	[Title] [nvarchar](150) NOT NULL,
 	[CommentMessage] [nvarchar](1000) NOT NULL,
 	[CommentDate] [datetime2](0) NOT NULL,
-	[IsDelete] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
  CONSTRAINT [PK_Comments] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [User].[Users]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Table [User].[Users]    Script Date: 5/26/2022 6:39:17 PM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -195,7 +195,7 @@ CREATE TABLE [User].[Users](
 	[LastName] [nvarchar](50) NOT NULL,
 	[Email] [nvarchar](100) NOT NULL,
 	[Password] [nvarchar](200) NOT NULL,
-	[IsDelete] [bit] NOT NULL,
+	[IsDeleted] [bit] NOT NULL,
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -208,15 +208,15 @@ CREATE TABLE [User].[Users](
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [IX_Category_Title]    Script Date: 5/26/2022 3:24:26 PM ******/
-CREATE NONCLUSTERED INDEX [IX_Category_Title] ON [Category].[Categories]
+/****** Object:  Index [UX_Category_Title]    Script Date: 5/26/2022 6:39:17 PM ******/
+CREATE UNIQUE NONCLUSTERED INDEX [UX_Category_Title] ON [Category].[Categories]
 (
 	[CategoryTitle] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UX_Tags_Name]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Index [UX_Tags_Name]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE UNIQUE NONCLUSTERED INDEX [UX_Tags_Name] ON [Tag].[Tags]
 (
 	[TagName] ASC
@@ -224,21 +224,21 @@ CREATE UNIQUE NONCLUSTERED INDEX [UX_Tags_Name] ON [Tag].[Tags]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [IX_Comments_Title]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Index [IX_Comments_Title]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE NONCLUSTERED INDEX [IX_Comments_Title] ON [User].[Comments]
 (
 	[Title] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Users_Deleted]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Index [IX_Users_Deleted]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE NONCLUSTERED INDEX [IX_Users_Deleted] ON [User].[Users]
 (
-	[IsDelete] ASC
+	[IsDeleted] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [IX_Users_FirstName]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Index [IX_Users_FirstName]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE NONCLUSTERED INDEX [IX_Users_FirstName] ON [User].[Users]
 (
 	[FirstName] ASC
@@ -246,7 +246,7 @@ CREATE NONCLUSTERED INDEX [IX_Users_FirstName] ON [User].[Users]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [IX_Users_LastName]    Script Date: 5/26/2022 3:24:26 PM ******/
+/****** Object:  Index [IX_Users_LastName]    Script Date: 5/26/2022 6:39:17 PM ******/
 CREATE NONCLUSTERED INDEX [IX_Users_LastName] ON [User].[Users]
 (
 	[LastName] ASC
@@ -260,29 +260,29 @@ ALTER TABLE [Blog].[Blogs] ADD  CONSTRAINT [DF_Blogs_IsDelete]  DEFAULT ((0)) FO
 GO
 ALTER TABLE [Category].[BlogCategories] ADD  CONSTRAINT [DF_BlogCategories_Id]  DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [Category].[BlogCategories] ADD  CONSTRAINT [DF_BlogCategories_IsDelete]  DEFAULT ((0)) FOR [IsDelete]
+ALTER TABLE [Category].[BlogCategories] ADD  CONSTRAINT [DF_BlogCategories_IsDelete]  DEFAULT ((0)) FOR [IsDeleted]
 GO
 ALTER TABLE [Category].[Categories] ADD  CONSTRAINT [DF_Category_Id]  DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [Category].[Categories] ADD  CONSTRAINT [DF_Categories_IsDelete]  DEFAULT ((0)) FOR [IsDelete]
+ALTER TABLE [Category].[Categories] ADD  CONSTRAINT [DF_Categories_IsDelete]  DEFAULT ((0)) FOR [IsDeleted]
 GO
 ALTER TABLE [Tag].[BlogTags] ADD  CONSTRAINT [DF_BlogTags_Id]  DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [Tag].[BlogTags] ADD  CONSTRAINT [DF_BlogTags_IsDelete]  DEFAULT ((0)) FOR [IsDelete]
+ALTER TABLE [Tag].[BlogTags] ADD  CONSTRAINT [DF_BlogTags_IsDelete]  DEFAULT ((0)) FOR [IsDeleted]
 GO
 ALTER TABLE [Tag].[Tags] ADD  CONSTRAINT [DF_Tags_Id]  DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [Tag].[Tags] ADD  CONSTRAINT [DF_Tags_IsDelete]  DEFAULT ((0)) FOR [IsDelete]
+ALTER TABLE [Tag].[Tags] ADD  CONSTRAINT [DF_Tags_IsDelete]  DEFAULT ((0)) FOR [IsDeleted]
 GO
 ALTER TABLE [User].[Comments] ADD  CONSTRAINT [DF_Comments_Id]  DEFAULT (newid()) FOR [Id]
 GO
 ALTER TABLE [User].[Comments] ADD  CONSTRAINT [DF_Comments_CommentDate]  DEFAULT (getdate()) FOR [CommentDate]
 GO
-ALTER TABLE [User].[Comments] ADD  CONSTRAINT [DF_Comments_IsDelete]  DEFAULT ((0)) FOR [IsDelete]
+ALTER TABLE [User].[Comments] ADD  CONSTRAINT [DF_Comments_IsDelete]  DEFAULT ((0)) FOR [IsDeleted]
 GO
 ALTER TABLE [User].[Users] ADD  CONSTRAINT [DF_Users_Id]  DEFAULT (newid()) FOR [Id]
 GO
-ALTER TABLE [User].[Users] ADD  CONSTRAINT [DF_Users_IsDelete]  DEFAULT ((0)) FOR [IsDelete]
+ALTER TABLE [User].[Users] ADD  CONSTRAINT [DF_Users_IsDelete]  DEFAULT ((0)) FOR [IsDeleted]
 GO
 ALTER TABLE [Blog].[Blogs]  WITH CHECK ADD  CONSTRAINT [FK_Blogs_Users] FOREIGN KEY([AuthorId])
 REFERENCES [User].[Users] ([Id])

@@ -1,4 +1,5 @@
-﻿using Blog.Domain.Commands.Tag;
+﻿using System.Data.SqlClient;
+using Blog.Domain.Commands.Tag;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Events.Blog;
@@ -28,8 +29,22 @@ public class TagCommandHandler : CommandHandler,
         }
 
         Tag tag = new Tag(Guid.NewGuid(), request.TagName);
-        _tagRepository.Add(tag);
+
+
+        try
+        {
+            _tagRepository.Add(tag);
+        }
+        catch (SqlException error)
+        {
+            if (error.Number == 2601)
+            {
+                Bus.RaiseEvent(new DomainNotification("index errror from SQL", "نام تگ وارد شده ثبت شده است"));
+            }
+        }
+
         Commit();
+
         return Task.FromResult(tag.Id);
     }
 
