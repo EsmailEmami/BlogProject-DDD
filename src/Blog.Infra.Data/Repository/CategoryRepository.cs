@@ -33,4 +33,12 @@ public class CategoryRepository : Repository<Category>, ICategoryRepository
 
         return Db.QuerySingleOrDefault<UpdateCategoryViewModel>(query, Transaction);
     }
+
+    public List<CategoryForShowViewModel> GetAllCategories()
+    {
+        string query = "SELECT [Id] AS [CategoryId], [CategoryTitle] " +
+            "FROM [Category].[Categories]";
+
+        return Db.Query<CategoryForShowViewModel>(query, transaction: Transaction).ToList();
+    }
 }

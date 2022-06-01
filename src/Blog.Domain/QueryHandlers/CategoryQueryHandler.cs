@@ -9,7 +9,8 @@ using MediatR;
 namespace Blog.Domain.QueryHandlers;
 
 public class CategoryQueryHandler : QueryHandler,
-    IRequestHandler<GetCategoryForUpdateQuery, UpdateCategoryViewModel>
+    IRequestHandler<GetCategoryForUpdateQuery, UpdateCategoryViewModel>,
+    IRequestHandler<GetAllCategoriesQuery, List<CategoryForShowViewModel>>
 {
     private readonly ICategoryRepository _categoryRepository;
     public CategoryQueryHandler(IMediatorHandler bus, ICategoryRepository categoryRepository) : base(bus)
@@ -31,5 +32,11 @@ public class CategoryQueryHandler : QueryHandler,
 
         Bus.RaiseEvent(new DomainNotification("category not found", "دسته بندی مورد نظر یافت نشد"));
         throw new EntityNotFoundException();
+    }
+
+    public Task<List<CategoryForShowViewModel>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
+    {
+        List<CategoryForShowViewModel> categories = _categoryRepository.GetAllCategories();
+        return Task.FromResult(categories);
     }
 }

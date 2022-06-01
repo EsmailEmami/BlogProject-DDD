@@ -17,6 +17,15 @@ public class CategoryController : ApiController
         _categoryAppService = categoryAppService;
     }
 
+    [HttpGet("categories")]
+    [ProducesResponseType(typeof(List<CategoryForShowViewModel>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.BadRequest)]
+    public async Task<IActionResult> Categories()
+    {
+        List<CategoryForShowViewModel> categories = await _categoryAppService.GetAllCategoriesAsync();
+        return Response(categories);
+    }
+
     [HttpPost("add-category")]
     [ProducesResponseType((int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.BadRequest)]

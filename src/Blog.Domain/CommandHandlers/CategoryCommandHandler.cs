@@ -1,11 +1,10 @@
-﻿using System.Data.SqlClient;
-using Blog.Domain.Commands.Category;
+﻿using Blog.Domain.Commands.Category;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
-using FluentValidation.Results;
 using MediatR;
+using System.Data.SqlClient;
 
 namespace Blog.Domain.CommandHandlers;
 
@@ -57,7 +56,13 @@ public class CategoryCommandHandler : CommandHandler,
         }
 
         Category category = new Category(request.Id, request.CategoryTitle);
-        Category existingCategory = _categoryRepository.GetById(request.Id);
+        Category? existingCategory = _categoryRepository.GetById(request.Id);
+
+        if (existingCategory == null)
+        {
+            _bus.RaiseEvent(new DomainNotification(request.MessageType, "دسته بندی مورد نظر در سیستم یافت نشد."));
+            return Task.FromResult(false);
+        }
 
         if (existingCategory.Id != category.Id)
         {

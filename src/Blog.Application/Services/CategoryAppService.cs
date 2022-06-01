@@ -19,6 +19,12 @@ public class CategoryAppService : ICategoryAppService
         _bus = bus;
     }
 
+    public async Task<List<CategoryForShowViewModel>> GetAllCategoriesAsync()
+    {
+        GetAllCategoriesQuery query = new GetAllCategoriesQuery();
+
+        return await _bus.SendQuery<GetAllCategoriesQuery, List<CategoryForShowViewModel>>(query);
+    }
     public async Task<Guid> AddCategoryAsync(AddCategoryViewModel category)
     {
         RegisterNewCategoryCommand command = _mapper.Map<RegisterNewCategoryCommand>(category);

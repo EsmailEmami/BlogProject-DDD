@@ -25,7 +25,6 @@
     <Folder Include="Events\User\" />
     <Folder Include="Interfaces\" />
     <Folder Include="Models\" />
-    <Folder Include="Queries\Category\" />
     <Folder Include="Queries\Comment\" />
     <Folder Include="Queries\Tag\" />
     <Folder Include="Queries\User\" />
