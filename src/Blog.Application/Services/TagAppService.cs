@@ -2,6 +2,7 @@
 using Blog.Application.Interfaces;
 using Blog.Domain.Commands.Tag;
 using Blog.Domain.Core.Bus;
+using Blog.Domain.Queries.Tag;
 using Blog.Domain.ViewModels.Tag;
 
 namespace Blog.Application.Services;
@@ -33,6 +34,25 @@ public class TagAppService : ITagAppService
     {
         RemoveTagCommand command = _mapper.Map<RemoveTagCommand>(tagId);
         _bus.SendCommand<RemoveTagCommand, bool>(command);
+    }
+
+    public async Task<List<TagForShowViewModel>> GetAllTagsAsync()
+    {
+        GetTagsQuery query = new GetTagsQuery();
+        return await _bus.SendQuery<GetTagsQuery, List<TagForShowViewModel>>(query);
+    }
+
+    public async Task<UpdateTagViewModel?> GetTagForUpdateAsync(Guid tagId)
+    {
+        GetTagForUpdateQuery query = new GetTagForUpdateQuery(tagId);
+        try
+        {
+            return await _bus.SendQuery<GetTagForUpdateQuery, UpdateTagViewModel>(query);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public void Dispose() => GC.SuppressFinalize(this);

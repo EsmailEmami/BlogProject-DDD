@@ -26,6 +26,7 @@ using Blog.Domain.QueryHandlers;
 using Blog.Domain.ViewModels.Blog;
 using Blog.Domain.ViewModels.Category;
 using Blog.Domain.ViewModels.Comment;
+using Blog.Domain.ViewModels.Tag;
 using Blog.Domain.ViewModels.User;
 using Blog.Infra.CrossCutting.Bus;
 using Blog.Infra.CrossCutting.Identity.Interfaces;
@@ -109,7 +110,8 @@ public static class NativeInjectorBootstrapper
         // - Comments 
         services.AddScoped<IRequestHandler<GetBlogCommentsQuery, List<CommentForShowViewModel>>, CommentQueryHandler>();
         // - Tag
-        services.AddScoped<IRequestHandler<GetTagsQuery, List<Tag>>, TagQueryHandler>();
+        services.AddScoped<IRequestHandler<GetTagsQuery, List<TagForShowViewModel>>, TagQueryHandler>();
+        services.AddScoped<IRequestHandler<GetTagForUpdateQuery, UpdateTagViewModel>, TagQueryHandler>();
         // - Blog Tag
         services.AddScoped<IRequestHandler<GetBlogTagsIdByBlogQuery, List<Guid>>, BlogTagQueryHandler>();
 

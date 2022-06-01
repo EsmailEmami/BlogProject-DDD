@@ -1,13 +1,17 @@
-﻿using Blog.Domain.Core.Bus;
+﻿using Blog.Domain.Common.Exceptions;
+using Blog.Domain.Core.Bus;
+using Blog.Domain.Core.Notifications;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.Queries.Tag;
+using Blog.Domain.ViewModels.Tag;
 using MediatR;
 
 namespace Blog.Domain.QueryHandlers;
 
 public class TagQueryHandler : QueryHandler,
-    IRequestHandler<GetTagsQuery, List<Tag>>
+    IRequestHandler<GetTagsQuery, List<TagForShowViewModel>>,
+    IRequestHandler<GetTagForUpdateQuery, UpdateTagViewModel>
 {
     private readonly ITagRepository _tagRepository;
     public TagQueryHandler(IMediatorHandler bus, ITagRepository tagRepository) : base(bus)
@@ -15,9 +19,29 @@ public class TagQueryHandler : QueryHandler,
         _tagRepository = tagRepository;
     }
 
-    public Task<List<Tag>> Handle(GetTagsQuery request, CancellationToken cancellationToken)
+    public Task<List<TagForShowViewModel>> Handle(GetTagsQuery request, CancellationToken cancellationToken)
     {
-        List<Tag> tags = _tagRepository.GetAll();
+        List<TagForShowViewModel> tags = _tagRepository.GetAllTags();
         return Task.FromResult(tags);
+    }
+
+    public Task<UpdateTagViewModel> Handle(GetTagForUpdateQuery request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            throw new InvalidOperationException();
+        }
+
+        UpdateTagViewModel? tag = _tagRepository.GetTagForUpdate(request.Id);
+
+        if (tag == null)
+        {
+            Bus.RaiseEvent(new DomainNotification("blog not found", "تگ مورد نظر یافت نشد"));
+
+            throw new EntityNotFoundException();
+        }
+
+        return Task.FromResult(tag);
     }
 }

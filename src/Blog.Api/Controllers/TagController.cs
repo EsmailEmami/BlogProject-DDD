@@ -1,10 +1,10 @@
 ﻿using Blog.Application.Interfaces;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
-using Blog.Domain.ViewModels.Blog;
 using Blog.Domain.ViewModels.Tag;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Blog.Services.Api.Controllers;
 
@@ -18,11 +18,30 @@ public class TagController : ApiController
         _tagAppService = tagAppService;
     }
 
+    [HttpGet("tags")]
+    [ProducesResponseType(typeof(List<TagForShowViewModel>), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.BadRequest)]
+    public async Task<IActionResult> Tags()
+    {
+        List<TagForShowViewModel> tags = await _tagAppService.GetAllTagsAsync();
+        return Response(tags);
+    }
+
     [HttpPost("add-tag")]
     public IActionResult AddTag([FromBody] AddTagViewModel tag)
     {
         _tagAppService.AddTag(tag);
         return Response();
+    }
+
+    [HttpGet("get-tag-for-update")]
+    [ProducesResponseType(typeof(UpdateTagViewModel), (int)HttpStatusCode.OK)]
+    [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.BadRequest)]
+    public async Task<IActionResult> GetTagForUpdate([FromQuery] Guid tagId)
+    {
+        UpdateTagViewModel? tag = await _tagAppService.GetTagForUpdateAsync(tagId);
+
+        return Response(tag);
     }
 
     [HttpPut("update-tag")]

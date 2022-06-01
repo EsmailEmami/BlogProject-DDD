@@ -1,6 +1,12 @@
-﻿namespace Blog.Domain.Queries.Tag;
+﻿using Blog.Domain.ViewModels.Tag;
 
-public class GetTagsQuery : TagQuery<List<Models.Tag>>
+namespace Blog.Domain.Queries.Tag;
+
+public class GetTagsQuery : TagQuery<List<TagForShowViewModel>>
 {
+    public GetTagsQuery()
+    {
+    }
+
     public override bool IsValid() => true;
 }
