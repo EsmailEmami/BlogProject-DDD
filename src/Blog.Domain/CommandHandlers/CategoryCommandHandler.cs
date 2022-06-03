@@ -13,10 +13,8 @@ public class CategoryCommandHandler : CommandHandler,
     IRequestHandler<UpdateCategoryCommand, bool>
 {
     private readonly ICategoryRepository _categoryRepository;
-    private readonly IMediatorHandler _bus;
-    public CategoryCommandHandler(IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications, ICategoryRepository categoryRepository) : base(uow, bus, notifications)
+    public CategoryCommandHandler(IMediatorHandler bus, ICategoryRepository categoryRepository) : base(bus)
     {
-        _bus = bus;
         _categoryRepository = categoryRepository;
     }
 
@@ -42,8 +40,6 @@ public class CategoryCommandHandler : CommandHandler,
             }
         }
 
-        Commit();
-
         return Task.FromResult(category.Id);
     }
 
@@ -60,7 +56,7 @@ public class CategoryCommandHandler : CommandHandler,
 
         if (existingCategory == null)
         {
-            _bus.RaiseEvent(new DomainNotification(request.MessageType, "دسته بندی مورد نظر در سیستم یافت نشد."));
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "دسته بندی مورد نظر در سیستم یافت نشد."));
             return Task.FromResult(false);
         }
 
@@ -68,13 +64,13 @@ public class CategoryCommandHandler : CommandHandler,
         {
             if (!existingCategory.Equals(category))
             {
-                _bus.RaiseEvent(new DomainNotification(request.MessageType, "دسته بندی مورد نظر در سیستم موجود است."));
+                Bus.RaiseEvent(new DomainNotification(request.MessageType, "دسته بندی مورد نظر در سیستم موجود است."));
                 return Task.FromResult(false);
             }
         }
 
         _categoryRepository.Update(category);
-        Commit();
+
         return Task.FromResult(true);
     }
 }

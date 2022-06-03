@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Commands.BlogCategory;
 
-public class RegisterNewBlogCategoryCommand : BlogCategoryCommand<Guid>
+public class RegisterNewBlogCategoryCommand : BlogCategoryCommand<bool>
 {
     public RegisterNewBlogCategoryCommand(Guid blogId, Guid categoryId)
     {

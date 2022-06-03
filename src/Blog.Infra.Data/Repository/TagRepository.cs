@@ -8,7 +8,7 @@ namespace Blog.Infra.Data.Repository;
 
 public class TagRepository : Repository<Tag>, ITagRepository
 {
-    public TagRepository(IDbConnection db, IDbTransaction transaction) : base(db, transaction)
+    public TagRepository(IDbConnection db) : base(db)
     {
     }
 
@@ -17,7 +17,7 @@ public class TagRepository : Repository<Tag>, ITagRepository
         string query = "SELECT  [Id] AS [TagId], [TagName] " +
             "FROM[Tag].[Tags]";
 
-        return Db.Query<TagForShowViewModel>(query, transaction: Transaction).ToList();
+        return Db.Query<TagForShowViewModel>(query).ToList();
     }
 
     public UpdateTagViewModel? GetTagForUpdate(Guid tagId)
@@ -29,6 +29,6 @@ public class TagRepository : Repository<Tag>, ITagRepository
         return Db.QuerySingleOrDefault<UpdateTagViewModel>(query, new
         {
             TagId = tagId
-        }, Transaction);
+        });
     }
 }

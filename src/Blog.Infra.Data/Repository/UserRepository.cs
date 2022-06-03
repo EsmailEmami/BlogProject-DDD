@@ -8,7 +8,7 @@ namespace Blog.Infra.Data.Repository;
 
 public class UserRepository : Repository<User>, IUserRepository
 {
-    public UserRepository(IDbConnection db, IDbTransaction transaction) : base(db, transaction)
+    public UserRepository(IDbConnection db) : base(db)
     {
     }
 
@@ -23,7 +23,7 @@ public class UserRepository : Repository<User>, IUserRepository
         return Db.QuerySingleOrDefault<bool>(query, new
         {
             email
-        }, Transaction);
+        });
     }
 
     public User GetUserByEmail(string email)
@@ -35,7 +35,7 @@ public class UserRepository : Repository<User>, IUserRepository
         return Db.QuerySingleOrDefault<User>(query, new
         {
             email
-        }, Transaction);
+        });
     }
 
     public string GetUserPasswordByEmail(string email)
@@ -46,7 +46,7 @@ public class UserRepository : Repository<User>, IUserRepository
         return Db.QuerySingleOrDefault<string>(query, new
         {
             email
-        }, Transaction);
+        });
     }
 
     public DashboardViewModel GetUserDashboard(Guid userId)
@@ -58,6 +58,6 @@ public class UserRepository : Repository<User>, IUserRepository
         return Db.QuerySingleOrDefault<DashboardViewModel>(query, new
         {
             Id = userId
-        }, Transaction);
+        });
     }
 }

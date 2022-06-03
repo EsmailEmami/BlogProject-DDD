@@ -6,7 +6,7 @@ namespace Blog.Infra.Data.Repository;
 
 public class BlogTagRepository : Repository<BlogTag>, IBlogTagRepository
 {
-    public BlogTagRepository(IDbConnection db, IDbTransaction transaction) : base(db, transaction)
+    public BlogTagRepository(IDbConnection db) : base(db)
     {
     }
 

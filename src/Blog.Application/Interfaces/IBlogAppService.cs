@@ -5,8 +5,8 @@ namespace Blog.Application.Interfaces;
 public interface IBlogAppService : IDisposable
 {
     Task<Guid> Register(AddBlogViewModel blog);
-    void Update(UpdateBlogViewModel blog);
-    void Remove(Guid blogId);
+    void UpdateBlog(UpdateBlogViewModel blog);
+    void DeleteBlog(Guid blogId);
     Task<UpdateBlogViewModel?> GetBlogForUpdate(Guid blogId);
     Task<List<BlogForShowViewModel>> GetAuthorBlogs(Guid authorId);
 }

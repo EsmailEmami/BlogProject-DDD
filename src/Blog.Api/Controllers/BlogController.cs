@@ -1,7 +1,4 @@
-﻿using System.Drawing;
-using Blog.Application.Interfaces;
-using Blog.Domain.Common.Constants;
-using Blog.Domain.Common.Extensions;
+﻿using Blog.Application.Interfaces;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.ViewModels.Blog;
@@ -49,12 +46,25 @@ public class BlogController : ApiController
         {
             foreach (Guid tag in blog.Tags)
             {
-                _blogTagAppService.AddBlogTag(blogId, tag);
+                bool result = await _blogTagAppService.AddBlogTagAsync(blogId, tag);
+                if (!result)
+                {
+                    _blogAppService.DeleteBlog(blogId);
+                    return Response();
+                }
             }
+        }
 
+        if (IsValidOperation())
+        {
             foreach (Guid category in blog.Categories)
             {
-                _blogCategoryAppService.AddBlogCategory(blogId, category);
+                bool result = await _blogCategoryAppService.AddBlogCategoryAsync(blogId, category);
+                if (!result)
+                {
+                    _blogAppService.DeleteBlog(blogId);
+                    return Response();
+                }
             }
         }
 
@@ -77,39 +87,37 @@ public class BlogController : ApiController
             return Response(blog);
         }
 
-        _blogAppService.Update(blog);
+        _blogAppService.UpdateBlog(blog);
 
         if (!IsValidOperation())
             return Response();
-
-
-        // remove all relations from blog
-        List<Guid> blogTags = await _blogTagAppService.GetBlogTags(blog.Id);
-        foreach (Guid blogTagId in blogTags)
-        {
-            _blogCategoryAppService.DeleteBlogCategory(blogTagId);
-        }
-
-        List<Guid> blogCategories = await _blogCategoryAppService.GetBlogCategories(blog.Id);
-        foreach (Guid blogCategoryId in blogCategories)
-        {
-            _blogCategoryAppService.DeleteBlogCategory(blogCategoryId);
-        }
 
         // add relations
         if (IsValidOperation())
         {
             foreach (Guid tag in blog.Tags)
             {
-                _blogTagAppService.AddBlogTag(blog.Id, tag);
-            }
-
-            foreach (Guid category in blog.Categories)
-            {
-                _blogCategoryAppService.AddBlogCategory(blog.Id, category);
+                bool result = await _blogTagAppService.AddBlogTagAsync(blog.Id, tag);
+                if (!result)
+                {
+                    _blogAppService.DeleteBlog(blog.Id);
+                    return Response();
+                }
             }
         }
 
+        if (IsValidOperation())
+        {
+            foreach (Guid category in blog.Categories)
+            {
+                bool result = await _blogCategoryAppService.AddBlogCategoryAsync(blog.Id, category);
+                if (!result)
+                {
+                    _blogAppService.DeleteBlog(blog.Id);
+                    return Response();
+                }
+            }
+        }
 
         return Response();
     }

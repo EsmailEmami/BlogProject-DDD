@@ -32,7 +32,6 @@ using Blog.Infra.CrossCutting.Bus;
 using Blog.Infra.CrossCutting.Identity.Interfaces;
 using Blog.Infra.CrossCutting.Identity.Services;
 using Blog.Infra.Data.Repository;
-using Blog.Infra.Data.UoW;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -82,7 +81,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RegisterNewCategoryCommand, Guid>, CategoryCommandHandler>();
         services.AddScoped<IRequestHandler<UpdateCategoryCommand, bool>, CategoryCommandHandler>();
         // - BlogCategory 
-        services.AddScoped<IRequestHandler<RegisterNewBlogCategoryCommand, Guid>, BlogCategoryCommandHandler>();
+        services.AddScoped<IRequestHandler<RegisterNewBlogCategoryCommand, bool>, BlogCategoryCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveBlogCategoryCommand, bool>, BlogCategoryCommandHandler>();
         // - Comments 
         services.AddScoped<IRequestHandler<RegisterNewCommentCommand, Guid>, CommentCommandHandler>();
@@ -123,7 +122,6 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IBlogTagRepository, BlogTagRepository>();
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         // Infra - Identity Services
         //services.AddTransient<IEmailSender, AuthEmailMessageSender>();

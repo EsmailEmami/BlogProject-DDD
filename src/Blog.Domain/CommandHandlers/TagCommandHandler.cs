@@ -1,11 +1,10 @@
-﻿using System.Data.SqlClient;
-using Blog.Domain.Commands.Tag;
+﻿using Blog.Domain.Commands.Tag;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
-using Blog.Domain.Events.Blog;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using MediatR;
+using System.Data.SqlClient;
 
 namespace Blog.Domain.CommandHandlers;
 
@@ -15,7 +14,7 @@ public class TagCommandHandler : CommandHandler,
     IRequestHandler<RemoveTagCommand, bool>
 {
     private readonly ITagRepository _tagRepository;
-    public TagCommandHandler(IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications, ITagRepository tagRepository) : base(uow, bus, notifications)
+    public TagCommandHandler(IMediatorHandler bus, ITagRepository tagRepository) : base(bus)
     {
         _tagRepository = tagRepository;
     }
@@ -30,7 +29,6 @@ public class TagCommandHandler : CommandHandler,
 
         Tag tag = new Tag(Guid.NewGuid(), request.TagName);
 
-
         try
         {
             _tagRepository.Add(tag);
@@ -42,8 +40,6 @@ public class TagCommandHandler : CommandHandler,
                 Bus.RaiseEvent(new DomainNotification("index errror from SQL", "نام تگ وارد شده ثبت شده است"));
             }
         }
-
-        Commit();
 
         return Task.FromResult(tag.Id);
     }
@@ -75,7 +71,6 @@ public class TagCommandHandler : CommandHandler,
         }
 
         _tagRepository.Update(tag);
-        Commit();
         return Task.FromResult(true);
     }
 
@@ -96,7 +91,6 @@ public class TagCommandHandler : CommandHandler,
         }
 
         _tagRepository.Delete(tag);
-        Commit();
         return Task.FromResult(true);
     }
 }

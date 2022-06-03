@@ -15,16 +15,13 @@ public class UserCommandHandler : CommandHandler,
     IRequestHandler<RemoveUserCommand, bool>
 {
     private readonly IUserRepository _userRepository;
-    private readonly IMediatorHandler _bus;
     private readonly IPasswordHasher _passwordHasher;
 
-    public UserCommandHandler(IUnitOfWork uow,
+    public UserCommandHandler(
         IMediatorHandler bus,
-        INotificationHandler<DomainNotification> notifications,
         IUserRepository userRepository,
-        IPasswordHasher passwordHasher) : base(uow, bus, notifications)
+        IPasswordHasher passwordHasher) : base(bus)
     {
-        _bus = bus;
         _userRepository = userRepository;
         _passwordHasher = passwordHasher;
     }
@@ -41,15 +38,13 @@ public class UserCommandHandler : CommandHandler,
 
         if (_userRepository.IsEmailExists(user.Email))
         {
-            _bus.RaiseEvent(new DomainNotification(request.MessageType, "your entered email address has been taken."));
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "your entered email address has been taken."));
         }
 
         _userRepository.Add(user);
 
-        if (Commit())
-        {
-            _bus.RaiseEvent(new UserRegisteredEvent(user.Id, user.FirstName, user.LastName, user.Email));
-        }
+        Bus.RaiseEvent(new UserRegisteredEvent(user.Id, user.FirstName, user.LastName, user.Email));
+        
 
         return Task.FromResult(user.Id);
     }
@@ -63,20 +58,25 @@ public class UserCommandHandler : CommandHandler,
         }
 
         User user = new User(request.Id, request.FirstName, request.LastName, request.Email, string.Empty);
-        User existingUser = _userRepository.GetById(request.Id);
+        User? existingUser = _userRepository.GetById(request.Id);
+
+        if (existingUser == null)
+        {
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+        }
+
         user.SetPassword(existingUser.Password);
 
         if (existingUser.Id != user.Id)
         {
             if (!existingUser.Equals(user))
             {
-                _bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر در سیستم موجود است."));
+                Bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر در سیستم موجود است."));
                 return Task.FromResult(false);
             }
         }
 
         _userRepository.Update(user);
-        Commit();
 
         return Task.FromResult(true);
     }
@@ -89,16 +89,20 @@ public class UserCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        User user = _userRepository.GetById(request.Id);
+        User? user = _userRepository.GetById(request.Id);
+
+        if (user == null)
+        {
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+        }
 
         if (user.Id != request.Id)
         {
-            _bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
         }
 
-        _userRepository.Delete(user);
 
-        Commit();
+        _userRepository.Delete(user);
 
         return Task.FromResult(true);
     }

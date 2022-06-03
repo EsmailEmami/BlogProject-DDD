@@ -43,4 +43,9 @@ public class Blog : Entity
     public ICollection<Comment> Comments { get; protected set; }
 
     #endregion
+
+    public void SetWeittenAt(DateTime writtenAt)
+    {
+        WrittenAt = writtenAt;
+    }
 }

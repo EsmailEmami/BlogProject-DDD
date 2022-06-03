@@ -15,10 +15,8 @@ public class BlogCommandHandler : CommandHandler,
     private readonly IBlogRepository _blogRepository;
 
     public BlogCommandHandler(
-        IUnitOfWork uow,
         IMediatorHandler bus,
-        INotificationHandler<DomainNotification> notifications,
-        IBlogRepository blogRepository) : base(uow, bus, notifications)
+        IBlogRepository blogRepository) : base(bus)
     {
         _blogRepository = blogRepository;
     }
@@ -38,10 +36,7 @@ public class BlogCommandHandler : CommandHandler,
 
         _blogRepository.Add(blog);
 
-        if (Commit())
-        {
-            Bus.RaiseEvent(new BlogRegisteredEvent(blog.Id, request.ImageFile, imageFile));
-        }
+        //Bus.RaiseEvent(new BlogRegisteredEvent(blog.Id, request.ImageFile, imageFile));
 
         return Task.FromResult(blog.Id);
     }
@@ -56,17 +51,14 @@ public class BlogCommandHandler : CommandHandler,
 
         Models.Blog? blog = _blogRepository.GetById(request.Id);
 
-        if (blog == null && blog.Id != request.Id)
+        if (blog == null)
         {
             Bus.RaiseEvent(new DomainNotification(request.MessageType, "مقاله مورد نظر یافت نشد."));
         }
 
         _blogRepository.Delete(blog);
 
-        if (Commit())
-        {
-            Bus.RaiseEvent(new BLogDeletedEvent(blog.ImageFile));
-        }
+        Bus.RaiseEvent(new BLogDeletedEvent(blog.ImageFile));
 
         return Task.FromResult(true);
     }
@@ -84,23 +76,28 @@ public class BlogCommandHandler : CommandHandler,
         Models.Blog blog = new Models.Blog(request.Id, request.AuthorId, request.BlogTitle, request.Summary,
             request.Description, imageFile, request.ReadTime);
 
-        Models.Blog existingBlog = _blogRepository.GetById(request.Id);
+        Models.Blog? existingBlog = _blogRepository.GetById(request.Id);
+
+        if (existingBlog == null)
+        {
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "مقاله مورد نظر یافت نشد."));
+            return Task.FromResult(false);
+        }
+
+        blog.SetWeittenAt(existingBlog.WrittenAt);
 
         if (existingBlog.Id != blog.Id)
         {
             if (!existingBlog.Equals(blog))
             {
-                Bus.RaiseEvent(new DomainNotification(request.MessageType, "The blog has already been taken."));
+                Bus.RaiseEvent(new DomainNotification(request.MessageType, "مقاله مورد نظر ثبت شده است."));
                 return Task.FromResult(false);
             }
         }
 
         _blogRepository.Update(blog);
 
-        if (Commit())
-        {
-            Bus.RaiseEvent(new BlogUpdatedEvent(request.ImageFile, imageFile, existingBlog.ImageFile));
-        }
+        Bus.RaiseEvent(new BlogUpdatedEvent(request.ImageFile, imageFile, existingBlog.ImageFile));
 
         return Task.FromResult(true);
     }

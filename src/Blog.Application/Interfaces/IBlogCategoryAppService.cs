@@ -2,7 +2,7 @@
 
 public interface IBlogCategoryAppService : IDisposable
 {
-    void AddBlogCategory(Guid blogId, Guid categoryId);
+    Task<bool> AddBlogCategoryAsync(Guid blogId, Guid categoryId);
     void DeleteBlogCategory(Guid blogCategoryId);
     Task<List<Guid>> GetBlogCategories(Guid blogId);
 }

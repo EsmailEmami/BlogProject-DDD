@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Blog.Application.Interfaces;
+﻿using Blog.Application.Interfaces;
 using Blog.Domain.Commands.BlogCategory;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Queries.BlogCategory;
@@ -15,12 +14,19 @@ public class BlogCategoryAppService : IBlogCategoryAppService
         _bus = bus;
     }
 
-    public void AddBlogCategory(Guid blogId, Guid categoryId)
+    public async Task<bool> AddBlogCategoryAsync(Guid blogId, Guid categoryId)
     {
-        RegisterNewBlogCategoryCommand command = new RegisterNewBlogCategoryCommand(blogId, categoryId);
-        _bus.SendCommand<RegisterNewBlogCategoryCommand, Guid>(command);
+        try
+        {
+            RegisterNewBlogCategoryCommand command = new RegisterNewBlogCategoryCommand(blogId, categoryId);
+            return await _bus.SendCommand<RegisterNewBlogCategoryCommand, bool>(command);
+        }
+        catch
+        {
+            return false;
+        }
     }
-    
+
 
     public void DeleteBlogCategory(Guid blogCategoryId)
     {

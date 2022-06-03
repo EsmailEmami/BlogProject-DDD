@@ -16,13 +16,11 @@ public class BlogEventHandler :
 {
     private readonly IMediatorHandler _bus;
     private readonly IBlogRepository _blogRepository;
-    private readonly IUnitOfWork _uow;
 
-    public BlogEventHandler(IMediatorHandler bus, IBlogRepository blogRepository, IUnitOfWork uow)
+    public BlogEventHandler(IMediatorHandler bus, IBlogRepository blogRepository)
     {
         _bus = bus;
         _blogRepository = blogRepository;
-        _uow = uow;
     }
 
     public Task Handle(BlogRegisteredEvent notification, CancellationToken cancellationToken)
@@ -41,7 +39,6 @@ public class BlogEventHandler :
             if (blog != null)
             {
                 _blogRepository.Delete(blog);
-                _uow.Commit();
             }
 
             _bus.RaiseEvent(new DomainNotification("image not found error", "تصویر یافت نشد"));

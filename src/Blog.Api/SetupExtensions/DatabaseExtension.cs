@@ -12,14 +12,6 @@ public static class DatabaseExtension
         services.AddScoped<IDbConnection>(_ =>
             new SqlConnection(configuration.GetConnectionString("DefaultConnection")));
 
-        services.AddScoped(s =>
-        {
-            IDbConnection conn = s.GetRequiredService<IDbConnection>();
-            conn.Open();
-            return conn.BeginTransaction();
-        });
-
-
         return services;
     }
 }

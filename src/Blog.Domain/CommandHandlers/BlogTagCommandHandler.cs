@@ -5,6 +5,7 @@ using Blog.Domain.Core.Notifications;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using MediatR;
+using System.Data.SqlClient;
 
 namespace Blog.Domain.CommandHandlers;
 
@@ -13,7 +14,7 @@ public class BlogTagCommandHandler : CommandHandler,
     IRequestHandler<RemoveBlogTagCommand, bool>
 {
     private readonly IBlogTagRepository _blogTagRepository;
-    public BlogTagCommandHandler(IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications, IBlogTagRepository blogTagRepository) : base(uow, bus, notifications)
+    public BlogTagCommandHandler(IMediatorHandler bus, IBlogTagRepository blogTagRepository) : base(bus)
     {
         _blogTagRepository = blogTagRepository;
     }
@@ -27,8 +28,20 @@ public class BlogTagCommandHandler : CommandHandler,
         }
 
         BlogTag blogTag = new BlogTag(Guid.NewGuid(), request.BlogId, request.TagId);
-        _blogTagRepository.Add(blogTag);
-        Commit();
+
+        try
+        {
+            _blogTagRepository.Add(blogTag);
+        }
+        catch (SqlException exception)
+        {
+            if (exception.Number == 547)
+            {
+                Bus.RaiseEvent(new DomainNotification("SQL Exception", "متاسفانه هنگام تگ های مقاله به مشکلی غیر منتظره برخوردیم."));
+                throw exception;
+            }
+        }
+
         return Task.FromResult(true);
     }
 
@@ -49,6 +62,6 @@ public class BlogTagCommandHandler : CommandHandler,
         }
 
         _blogTagRepository.Delete(blogTag);
-        return Task.FromResult(Commit());
+        return Task.FromResult(true);
     }
 }

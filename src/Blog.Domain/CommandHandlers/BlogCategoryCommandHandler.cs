@@ -4,48 +4,44 @@ using Blog.Domain.Core.Notifications;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using MediatR;
+using System.Data.SqlClient;
 
 namespace Blog.Domain.CommandHandlers;
 
 public class BlogCategoryCommandHandler : CommandHandler,
-    IRequestHandler<RegisterNewBlogCategoryCommand, Guid>, 
+    IRequestHandler<RegisterNewBlogCategoryCommand, bool>,
     IRequestHandler<RemoveBlogCategoryCommand, bool>
 {
     private readonly IBlogCategoryRepository _blogCategoryRepository;
-    private readonly IBlogRepository _blogRepository;
-    private readonly ICategoryRepository _categoryRepository;
-    private readonly IMediatorHandler _bus;
-    public BlogCategoryCommandHandler(IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications, IBlogCategoryRepository blogCategoryRepository, IBlogRepository blogRepository, ICategoryRepository categoryRepository) : base(uow, bus, notifications)
+    public BlogCategoryCommandHandler(IMediatorHandler bus, IBlogCategoryRepository blogCategoryRepository) : base(bus)
     {
-        _bus = bus;
         _blogCategoryRepository = blogCategoryRepository;
-        _blogRepository = blogRepository;
-        _categoryRepository = categoryRepository;
     }
 
-    public Task<Guid> Handle(RegisterNewBlogCategoryCommand request, CancellationToken cancellationToken)
+    public Task<bool> Handle(RegisterNewBlogCategoryCommand request, CancellationToken cancellationToken)
     {
         if (!request.IsValid())
         {
             NotifyValidationErrors(request);
-            return Task.FromResult(Guid.Empty);
-        }
-
-        if (_blogRepository.IsBlogExist(request.BlogId))
-        {
-            _bus.RaiseEvent(new DomainNotification("BlogNotExist", "مقاله مورد نظر یافت نشد."));
-        }
-
-        if (_categoryRepository.IsCategoryExist(request.CategoryId))
-        {
-            _bus.RaiseEvent(new DomainNotification("CategoryNotExist", "دسته بندی مورد نظر یافت نشد."));
+            return Task.FromResult(false);
         }
 
         BlogCategory blogCategory = new BlogCategory(Guid.NewGuid(), request.BlogId, request.CategoryId);
-        _blogCategoryRepository.Add(blogCategory);
-        Commit();
 
-        return Task.FromResult(blogCategory.Id);
+        try
+        {
+            _blogCategoryRepository.Add(blogCategory);
+        }
+        catch (SqlException exception)
+        {
+            if (exception.Number == 547)
+            {
+                Bus.RaiseEvent(new DomainNotification("SQL Exception", "متاسفانه هنگام ثبت دسته بندی های مقاله به مشکلی غیر منتظره برخوردیم."));
+                throw exception;
+            }
+        }
+
+        return Task.FromResult(true);
     }
 
     public Task<bool> Handle(RemoveBlogCategoryCommand request, CancellationToken cancellationToken)
@@ -60,11 +56,11 @@ public class BlogCategoryCommandHandler : CommandHandler,
 
         if (blogCategory == null)
         {
-            _bus.RaiseEvent(new DomainNotification("blog category not found", "دسته بندی یافت نشد"));
+            Bus.RaiseEvent(new DomainNotification("blog category not found", "دسته بندی یافت نشد"));
             return Task.FromResult(false);
         }
 
         _blogCategoryRepository.Delete(blogCategory);
-        return Task.FromResult(Commit());
+        return Task.FromResult(true);
     }
 }

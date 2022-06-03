@@ -26,13 +26,13 @@ public class BlogAppService : IBlogAppService
         return await _bus.SendCommand<RegisterNewBlogCommand, Guid>(registerCommand);
     }
 
-    public void Update(UpdateBlogViewModel blog)
+    public void UpdateBlog(UpdateBlogViewModel blog)
     {
         UpdateBlogCommand updateCommand = _mapper.Map<UpdateBlogCommand>(blog);
         _bus.SendCommand<UpdateBlogCommand, bool>(updateCommand);
     }
 
-    public void Remove(Guid blogId)
+    public void DeleteBlog(Guid blogId)
     {
         RemoveBlogCommand removeCommand = new RemoveBlogCommand(blogId);
         _bus.SendCommand<RemoveBlogCommand, bool>(removeCommand);

@@ -4,7 +4,7 @@ namespace Blog.Domain.Core.Models;
 
 public abstract class Entity
 {
-    [Key]
+    [ExplicitKey]
     public Guid Id { get; protected set; }
     public bool IsDeleted { get; set; }
 

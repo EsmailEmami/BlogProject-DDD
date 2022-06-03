@@ -11,7 +11,7 @@ public class CommentCommandHandler : CommandHandler,
     IRequestHandler<RegisterNewCommentCommand, Guid>
 {
     private readonly ICommentRepository _commentRepository;
-    public CommentCommandHandler(IUnitOfWork uow, IMediatorHandler bus, INotificationHandler<DomainNotification> notifications, ICommentRepository commentRepository) : base(uow, bus, notifications)
+    public CommentCommandHandler(IMediatorHandler bus, ICommentRepository commentRepository) : base(bus)
     {
         _commentRepository = commentRepository;
     }
@@ -27,7 +27,7 @@ public class CommentCommandHandler : CommandHandler,
         Comment comment = new Comment(Guid.NewGuid(), request.UserId, request.BlogId, request.Title, request.CommentMessage);
 
         _commentRepository.Add(comment);
-        Commit();
+   
         return Task.FromResult(comment.Id);
     }
 }

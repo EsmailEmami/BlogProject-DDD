@@ -14,10 +14,17 @@ public class BlogTagAppService : IBlogTagAppService
         _bus = bus;
     }
 
-    public void AddBlogTag(Guid blogId, Guid tagId)
+    public async Task<bool> AddBlogTagAsync(Guid blogId, Guid tagId)
     {
-        RegisterNewBlogTagCommand command = new RegisterNewBlogTagCommand(blogId, tagId);
-        _bus.SendCommand<RegisterNewBlogTagCommand, bool>(command);
+        try
+        {
+            RegisterNewBlogTagCommand command = new RegisterNewBlogTagCommand(blogId, tagId);
+            return await _bus.SendCommand<RegisterNewBlogTagCommand, bool>(command);
+        }
+        catch
+        {
+            return false;
+        }
     }
 
     public void DeleteBlogTag(Guid blogTagId)

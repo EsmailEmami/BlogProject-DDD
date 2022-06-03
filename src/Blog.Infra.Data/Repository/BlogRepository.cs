@@ -8,7 +8,7 @@ namespace Blog.Infra.Data.Repository;
 
 public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
 {
-    public BlogRepository(IDbConnection db, IDbTransaction transaction) : base(db, transaction)
+    public BlogRepository(IDbConnection db) : base(db)
     {
     }
 
@@ -23,7 +23,7 @@ public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
         return Db.QuerySingleOrDefault<bool>(query, new
         {
             blogId
-        }, Transaction);
+        });
     }
 
     public UpdateBlogViewModel? GetBlogForUpdate(Guid blogId)
@@ -35,7 +35,7 @@ public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
         return Db.QuerySingleOrDefault<UpdateBlogViewModel>(query, new
         {
             blogId
-        }, Transaction);
+        });
     }
 
     public List<BlogForShowViewModel> GetAuthorBlogs(Guid authorId)

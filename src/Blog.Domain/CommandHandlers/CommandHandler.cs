@@ -1,24 +1,16 @@
 ﻿using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Commands;
 using Blog.Domain.Core.Notifications;
-using Blog.Domain.Interfaces;
-using MediatR;
 
 namespace Blog.Domain.CommandHandlers;
 
 public class CommandHandler
 {
-    private readonly IUnitOfWork _uow;
     protected readonly IMediatorHandler Bus;
-    private readonly DomainNotificationHandler _notifications;
 
-    public CommandHandler(IUnitOfWork uow,
-        IMediatorHandler bus,
-        INotificationHandler<DomainNotification> notifications)
+    public CommandHandler(IMediatorHandler bus)
     {
-        _uow = uow;
         Bus = bus;
-        _notifications = (DomainNotificationHandler)notifications;
     }
     protected void NotifyValidationErrors<TCommand>(Command<TCommand> message)
     {
@@ -26,15 +18,5 @@ public class CommandHandler
         {
             Bus.RaiseEvent(new DomainNotification(message.MessageType, error.ErrorMessage));
         }
-    }
-
-    public bool Commit()
-    {
-        if (_notifications.HasNotifications()) return false;
-        if (_uow.Commit()) return true;
-
-
-        Bus.RaiseEvent(new DomainNotification("Commit", "We had a problem during saving your data."));
-        return false;
     }
 }

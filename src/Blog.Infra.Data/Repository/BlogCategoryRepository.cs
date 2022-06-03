@@ -6,7 +6,7 @@ namespace Blog.Infra.Data.Repository;
 
 public class BlogCategoryRepository : Repository<BlogCategory>, IBlogCategoryRepository
 {
-    public BlogCategoryRepository(IDbConnection db, IDbTransaction transaction) : base(db, transaction)
+    public BlogCategoryRepository(IDbConnection db) : base(db)
     {
     }
 

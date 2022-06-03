@@ -2,7 +2,7 @@
 
 namespace Blog.Domain.Validations.Command.BlogCategory;
 
-public class RegisterNewBlogCategoryCommandValidation : BlogCategoryCommandValidation<RegisterNewBlogCategoryCommand, Guid>
+public class RegisterNewBlogCategoryCommandValidation : BlogCategoryCommandValidation<RegisterNewBlogCategoryCommand, bool>
 {
     public RegisterNewBlogCategoryCommandValidation()
     {

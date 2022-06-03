@@ -7,7 +7,7 @@ namespace Blog.Infra.Data.Repository;
 
 public class CommentRepository : Repository<Comment>, ICommentRepository
 {
-    public CommentRepository(IDbConnection db, IDbTransaction transaction) : base(db, transaction)
+    public CommentRepository(IDbConnection db) : base(db)
     {
     }
 
