@@ -7,10 +7,12 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 import {AuthInterceptor} from "./core/interceptor/auth.interceptor";
 import {ServerErrorInterceptor} from "./core/interceptor/error.interceptor";
 import {AppRoutingModule} from "./app-routing.module";
+import { BlogListComponent } from './src/app/modules/blog/pages/blog-list/blog-list.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    BlogListComponent
   ],
   imports: [
     SharedModule,

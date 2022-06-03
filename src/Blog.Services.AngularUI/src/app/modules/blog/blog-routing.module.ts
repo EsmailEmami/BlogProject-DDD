@@ -1,9 +1,12 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
+import {BlogsResolver} from "./resolvers/blogs.resolver";
 
 const routes: Routes = [
   {
-    path: '', redirectTo: '/blog/add', pathMatch: 'full'
+    path: '',
+    loadChildren: () => import('./pages/blog-list/blog-list.module').then(m => m.BlogListModule),
+    resolve: {'blogs': BlogsResolver}
   },
   {
     path: 'add',

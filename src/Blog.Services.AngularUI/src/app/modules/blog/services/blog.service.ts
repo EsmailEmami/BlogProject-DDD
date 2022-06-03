@@ -30,4 +30,7 @@ export class BlogService extends RestService {
     return this.post(CONTROLLER_NAME + 'update-blog', request).toPromise();
   }
 
+  public blogList() {
+    return this.get(CONTROLLER_NAME + 'blogs').toPromise();
+  }
 }
