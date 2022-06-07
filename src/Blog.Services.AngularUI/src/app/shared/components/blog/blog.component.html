@@ -1,0 +1,20 @@
+<div class="post-box">
+  <a href="#">
+    <figure>
+      <img src="{{blog.imageFile}}" alt="{{blog.blogTitle}}">
+      <figcaption class="meta-fig">
+        <span><i class="fa fa-clock-o"></i> {{blog.postedAt | persianDate}}</span>&nbsp;
+        <span><i class="fa fa-comment-o"></i> {{blog.commentsCount | separate}}</span>
+      </figcaption>
+      <figcaption class="view" *ngFor="let tag in blog.Tags">
+        <span>{{tag}}</span>
+      </figcaption>
+    </figure>
+    <div class="text-p">
+      <h5>{{blog.blogTitle}}</h5>
+      <p>{{blog.summary}}</p>
+      <div class="text-end">
+        <a href="#">ادامه ...</a></div>
+    </div>
+  </a>
+</div>

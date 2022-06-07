@@ -8,7 +8,7 @@ import {BlogForShowRequest} from "../../../../core/models/requests/blog/blogForS
 })
 export class BlogListComponent implements OnInit {
 
-  public blogs!: BlogForShowRequest;
+  public blogs: BlogForShowRequest[] = [];
 
   constructor(
     private route: ActivatedRoute

@@ -8,5 +8,5 @@ public class BlogForShowViewModel
     public DateTime PostedAt { get; set; }
     public string ImageFile { get; set; }
     public int CommentsCount { get; set; }
-    public List<string> Tags { get; set; }
+    public List<string> Tags { get; set; } = new();
 }

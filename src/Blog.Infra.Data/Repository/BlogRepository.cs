@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using System.Data;
 using Blog.Domain.ViewModels.Blog;
 using Dapper;
+using static Dapper.SqlMapper;
 
 namespace Blog.Infra.Data.Repository;
 
@@ -40,6 +41,40 @@ public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
 
     public List<BlogForShowViewModel> GetAuthorBlogs(Guid authorId)
     {
-        return new List<BlogForShowViewModel>();
+        string query = "SELECT [Blogs].[Id] AS [BlogId], " +
+            "[Blogs].[BlogTitle], " +
+            "[Blogs].[Summary], " +
+            "[Blogs].[WrittenAt] AS [PostedAt], " +
+            "[Blogs].[ImageFile], " +
+            "(SELECT COUNT(*) " +
+            "FROM [User].[Comments] " +
+            "WHERE [BlogId] = [Blogs].[Id]) AS [CommentsCount], " +
+            "[Tag].[Tags].[TagName] AS [Tags]" +
+            "FROM [Blog].[Blogs] " +
+            "INNER JOIN [Tag].[BlogTags] " +
+            "ON [Blog].[Blogs].[Id] = [Tag].[BlogTags].[BlogId] " +
+            "LEFT JOIN [Tag].[Tags] " +
+            "ON [Tag].[BlogTags].[TagId] = [Tag].[Tags].[Id] " +
+            "WHERE [Blogs].[AuthorId] = @AuthorId";
+
+        Dictionary<Guid, BlogForShowViewModel> blogDictionary = new Dictionary<Guid, BlogForShowViewModel>();
+
+        List<BlogForShowViewModel> blogs = Db.Query<BlogForShowViewModel, string, BlogForShowViewModel>(query,
+            (b, t) =>
+        {
+            if (!blogDictionary.TryGetValue(b.BlogId, out BlogForShowViewModel? blog))
+            {
+                blog = b;
+                blogDictionary.Add(blog.BlogId, blog);
+            }
+
+            blog.Tags.Add(t);
+            return blog;
+        }, new
+        {
+            authorId
+        }, splitOn: "Tags").Distinct().ToList();
+
+        return blogs;
     }
 }

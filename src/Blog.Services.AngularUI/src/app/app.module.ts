@@ -8,11 +8,13 @@ import {AuthInterceptor} from "./core/interceptor/auth.interceptor";
 import {ServerErrorInterceptor} from "./core/interceptor/error.interceptor";
 import {AppRoutingModule} from "./app-routing.module";
 import { BlogListComponent } from './src/app/modules/blog/pages/blog-list/blog-list.component';
+import { ClsComponent } from './cls/cls.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    BlogListComponent
+    BlogListComponent,
+    ClsComponent
   ],
   imports: [
     SharedModule,
