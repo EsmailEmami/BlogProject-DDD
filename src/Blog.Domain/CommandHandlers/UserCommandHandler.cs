@@ -12,7 +12,8 @@ namespace Blog.Domain.CommandHandlers;
 public class UserCommandHandler : CommandHandler,
     IRequestHandler<RegisterNewUserCommand, Guid>,
     IRequestHandler<UpdateUserCommand, bool>,
-    IRequestHandler<RemoveUserCommand, bool>
+    IRequestHandler<RemoveUserCommand, bool>,
+    IRequestHandler<UpdateUserPasswordCommand, bool>
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
@@ -44,7 +45,7 @@ public class UserCommandHandler : CommandHandler,
         _userRepository.Add(user);
 
         Bus.RaiseEvent(new UserRegisteredEvent(user.Id, user.FirstName, user.LastName, user.Email));
-        
+
 
         return Task.FromResult(user.Id);
     }
@@ -94,15 +95,38 @@ public class UserCommandHandler : CommandHandler,
         if (user == null)
         {
             Bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+            return Task.FromResult(false);
         }
-
-        if (user.Id != request.Id)
-        {
-            Bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
-        }
-
 
         _userRepository.Delete(user);
+
+        return Task.FromResult(true);
+    }
+
+    public Task<bool> Handle(UpdateUserPasswordCommand request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            return Task.FromResult(false);
+        }
+
+        User? user = _userRepository.GetById(request.Id);
+
+        if (user == null)
+        {
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "کاربر مورد نظر یافت نشد."));
+            return Task.FromResult(false);
+        }
+
+        if (!_passwordHasher.Check(_passwordHasher.Hash(request.CurrentPassword), user.Password))
+        {
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "رمز فعلی شما اشتباه است."));
+            return Task.FromResult(false);
+        }
+
+        user.SetPassword(_passwordHasher.Hash(request.Password));
+        _userRepository.Update(user);
 
         return Task.FromResult(true);
     }

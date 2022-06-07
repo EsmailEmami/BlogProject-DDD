@@ -27,6 +27,8 @@ public class ViewModelToDomainMappingProfile : Profile
             .ConstructUsing(c => new RegisterNewUserCommand(c.FirstName, c.LastName, c.Email, c.Password, c.ConfirmPassword));
         CreateMap<UpdateUserViewModel, UpdateUserCommand>()
             .ConstructUsing(c => new UpdateUserCommand(c.Id, c.FirstName, c.LastName, c.Email));
+        CreateMap<UpdateUserPasswordViewModel, UpdateUserPasswordCommand>()
+            .ConstructUsing(c => new UpdateUserPasswordCommand(c.UserId, c.CurrentPassword, c.NewPassword, c.ConfirmNewPassword));
         // Category
         CreateMap<AddCategoryViewModel, RegisterNewCategoryCommand>()
             .ConstructUsing(c => new RegisterNewCategoryCommand(c.CategoryTitle));

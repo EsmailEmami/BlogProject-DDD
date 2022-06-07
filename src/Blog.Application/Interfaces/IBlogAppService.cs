@@ -9,4 +9,5 @@ public interface IBlogAppService : IDisposable
     void DeleteBlog(Guid blogId);
     Task<UpdateBlogViewModel?> GetBlogForUpdate(Guid blogId);
     Task<List<BlogForShowViewModel>> GetAuthorBlogs(Guid authorId);
+    Task<List<BlogForShowViewModel>> GetBlogs();
 }

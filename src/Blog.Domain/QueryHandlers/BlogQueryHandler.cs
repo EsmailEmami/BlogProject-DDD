@@ -10,7 +10,8 @@ namespace Blog.Domain.QueryHandlers;
 
 public class BlogQueryHandler : QueryHandler,
     IRequestHandler<GetBlogForUpdateQuery, UpdateBlogViewModel>,
-    IRequestHandler<GetAuthorBlogsQuery,List<BlogForShowViewModel>>
+    IRequestHandler<GetAuthorBlogsQuery, List<BlogForShowViewModel>>,
+    IRequestHandler<GetBlogsQuery, List<BlogForShowViewModel>>
 {
     private readonly IBlogRepository _blogRepository;
     public BlogQueryHandler(IMediatorHandler bus, IBlogRepository blogRepository) : base(bus)
@@ -49,5 +50,10 @@ public class BlogQueryHandler : QueryHandler,
         List<BlogForShowViewModel> blogs = _blogRepository.GetAuthorBlogs(request.AuthorId);
 
         return Task.FromResult(blogs);
+    }
+
+    public Task<List<BlogForShowViewModel>> Handle(GetBlogsQuery request, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(_blogRepository.GetBlogs());
     }
 }

@@ -79,4 +79,14 @@ public class UserController : ApiController
     }
 
     #endregion
+
+    #region update password
+
+    [HttpPut("update-password")]
+    public IActionResult UpdatePassword([FromBody] UpdateUserPasswordViewModel userData)
+    {
+        _userAppService.UpdateUserPassword(userData);
+        return Response();
+    }
+    #endregion
 }

@@ -12,6 +12,7 @@ public class BlogController : ApiController
     private readonly IBlogAppService _blogAppService;
     private readonly IBlogCategoryAppService _blogCategoryAppService;
     private readonly IBlogTagAppService _blogTagAppService;
+
     public BlogController(INotificationHandler<DomainNotification> notifications,
         IMediatorHandler mediator,
         IBlogAppService blogAppService,
@@ -21,6 +22,13 @@ public class BlogController : ApiController
         _blogAppService = blogAppService;
         _blogCategoryAppService = blogCategoryAppService;
         _blogTagAppService = blogTagAppService;
+    }
+
+    [HttpGet("blogs")]
+    public async Task<IActionResult> Blogs()
+    {
+        List<BlogForShowViewModel> blogs = await _blogAppService.GetBlogs();
+        return Response(blogs);
     }
 
     [HttpGet("author-blogs")]

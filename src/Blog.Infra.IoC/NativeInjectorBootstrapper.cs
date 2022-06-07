@@ -77,6 +77,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RegisterNewUserCommand, Guid>, UserCommandHandler>();
         services.AddScoped<IRequestHandler<UpdateUserCommand, bool>, UserCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveUserCommand, bool>, UserCommandHandler>();
+        services.AddScoped<IRequestHandler<UpdateUserPasswordCommand, bool>, UserCommandHandler>();
         // - Category 
         services.AddScoped<IRequestHandler<RegisterNewCategoryCommand, Guid>, CategoryCommandHandler>();
         services.AddScoped<IRequestHandler<UpdateCategoryCommand, bool>, CategoryCommandHandler>();
@@ -97,6 +98,7 @@ public static class NativeInjectorBootstrapper
         // - Blog
         services.AddScoped<IRequestHandler<GetBlogForUpdateQuery, UpdateBlogViewModel>, BlogQueryHandler>();
         services.AddScoped<IRequestHandler<GetAuthorBlogsQuery, List<BlogForShowViewModel>>, BlogQueryHandler>();
+        services.AddScoped<IRequestHandler<GetBlogsQuery, List<BlogForShowViewModel>>, BlogQueryHandler>();
         // - User
         services.AddScoped<IRequestHandler<GetUserByEmailQuery, User>, UserQueryHandler>();
         services.AddScoped<IRequestHandler<GetUserDashboardQuery, DashboardViewModel>, UserQueryHandler>();

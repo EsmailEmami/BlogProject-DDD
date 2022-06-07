@@ -28,6 +28,16 @@ public abstract class UserCommandValidation<TCommand, TResult> : AbstractValidat
             .MaximumLength(100).WithMessage("The Last Name must not be more than 100 characters");
     }
 
+    protected void ValidateCurrentPassword()
+    {
+        RuleFor(c => c.CurrentPassword)
+            .NotEmpty().WithMessage("Please ensure you have entered the Password")
+            .Length(6, 50).WithMessage("The Password must have between 3 and 50 characters")
+            .Matches("[A-Z]").WithMessage("The password must be contains uppercase character")
+            .Matches("[a-z]").WithMessage("The password must be contains lowercase character")
+            .Matches("[^#?!@$%^&*-]").WithMessage("special character");
+    }
+
     protected void ValidatePassword()
     {
         RuleFor(c => c.Password)

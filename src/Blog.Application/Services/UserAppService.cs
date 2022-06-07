@@ -61,5 +61,11 @@ public class UserAppService : IUserAppService
         }
     }
 
+    public void UpdateUserPassword(UpdateUserPasswordViewModel user)
+    {
+        UpdateUserPasswordCommand command = _mapper.Map<UpdateUserPasswordCommand>(user);
+        _bus.SendCommand<UpdateUserPasswordCommand, bool>(command);
+    }
+
     public void Dispose() => GC.SuppressFinalize(this);
 }

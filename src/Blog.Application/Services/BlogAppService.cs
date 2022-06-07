@@ -58,6 +58,12 @@ public class BlogAppService : IBlogAppService
         return await _bus.SendQuery<GetAuthorBlogsQuery, List<BlogForShowViewModel>>(query);
     }
 
+    public async Task<List<BlogForShowViewModel>> GetBlogs()
+    {
+        GetBlogsQuery query = new GetBlogsQuery();
+        return await _bus.SendQuery<GetBlogsQuery, List<BlogForShowViewModel>>(query);
+    }
+
     public void Dispose()
     {
         GC.SuppressFinalize(this);

@@ -10,4 +10,5 @@ public abstract class UserCommand<TResult> : Command<TResult>
     public string Email { get; protected set; }
     public string Password { get; protected set; }
     public string ConfirmPassword { get; protected set; }
+    public string CurrentPassword { get; protected set; }
 }
