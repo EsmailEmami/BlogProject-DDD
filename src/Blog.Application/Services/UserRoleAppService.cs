@@ -1,6 +1,7 @@
 ﻿using Blog.Application.Interfaces;
 using Blog.Domain.Commands.UserRole;
 using Blog.Domain.Core.Bus;
+using Blog.Domain.Queries.UserRole;
 
 namespace Blog.Application.Services;
 
@@ -20,10 +21,24 @@ public class UserRoleAppService : IUserRoleAppService
         try
         {
             return await _bus.SendCommand<RegisterNewUserRoleCommand, bool>(command);
-        } 
+        }
         catch
         {
             return false;
+        }
+    }
+
+    public async Task<List<Guid>> GetAllUserRolesIdAsync(Guid userId)
+    {
+        GetAllUserRolesIdQuery query = new GetAllUserRolesIdQuery(userId);
+
+        try
+        {
+            return await _bus.SendQuery<GetAllUserRolesIdQuery, List<Guid>>(query);
+        }
+        catch
+        {
+            return new List<Guid>();
         }
     }
 

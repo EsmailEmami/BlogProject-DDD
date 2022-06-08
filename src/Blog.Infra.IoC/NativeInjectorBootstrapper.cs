@@ -25,6 +25,7 @@ using Blog.Domain.Queries.Comment;
 using Blog.Domain.Queries.Role;
 using Blog.Domain.Queries.Tag;
 using Blog.Domain.Queries.User;
+using Blog.Domain.Queries.UserRole;
 using Blog.Domain.QueryHandlers;
 using Blog.Domain.ViewModels.Blog;
 using Blog.Domain.ViewModels.Category;
@@ -124,8 +125,10 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<GetTagForUpdateQuery, UpdateTagViewModel>, TagQueryHandler>();
         // - Blog Tag
         services.AddScoped<IRequestHandler<GetBlogTagsIdByBlogQuery, List<Guid>>, BlogTagQueryHandler>();
-        // - ROle
+        // - Role
         services.AddScoped<IRequestHandler<GetAllRolesQuery, List<Role>>, RoleQueryHandler>();
+        // - User Role
+        services.AddScoped<IRequestHandler<GetAllUserRolesIdQuery, List<Guid>>, UserRoleQueryHandler>();
 
         // Infra - Data
         services.AddScoped<IBlogRepository, BlogRepository>();

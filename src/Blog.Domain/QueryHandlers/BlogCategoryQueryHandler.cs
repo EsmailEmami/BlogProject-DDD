@@ -30,7 +30,6 @@ public class BlogCategoryQueryHandler : QueryHandler,
 
         if (blogCategories == null)
         {
-            Bus.RaiseEvent(new DomainNotification("category not found", "دسته بندی یافت نشد"));
             return Task.FromResult(new List<Guid>());
         }
 
