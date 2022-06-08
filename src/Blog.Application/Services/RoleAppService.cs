@@ -1,6 +1,8 @@
 ﻿using Blog.Application.Interfaces;
 using Blog.Domain.Commands.Role;
 using Blog.Domain.Core.Bus;
+using Blog.Domain.Models;
+using Blog.Domain.Queries.Role;
 
 namespace Blog.Application.Services;
 
@@ -24,6 +26,12 @@ public class RoleAppService : IRoleAppService
         {
             return Guid.Empty;
         }
+    }
+
+    public async Task<List<Role>> GetAllRolesAsync()
+    {
+        GetAllRolesQuery query = new GetAllRolesQuery();
+        return await _bus.SendQuery<GetAllRolesQuery, List<Role>>(query);
     }
 
     public void Dispose()
