@@ -16,6 +16,8 @@
     <Folder Include="Commands\Category\" />
     <Folder Include="Commands\BlogCategory\" />
     <Folder Include="Commands\Comment\" />
+    <Folder Include="Commands\UserRole\" />
+    <Folder Include="Commands\Role\" />
     <Folder Include="Commands\Tag\" />
     <Folder Include="Commands\User\" />
     <Folder Include="Common\Constants\" />
@@ -30,6 +32,8 @@
     <Folder Include="Services\Hash\" />
     <Folder Include="Validations\Command\Comment\" />
     <Folder Include="Validations\Command\BlogTag\" />
+    <Folder Include="Validations\Command\UserRole\" />
+    <Folder Include="Validations\Command\Role\" />
     <Folder Include="Validations\Command\Tag\" />
     <Folder Include="Validations\Query\Blog\" />
     <Folder Include="Validations\Query\Category\" />

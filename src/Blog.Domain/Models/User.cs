@@ -28,6 +28,8 @@ public class User : Entity
     public ICollection<Blog> Blogs { get; protected set; }
     [Write(false)]
     public ICollection<Comment> Comments { get; protected set; }
+    [Write(false)]
+    public ICollection<UserRole> UserRoles { get; protected set; }
 
     #endregion
 

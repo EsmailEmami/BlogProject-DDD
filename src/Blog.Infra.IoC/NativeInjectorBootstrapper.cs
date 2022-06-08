@@ -6,8 +6,10 @@ using Blog.Domain.Commands.BlogCategory;
 using Blog.Domain.Commands.BlogTag;
 using Blog.Domain.Commands.Category;
 using Blog.Domain.Commands.Comment;
+using Blog.Domain.Commands.Role;
 using Blog.Domain.Commands.Tag;
 using Blog.Domain.Commands.User;
+using Blog.Domain.Commands.UserRole;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.EventHandlers;
@@ -58,6 +60,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IBlogCategoryAppService, BlogCategoryAppService>();
         services.AddScoped<ITagAppService, TagAppService>();
         services.AddScoped<IBlogTagAppService, BlogTagAppService>();
+        services.AddScoped<IRoleAppService, RoleAppService>();
+        services.AddScoped<IUserRoleAppService, UserRoleAppService>();
 
         // Domain - Events
         services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
@@ -93,6 +97,10 @@ public static class NativeInjectorBootstrapper
         // _ BlogTag
         services.AddScoped<IRequestHandler<RegisterNewBlogTagCommand, bool>, BlogTagCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveBlogTagCommand, bool>, BlogTagCommandHandler>();
+        // - Role
+        services.AddScoped<IRequestHandler<RegisterNewRoleCommand, Guid>, RoleCommandHandler>();
+        // - User Role 
+        services.AddScoped<IRequestHandler<RegisterNewUserRoleCommand, bool>, UserRoleCommandHandler>();
 
         // Domain - Queries
         // - Blog
@@ -124,6 +132,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<ICommentRepository, CommentRepository>();
         services.AddScoped<ITagRepository, TagRepository>();
         services.AddScoped<IBlogTagRepository, BlogTagRepository>();
+        services.AddScoped<IRoleRepository, RoleRepository>();
+        services.AddScoped<IUserRoleRepository, UserRoleRepository>();
 
         // Infra - Identity Services
         //services.AddTransient<IEmailSender, AuthEmailMessageSender>();
