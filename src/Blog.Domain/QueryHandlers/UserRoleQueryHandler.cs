@@ -22,7 +22,7 @@ public class UserRoleQueryHandler : QueryHandler,
             throw new InvalidOperationException();
         }
 
-        List<Guid>? userRolesId = _userRoleRepository.GetAllUserRolesId(request.UserId);
+        List<Guid> userRolesId = _userRoleRepository.GetAllUserRolesId(request.UserId);
 
         if (userRolesId == null)
         {
