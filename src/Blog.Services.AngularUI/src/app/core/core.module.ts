@@ -7,8 +7,6 @@ import {LocalStorageService} from "./services/local-storage.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthGuard} from "./guards/auth.guard";
 import {LoaderService} from "./services/loader.service";
-import { PersianDatePipe } from './pipes/persian-date.pipe';
-import { SeparatePipe } from './pipes/separate.pipe';
 
 @NgModule({
   imports: [
@@ -29,14 +27,6 @@ import { SeparatePipe } from './pipes/separate.pipe';
     ToastrModule,
     NotificationService,
     LocalStorageService,
-  ],
-  exports: [
-    PersianDatePipe,
-    SeparatePipe
-  ],
-  declarations: [
-    PersianDatePipe,
-    SeparatePipe
   ]
 })
 export class CoreModule {

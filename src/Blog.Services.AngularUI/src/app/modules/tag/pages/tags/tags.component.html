@@ -1,0 +1,27 @@
+<div class="single_post">
+  <div class="container-fluid container-xxl">
+    <div class="post_content">
+      <h4 class="top-title">تگ ها</h4>
+      <table class="table table-hover">
+        <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">نام تگ</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let category of tags; let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{category.tagName}}</td>
+          <td>
+            <button class="btn btn-warning text-white">ویرایش</button>
+            <button class="btn btn-danger text-white mx-2">حذف</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="clear-fix"></div>

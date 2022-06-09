@@ -30,4 +30,7 @@ export class CategoryService extends RestService {
     return this.put(CONTROLLER_NAME + 'update-category', request).toPromise();
   }
 
+  public getCategories() {
+    return this.get(CONTROLLER_NAME + 'categories').toPromise();
+  }
 }

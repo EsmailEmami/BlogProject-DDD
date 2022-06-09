@@ -3,7 +3,7 @@
     <div class="post_content">
       <h4 class="top-title">لیست مقاله ها</h4>
       <div class="row">
-        <div class="col sm 12 col md-4" *ngFor="let blog in blogs">
+        <div class="col sm 12 col md-4" *ngFor="let blog of blogs">
           <app-blog [blog]="blog"></app-blog>
         </div>
       </div>

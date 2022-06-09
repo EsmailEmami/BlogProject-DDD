@@ -6,7 +6,7 @@
         <span><i class="fa fa-clock-o"></i> {{blog.postedAt | persianDate}}</span>&nbsp;
         <span><i class="fa fa-comment-o"></i> {{blog.commentsCount | separate}}</span>
       </figcaption>
-      <figcaption class="view" *ngFor="let tag in blog.Tags">
+      <figcaption class="view" *ngFor="let tag of blog.Tags">
         <span>{{tag}}</span>
       </figcaption>
     </figure>

@@ -5,33 +5,36 @@ import {SiteHeaderComponent} from './components/site-header/site-header.componen
 import {SiteFooterComponent} from './components/site-footer/site-footer.component';
 import {ImagePickerComponent} from './components/image-picker/image-picker.component';
 import {NgxImageCompressService} from "ngx-image-compress";
+import {BlogComponent} from './components/blog/blog.component';
 import {RouterModule} from "@angular/router";
-import { BlogComponent } from './components/blog/blog.component';
-import {CoreModule} from "../core/core.module";
+import {PersianDatePipe} from "./pipes/persian-date.pipe";
+import {SeparatePipe} from "./pipes/separate.pipe";
 
 @NgModule({
   declarations: [
     SiteHeaderComponent,
     SiteFooterComponent,
     ImagePickerComponent,
-    ImagePickerComponent,
+    PersianDatePipe,
+    SeparatePipe,
     BlogComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     FormsModule,
-    RouterModule,
-    CoreModule
+    RouterModule
   ],
-    exports: [
-        SiteHeaderComponent,
-        SiteFooterComponent,
-        ImagePickerComponent,
-        ReactiveFormsModule,
-        FormsModule,
-        BlogComponent
-    ],
+  exports: [
+    SiteHeaderComponent,
+    SiteFooterComponent,
+    ImagePickerComponent,
+    PersianDatePipe,
+    SeparatePipe,
+    BlogComponent,
+    ReactiveFormsModule,
+    FormsModule
+  ],
   providers: [
     NgxImageCompressService
   ]

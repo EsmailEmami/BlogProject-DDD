@@ -37,22 +37,18 @@ export class AuthService extends RestService {
 
       if (!expire) {
         this.logout();
-
-        // @ts-ignore
-        this.currentUser$.next(null);
       } else {
         if (expire < Date.now()) {
           this.logout();
-
-          // @ts-ignore
-          this.currentUser$.next(null);
         }
       }
 
       this.currentUser$.next(storedUser as User);
+      this.isLogged.next(true);
     } else {
       // @ts-ignore
       this.currentUser$.next(null);
+      this.isLogged.next(false);
     }
   }
 

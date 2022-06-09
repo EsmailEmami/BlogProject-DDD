@@ -3,7 +3,7 @@ import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
   {
-    path: '', redirectTo: '/category/add', pathMatch: 'full'
+    path: '', redirectTo: '/category/categories', pathMatch: 'full'
   },
   {
     path: 'add',
@@ -12,6 +12,10 @@ const routes: Routes = [
   {
     path: 'update/:categoryId',
     loadChildren: () => import('./pages/update-category/update-category.module').then(m => m.UpdateCategoryModule)
+  },
+  {
+    path: 'categories',
+    loadChildren: () => import('./pages/categories/categories.module').then(m => m.CategoriesModule)
   }
 ];
 
