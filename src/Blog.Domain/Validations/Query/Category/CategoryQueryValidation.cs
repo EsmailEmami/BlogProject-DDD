@@ -11,4 +11,9 @@ public abstract class CategoryQueryValidation<TQuery, TResult> : AbstractValidat
         RuleFor(c => c.Id)
             .NotEqual(Guid.Empty);
     }
+    protected void ValidateBlogId()
+    {
+        RuleFor(c => c.BlogId)
+            .NotEqual(Guid.Empty);
+    }
 }

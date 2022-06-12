@@ -64,6 +64,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IBlogTagAppService, BlogTagAppService>();
         services.AddScoped<IRoleAppService, RoleAppService>();
         services.AddScoped<IUserRoleAppService, UserRoleAppService>();
+        services.AddScoped<ICommentAppService, CommentAppService>();
 
         // Domain - Events
         services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
@@ -109,6 +110,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<GetBlogForUpdateQuery, UpdateBlogViewModel>, BlogQueryHandler>();
         services.AddScoped<IRequestHandler<GetAuthorBlogsQuery, List<BlogForShowViewModel>>, BlogQueryHandler>();
         services.AddScoped<IRequestHandler<GetBlogsQuery, List<BlogForShowViewModel>>, BlogQueryHandler>();
+        services.AddScoped<IRequestHandler<GetBlogDetailQuery, BlogDetailViewModel>, BlogQueryHandler>();
         // - User
         services.AddScoped<IRequestHandler<GetUserByEmailQuery, User>, UserQueryHandler>();
         services.AddScoped<IRequestHandler<GetUserDashboardQuery, DashboardViewModel>, UserQueryHandler>();
@@ -116,6 +118,7 @@ public static class NativeInjectorBootstrapper
         // - Category
         services.AddScoped<IRequestHandler<GetCategoryForUpdateQuery, UpdateCategoryViewModel>, CategoryQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllCategoriesQuery, List<CategoryForShowViewModel>>, CategoryQueryHandler>();
+        services.AddScoped<IRequestHandler<GetBlogCategoriesQuery, List<CategoryForShowViewModel>>, CategoryQueryHandler>();
         // - Blog Category
         services.AddScoped<IRequestHandler<GetBlogCategoriesIdByBlogQuery, List<Guid>>, BlogCategoryQueryHandler>();
         // - Comments 
@@ -123,6 +126,7 @@ public static class NativeInjectorBootstrapper
         // - Tag
         services.AddScoped<IRequestHandler<GetTagsQuery, List<TagForShowViewModel>>, TagQueryHandler>();
         services.AddScoped<IRequestHandler<GetTagForUpdateQuery, UpdateTagViewModel>, TagQueryHandler>();
+        services.AddScoped<IRequestHandler<GetBlogTagsQuery, List<TagForShowViewModel>>, TagQueryHandler>();
         // - Blog Tag
         services.AddScoped<IRequestHandler<GetBlogTagsIdByBlogQuery, List<Guid>>, BlogTagQueryHandler>();
         // - Role

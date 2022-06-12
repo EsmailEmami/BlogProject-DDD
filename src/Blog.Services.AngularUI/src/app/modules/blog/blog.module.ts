@@ -2,6 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {BlogRoutingModule} from './blog-routing.module';
 import {BlogService} from "./services/blog.service";
+import {CommentService} from "./services/comment.service";
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import {BlogService} from "./services/blog.service";
   exports: [
   ],
   providers: [
-    BlogService
+    BlogService,
+    CommentService
   ]
 })
 export class BlogModule {

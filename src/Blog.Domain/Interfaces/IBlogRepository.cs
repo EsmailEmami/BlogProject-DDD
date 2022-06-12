@@ -8,4 +8,5 @@ public interface IBlogRepository : IRepository<Models.Blog>
     UpdateBlogViewModel? GetBlogForUpdate(Guid blogId);
     List<BlogForShowViewModel> GetAuthorBlogs(Guid authorId);
     List<BlogForShowViewModel> GetBlogs();
+    BlogDetailViewModel GetBlogDetail(Guid blogId);
 }

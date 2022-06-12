@@ -55,5 +55,18 @@ public class TagAppService : ITagAppService
         }
     }
 
+    public async Task<List<TagForShowViewModel>> GetBlogTags(Guid blogId)
+    {
+        GetBlogTagsQuery query = new GetBlogTagsQuery(blogId);
+        try
+        {
+            return await _bus.SendQuery<GetBlogTagsQuery, List<TagForShowViewModel>>(query);
+        }
+        catch
+        {
+            return new List<TagForShowViewModel>();
+        }
+    }
+
     public void Dispose() => GC.SuppressFinalize(this);
 }

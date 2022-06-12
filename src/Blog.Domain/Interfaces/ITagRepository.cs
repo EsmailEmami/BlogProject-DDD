@@ -7,4 +7,5 @@ public interface ITagRepository : IRepository<Tag>
 {
     List<TagForShowViewModel> GetAllTags();
     UpdateTagViewModel? GetTagForUpdate(Guid tagId);
+    List<TagForShowViewModel> GetBLogTags(Guid blogId);
 }

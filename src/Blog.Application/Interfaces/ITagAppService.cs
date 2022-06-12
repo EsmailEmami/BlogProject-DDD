@@ -9,4 +9,5 @@ public interface ITagAppService : IDisposable
     void DeleteTag(Guid tagId);
     Task<List<TagForShowViewModel>> GetAllTagsAsync();
     Task<UpdateTagViewModel?> GetTagForUpdateAsync(Guid tagId);
+    Task<List<TagForShowViewModel>> GetBlogTags(Guid blogId);
 }

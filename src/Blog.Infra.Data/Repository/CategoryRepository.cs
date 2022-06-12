@@ -41,4 +41,15 @@ public class CategoryRepository : Repository<Category>, ICategoryRepository
 
         return Db.Query<CategoryForShowViewModel>(query).ToList();
     }
+
+    public List<CategoryForShowViewModel> GetBlogCategories(Guid blogId)
+    {
+        string query = "SELECT [Categories].[Id] AS [CategoryId], [Categories].[CategoryTitle] " +
+                       "FROM [Category].[BlogCategories] " +
+                       "INNER JOIN [Category].[Categories] " +
+                       "ON [Category].[BlogCategories].[CategoryId] = [Category].[Categories].[Id] " +
+                       "WHERE [BlogCategories].[BlogId] = @BlogId";
+
+        return Db.Query<CategoryForShowViewModel>(query, new { blogId }).ToList();
+    }
 }

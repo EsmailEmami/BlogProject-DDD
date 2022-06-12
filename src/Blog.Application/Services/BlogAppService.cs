@@ -64,6 +64,20 @@ public class BlogAppService : IBlogAppService
         return await _bus.SendQuery<GetBlogsQuery, List<BlogForShowViewModel>>(query);
     }
 
+    public async Task<BlogDetailViewModel?> GetBlogDetailAsync(Guid blogId)
+    {
+        GetBlogDetailQuery query = new GetBlogDetailQuery(blogId);
+
+        try
+        {
+            return await _bus.SendQuery<GetBlogDetailQuery, BlogDetailViewModel>(query);
+        }
+        catch
+        {
+            return null;
+        }
+    }
+
     public void Dispose()
     {
         GC.SuppressFinalize(this);

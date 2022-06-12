@@ -8,4 +8,5 @@ public interface ICategoryAppService : IDisposable
     Task<Guid> AddCategoryAsync(AddCategoryViewModel category);
     void UpdateCategory(UpdateCategoryViewModel category);
     Task<UpdateCategoryViewModel?> GetCategoryForUpdate(Guid categoryId);
+    Task<List<CategoryForShowViewModel>> GetBlogCategoriesAsync(Guid blogId);
 }

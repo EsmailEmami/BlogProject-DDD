@@ -65,4 +65,10 @@ public class CategoryController : ApiController
         _categoryAppService.UpdateCategory(category);
         return Response();
     }
+
+    [HttpGet("blog-categories")]
+    public async Task<IActionResult> BlogCategories([FromQuery] Guid blogId)
+    {
+        return Response(await _categoryAppService.GetBlogCategoriesAsync(blogId));
+    }
 }

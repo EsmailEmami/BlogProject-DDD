@@ -10,7 +10,8 @@ namespace Blog.Domain.QueryHandlers;
 
 public class CategoryQueryHandler : QueryHandler,
     IRequestHandler<GetCategoryForUpdateQuery, UpdateCategoryViewModel>,
-    IRequestHandler<GetAllCategoriesQuery, List<CategoryForShowViewModel>>
+    IRequestHandler<GetAllCategoriesQuery, List<CategoryForShowViewModel>>,
+    IRequestHandler<GetBlogCategoriesQuery, List<CategoryForShowViewModel>>
 {
     private readonly ICategoryRepository _categoryRepository;
     public CategoryQueryHandler(IMediatorHandler bus, ICategoryRepository categoryRepository) : base(bus)
@@ -37,6 +38,18 @@ public class CategoryQueryHandler : QueryHandler,
     public Task<List<CategoryForShowViewModel>> Handle(GetAllCategoriesQuery request, CancellationToken cancellationToken)
     {
         List<CategoryForShowViewModel> categories = _categoryRepository.GetAllCategories();
+        return Task.FromResult(categories);
+    }
+
+    public Task<List<CategoryForShowViewModel>> Handle(GetBlogCategoriesQuery request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            throw new InvalidOperationException();
+        }
+
+        List<CategoryForShowViewModel> categories = _categoryRepository.GetBlogCategories(request.BlogId);
         return Task.FromResult(categories);
     }
 }

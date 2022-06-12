@@ -4,9 +4,11 @@ import {BlogsResolver} from "./resolvers/blogs.resolver";
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: () => import('./pages/blog-list/blog-list.module').then(m => m.BlogListModule),
-    resolve: {'blogs': BlogsResolver}
+    path: '', redirectTo: '/blog/blogs', pathMatch: 'full'
+  },
+  {
+    path: '/:blogId',
+    loadChildren: () => import('./pages/blog-detail/blog-detail.module').then(m => m.BlogDetailModule)
   },
   {
     path: 'add',
@@ -15,6 +17,11 @@ const routes: Routes = [
   {
     path: 'update/:blogId',
     loadChildren: () => import('./pages/update-blog/update-blog.module').then(m => m.UpdateBlogModule)
+  },
+  {
+    path: 'blogs',
+    loadChildren: () => import('./pages/blog-list/blog-list.module').then(m => m.BlogListModule),
+    resolve: {'blogs': BlogsResolver}
   }
 ];
 

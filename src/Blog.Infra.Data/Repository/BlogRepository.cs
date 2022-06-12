@@ -110,4 +110,24 @@ public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
 
         return blogs;
     }
+
+    public BlogDetailViewModel GetBlogDetail(Guid blogId)
+    {
+        string query = "SELECT [Id] AS [BlogId], " +
+                       "[BlogTitle], " +
+                       "[Summary], " +
+                       "[Description], " +
+                       "[WrittenAt] AS [PostedAt], " +
+                       "[ImageFile], " +
+                       "(SELECT COUNT(*) " +
+                       "FROM [User].[Comments] " +
+                       "WHERE [BlogId] = [Blogs].[Id]) AS [CommentsCount] " +
+                       "FROM [Blog].[Blogs] " +
+                       "WHERE [Id] = @BlogId";
+
+        return Db.QuerySingleOrDefault<BlogDetailViewModel>(query, new
+        {
+            blogId
+        });
+    }
 }

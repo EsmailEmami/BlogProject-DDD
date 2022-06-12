@@ -12,11 +12,9 @@ public abstract class TagQueryValidation<TQuery, TResult> : AbstractValidator<TQ
             .NotEqual(Guid.Empty);
     }
 
-    protected void ValidateTagName()
+    protected void ValidateBlogId()
     {
-        RuleFor(c => c.TagName)
-            .NotEmpty().WithMessage("لطفا نام تگ را وارد کنید")
-            .Length(3, 20).WithMessage("نام تگ وارد شده باید بین 3 تا 10 کاراکتر باشد");
-
+        RuleFor(c => c.BlogId)
+            .NotEqual(Guid.Empty);
     }
 }

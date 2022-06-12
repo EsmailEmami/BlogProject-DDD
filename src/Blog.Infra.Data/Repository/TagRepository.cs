@@ -31,4 +31,18 @@ public class TagRepository : Repository<Tag>, ITagRepository
             TagId = tagId
         });
     }
+
+    public List<TagForShowViewModel> GetBLogTags(Guid blogId)
+    {
+        string query = "SELECT [Tags].[Id] AS [TagId], [Tags].[TagName] " +
+                       "FROM [Tag].[BlogTags] " +
+                       "INNER JOIN [Tag].[Tags] " +
+                       "ON [Tag].[BlogTags].[TagId] = [Tag].[Tags].[Id] " +
+                       "WHERE [BlogTags].[BlogId] = @BlogId";
+
+        return Db.Query<TagForShowViewModel>(query, new
+        {
+            blogId
+        }).ToList();
+    }
 }

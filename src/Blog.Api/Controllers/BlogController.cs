@@ -129,4 +129,10 @@ public class BlogController : ApiController
 
         return Response();
     }
+
+    [HttpGet("detail")]
+    public async Task<IActionResult> BlogDetail([FromQuery] Guid blogId)
+    {
+        return Response(await _blogAppService.GetBlogDetailAsync(blogId));
+    }
 }

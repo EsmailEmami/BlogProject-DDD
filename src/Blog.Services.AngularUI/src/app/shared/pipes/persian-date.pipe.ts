@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
   name: 'persianDate'
@@ -6,6 +6,6 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class PersianDatePipe implements PipeTransform {
 
   transform(value: Date): string {
-    return value.toLocaleDateString('fa-IR');
+    return new Date(value).toLocaleDateString('fa-IR')
   }
 }

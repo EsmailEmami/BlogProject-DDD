@@ -11,7 +11,8 @@ namespace Blog.Domain.QueryHandlers;
 
 public class TagQueryHandler : QueryHandler,
     IRequestHandler<GetTagsQuery, List<TagForShowViewModel>>,
-    IRequestHandler<GetTagForUpdateQuery, UpdateTagViewModel>
+    IRequestHandler<GetTagForUpdateQuery, UpdateTagViewModel>,
+    IRequestHandler<GetBlogTagsQuery,List<TagForShowViewModel>>
 {
     private readonly ITagRepository _tagRepository;
     public TagQueryHandler(IMediatorHandler bus, ITagRepository tagRepository) : base(bus)
@@ -43,5 +44,18 @@ public class TagQueryHandler : QueryHandler,
         }
 
         return Task.FromResult(tag);
+    }
+
+    public Task<List<TagForShowViewModel>> Handle(GetBlogTagsQuery request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            throw new InvalidOperationException();
+        }
+
+        List<TagForShowViewModel> tags = _tagRepository.GetBLogTags(request.BlogId);
+
+        return Task.FromResult(tags);
     }
 }

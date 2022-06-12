@@ -14,7 +14,7 @@ public class CommentRepository : Repository<Comment>, ICommentRepository
 
     public List<CommentForShowViewModel> GetBlogComments(Guid blogId)
     {
-        string query = "SELECT [Comments].[Id], " +
+        string query = "SELECT [Comments].[Id] AS [CommentId], " +
                        "CONCAT([Users].[FirstName], ' ',[Users].[LastName]) AS [FullName], " +
                        "[Comments].[Title], " +
                        "[Comments].[CommentMessage], " +

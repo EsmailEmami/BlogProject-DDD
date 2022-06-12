@@ -8,4 +8,5 @@ public interface ICategoryRepository : IRepository<Category>
     bool IsCategoryExist(Guid categoryId);
     UpdateCategoryViewModel? GetCategoryForUpdate(Guid categoryId);
     List<CategoryForShowViewModel> GetAllCategories();
+    List<CategoryForShowViewModel> GetBlogCategories(Guid blogId);
 }

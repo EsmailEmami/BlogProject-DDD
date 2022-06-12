@@ -999,7 +999,7 @@ li:focus {
   padding-bottom: 9px;
 }
 
-.latest-posts .post-box {
+.post-box {
   border-radius: 5px;
   background-color: #fff;
   padding: 10px;
@@ -1007,9 +1007,9 @@ li:focus {
   box-shadow: 0 0 26px #e0dede;
 }
 
-.latest-posts .post-box figure {
+.post-box figure {
   width: 100%;
-  height: 170px;
+  height: 250px;
   overflow: hidden;
   position: relative;
   background-color: #000;
@@ -1017,14 +1017,16 @@ li:focus {
   box-shadow: 0 0 26px #e0dede;
 }
 
-.latest-posts .post-box figure img {
+.post-box figure img {
+  margin: 0 !important;
+  border-radius: 0 !important;
   width: 100%;
-  height: 170px;
+  height: 250px;
   object-fit: cover;
   opacity: 0.8;
 }
 
-.latest-posts .post-box figure figcaption.meta-fig {
+.post-box figure figcaption.meta-fig {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -1035,7 +1037,7 @@ li:focus {
   background: linear-gradient(0deg, #232222b0, transparent);
 }
 
-.latest-posts .post-box figure figcaption.view {
+.post-box figure figcaption.view {
   position: absolute;
   top: 0;
   right: 0;
@@ -1046,7 +1048,7 @@ li:focus {
   padding: 8px;
 }
 
-.latest-posts .post-box figure figcaption.view span {
+.post-box figure figcaption.view span {
   display: inline-block;
   padding: 3px;
   border: 2px solid #fff;
@@ -1061,7 +1063,7 @@ li:focus {
   -o-transition: all 0.4s ease;
 }
 
-.latest-posts .post-box:hover figure figcaption.view span {
+.post-box:hover figure figcaption.view span {
   background-color: #ef7c00a3;
   transition: all 0.4s ease;
   -webkit-transition: all 0.4s ease;
@@ -1069,17 +1071,17 @@ li:focus {
   -o-transition: all 0.4s ease;
 }
 
-.latest-posts .post-box .text-p {
+.post-box .text-p {
   padding: 10px;
 }
 
-.latest-posts .post-box .text-p h5 {
+.post-box .text-p h5 {
   overflow: hidden;
   height: 40px;
   color: #333;
 }
 
-.latest-posts .post-box .text-p p {
+.post-box .text-p p {
   overflow: hidden;
   height: 80px;
   line-height: 2;
@@ -1088,12 +1090,12 @@ li:focus {
   text-align: justify;
 }
 
-.latest-posts .blog-title-span {
+.blog-title-span {
   display: block;
   text-align: center;
 }
 
-.latest-posts .blog-title-span span {
+.blog-title-span span {
   display: block;
   position: relative;
   font-size: 16px;
@@ -1101,7 +1103,7 @@ li:focus {
   color: #000;
 }
 
-.latest-posts .blog-title-span span:after {
+.blog-title-span span:after {
   content: "";
   position: absolute;
   bottom: 0;

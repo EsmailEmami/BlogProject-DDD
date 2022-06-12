@@ -2,7 +2,6 @@
 using Blog.Application.Interfaces;
 using Blog.Domain.Commands.Category;
 using Blog.Domain.Core.Bus;
-using Blog.Domain.Interfaces;
 using Blog.Domain.Queries.Category;
 using Blog.Domain.ViewModels.Category;
 
@@ -48,6 +47,19 @@ public class CategoryAppService : ICategoryAppService
         catch
         {
             return null;
+        }
+    }
+
+    public async Task<List<CategoryForShowViewModel>> GetBlogCategoriesAsync(Guid blogId)
+    {
+        GetBlogCategoriesQuery query = new GetBlogCategoriesQuery(blogId);
+        try
+        {
+            return await _bus.SendQuery<GetBlogCategoriesQuery, List<CategoryForShowViewModel>>(query);
+        }
+        catch
+        {
+            return new List<CategoryForShowViewModel>();
         }
     }
 

@@ -41,7 +41,6 @@
     <Folder Include="Validations\Query\UserRole\" />
     <Folder Include="Validations\Query\User\" />
     <Folder Include="ViewModels\Comment\" />
-    <Folder Include="ViewModels\Tag\" />
   </ItemGroup>
 
   <ItemGroup>

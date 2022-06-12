@@ -10,4 +10,5 @@ public interface IBlogAppService : IDisposable
     Task<UpdateBlogViewModel?> GetBlogForUpdate(Guid blogId);
     Task<List<BlogForShowViewModel>> GetAuthorBlogs(Guid authorId);
     Task<List<BlogForShowViewModel>> GetBlogs();
+    Task<BlogDetailViewModel?> GetBlogDetailAsync(Guid blogId);
 }

@@ -57,4 +57,10 @@ public class TagController : ApiController
         _tagAppService.DeleteTag(tagId);
         return Response();
     }
+
+    [HttpGet("blog-tags")]
+    public async Task<IActionResult> BlogTags([FromQuery] Guid blogId)
+    {
+        return Response(await _tagAppService.GetBlogTags(blogId));
+    }
 }
