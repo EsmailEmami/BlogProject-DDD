@@ -1,1 +1,44 @@
-<p>blog-detail works!</p>
+<div class="single_post">
+  <div class="container-fluid container-xxl">
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="post_img">
+          <img src="{{blog.imageFile | blogImage}}" alt="{{blog.blogTitle}}">
+        </div>
+      </div>
+
+    </div>
+    <div class="posts_meta text-center">
+      <span><i class="fa fa-comment-o"></i> {{blog.commentsCount | separate}} نظر</span>
+      <span><i class="fa fa-calendar"></i> {{blog.postedAt | persianDate}}</span>
+    </div>
+    <app-blog-detail-tags [blogId]="blog.blogId"></app-blog-detail-tags>
+    <div class="post_content">
+      <h4>| {{blog.blogTitle}}</h4>
+      <p>{{blog.summary}}</p>
+      <p>{{blog.description}}</p>
+    </div>
+    <div class="comments_form">
+      <h5>دیدگاه شما </h5>
+      <form>
+        <div class="form-row">
+          <div class="col-md-6">
+            <input type="text" class="form-control" placeholder="نام شما">
+          </div>
+          <div class="col-md-6">
+            <input type="email" class="form-control" placeholder="ایمیل">
+          </div>
+          <div class="col-md-12">
+            <textarea class="form-control" placeholder="نظر شما ..."></textarea>
+          </div>
+          <div class="col-md-12">
+            <div class="text-left">
+              <button class="btn btn-primary">ثبت نظر</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

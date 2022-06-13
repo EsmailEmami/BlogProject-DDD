@@ -14,7 +14,6 @@ export class BlogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.blog.imageFile = blogImagePath + this.blog.imageFile;
   }
 
 }
