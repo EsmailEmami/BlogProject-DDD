@@ -6,6 +6,7 @@ import {CommentService} from "./services/comment.service";
 import {BlogDetailCommentsComponent} from './components/blog-detail-comments/blog-detail-comments.component';
 import {BlogDetailTagsComponent} from './components/blog-detail-tags/blog-detail-tags.component';
 import {BlogDetailCategoriesComponent} from './components/blog-detail-categories/blog-detail-categories.component';
+import {SharedModule} from "../../shared/shared.module";
 
 
 @NgModule({
@@ -16,11 +17,14 @@ import {BlogDetailCategoriesComponent} from './components/blog-detail-categories
   ],
   imports: [
     CommonModule,
-    BlogRoutingModule
+    BlogRoutingModule,
+    SharedModule
   ],
-  exports: [
-    BlogDetailTagsComponent
-  ],
+    exports: [
+        BlogDetailTagsComponent,
+        BlogDetailCategoriesComponent,
+        BlogDetailCommentsComponent
+    ],
   providers: [
     BlogService,
     CommentService

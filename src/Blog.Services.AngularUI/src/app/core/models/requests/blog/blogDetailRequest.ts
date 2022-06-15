@@ -12,7 +12,7 @@ export class BlogDetailRequest {
     this.blogTitle = blogTitle;
     this.summary = summary;
     this.description = description;
-    this.postedAt = postedAt;
+    this.postedAt = new Date(postedAt);
     this.imageFile = imageFile;
     this.commentsCount = commentsCount;
   }

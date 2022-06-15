@@ -11,7 +11,7 @@ export class BlogForShowRequest {
     this.blogId = blogId;
     this.blogTitle = blogTitle;
     this.summary = summary;
-    this.postedAt = postedAt;
+    this.postedAt = new Date(postedAt);
     this.imageFile = imageFile;
     this.commentsCount = commentsCount;
     this.tags = tags;

@@ -1318,6 +1318,46 @@ li:focus {
   opacity: 1;
 }
 
+.comments_form {
+  width: 100%;
+  display: inline-block;
+  background-color: #fff;
+  border-radius: 20px;
+  box-shadow: 0 0 30px #eb272912;
+  -webkit-box-shadow: 0 0 30px #eb272912;
+  padding: 15px;
+  line-height: 2.2;
+  color: #515151;
+  margin-bottom: 30px;
+}
+
+.comments_form div {
+  margin-bottom: 15px;
+}
+
+.comments_form input {
+  outline: 0;
+  height: 40px;
+  border-radius: 3px;
+  box-shadow: none !important;
+}
+
+.comments_form textarea {
+  resize: none;
+  box-shadow: none !important;
+  height: 200px;
+}
+
+.comment {
+  border: 1px solid #5c636a;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.comment h5 {
+  font-weight: 700;
+}
+
 .posts_meta {
   width: 100%;
   display: inline-block;
@@ -1349,7 +1389,6 @@ li:focus {
 }
 
 .snippet {
-
   position: fixed;
   top: 0;
   bottom: 0;

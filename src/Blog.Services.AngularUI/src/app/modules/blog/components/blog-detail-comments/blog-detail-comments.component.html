@@ -1,1 +1,8 @@
-<p>blog-detail-comments works!</p>
+<div *ngIf="comments.length > 0">
+  <div *ngFor="let comment of comments"
+       class="comment">
+    <h5>{{comment.fullName}} | {{comment.commentDate | persianDate}}</h5>
+    <p>{{comment.title}}</p>
+    <p>{{comment.commentMessage}}</p>
+  </div>
+</div>

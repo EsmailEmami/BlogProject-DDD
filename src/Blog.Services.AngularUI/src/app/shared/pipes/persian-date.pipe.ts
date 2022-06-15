@@ -6,6 +6,10 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class PersianDatePipe implements PipeTransform {
 
   transform(value: Date): string {
-    return new Date(value).toLocaleDateString('fa-IR')
+    try {
+      return value.toLocaleDateString('fa-IR');
+    } catch {
+      return new Date(value).toLocaleDateString('fa-IR');
+    }
   }
 }

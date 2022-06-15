@@ -12,6 +12,7 @@
       <span><i class="fa fa-comment-o"></i> {{blog.commentsCount | separate}} نظر</span>
       <span><i class="fa fa-calendar"></i> {{blog.postedAt | persianDate}}</span>
     </div>
+    <app-blog-detail-categories [blogId]="blog.blogId"></app-blog-detail-categories>
     <app-blog-detail-tags [blogId]="blog.blogId"></app-blog-detail-tags>
     <div class="post_content">
       <h4>| {{blog.blogTitle}}</h4>
@@ -38,6 +39,8 @@
           </div>
         </div>
       </form>
+
+      <app-blog-detail-comments [blogId]="blog.blogId"></app-blog-detail-comments>
     </div>
   </div>
 </div>

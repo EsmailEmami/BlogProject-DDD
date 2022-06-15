@@ -8,7 +8,7 @@ import {CategoryForShowRequest} from "../../../../core/models/requests/category/
 })
 export class BlogDetailCategoriesComponent implements OnInit {
 
-  @Input('blogId') private blogId!: string;
+  @Input('blogId') public blogId!: string;
 
   public categories: CategoryForShowRequest[] = [];
 
