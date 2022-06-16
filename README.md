@@ -22,7 +22,6 @@ This Project is a full-stack application of Asp.Net Core 6.0. It is based on Dom
 - Domain Events
 - Domain Notification
 - CQRS
-- Unit Of Work
 - Repository & Generic Repository
 - Inversion of Control / Dependency injection
 - ORM
