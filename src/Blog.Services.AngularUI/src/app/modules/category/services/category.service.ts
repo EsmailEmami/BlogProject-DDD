@@ -3,6 +3,7 @@ import {RestService} from "../../../core/services/http/rest.service";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {AddCategoryRequest} from "../../../core/models/requests/category/addCategoryRequest";
 import {UpdateCategoryRequest} from "../../../core/models/requests/category/updateCategoryRequest";
+import {CategoryForShowRequest} from "../../../core/models/requests/category/categoryForShowRequest";
 
 const CONTROLLER_NAME: string = 'category/';
 
@@ -30,7 +31,7 @@ export class CategoryService extends RestService {
     return this.put(CONTROLLER_NAME + 'update-category', request).toPromise();
   }
 
-  public getCategories() {
+  public getCategories(): Promise<CategoryForShowRequest[]> {
     return this.get(CONTROLLER_NAME + 'categories').toPromise();
   }
 }

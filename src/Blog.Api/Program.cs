@@ -51,7 +51,7 @@ app.UseCors(x => x
 // ----- Auth -----
 app.UseCustomizedAuth();
 
-app.MapHub<TestHub>(nameof(TestHub));
+app.MapHub<CommentHub>(nameof(CommentHub));
 
 app.MapControllers();
 

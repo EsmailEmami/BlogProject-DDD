@@ -1,11 +1,10 @@
-﻿using System.Net;
-using Blog.Application.Interfaces;
-using Blog.Domain.Common.Extensions;
+﻿using Blog.Application.Interfaces;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.ViewModels.Category;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace Blog.Services.Api.Controllers;
 

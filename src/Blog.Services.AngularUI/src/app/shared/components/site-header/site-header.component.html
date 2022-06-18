@@ -31,11 +31,7 @@
       <div class="col-md-10">
         <div class="main-menu">
           <ul>
-            <li><a href="#">اتاق خبر</a></li>
-            <li><a href="#">اقتصادی</a></li>
-            <li><a href="#">انجمن</a></li>
-            <li><a href="#">گروه رسانه ای</a></li>
-            <li><a href="/AddCategory">گروه رسانه ای</a></li>
+            <li *ngFor="let category of categories"><a href="#">{{category.categoryTitle}}</a></li>
           </ul>
         </div>
       </div>
