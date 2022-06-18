@@ -30,7 +30,6 @@ public class CommentHub : Hub
         }
     }
 
-
     public async Task SetActiveBlogRoom(Guid blogId)
     {
         string connectionId = Context.ConnectionId;

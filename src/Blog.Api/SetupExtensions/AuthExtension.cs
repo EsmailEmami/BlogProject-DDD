@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Primitives;
 
 namespace Blog.Services.Api.SetupExtensions;
 
@@ -36,6 +37,24 @@ public static class AuthExtension
             ClockSkew = TimeSpan.Zero
         };
 
+        var signalRJwtEvent = new JwtBearerEvents()
+        {
+            OnMessageReceived = context =>
+            {
+                StringValues accessToken = context.Request.Query["access_token"];
+
+                // If the request is for our hub...
+                var path = context.HttpContext.Request.Path;
+                if (!string.IsNullOrEmpty(accessToken) &&
+                    (path.StartsWithSegments("/CommentHub")))
+                {
+                    // Read the token out of the query string
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
+        };
+
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -46,9 +65,23 @@ public static class AuthExtension
             configureOptions.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
             configureOptions.TokenValidationParameters = tokenValidationParameters;
             configureOptions.SaveToken = true;
+            configureOptions.Events = signalRJwtEvent;
         });
 
         services.AddAuthorization();
+
+        services.AddCors(options =>
+        {
+            options.AddPolicy("EnableCors", builder =>
+            {
+                builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials()
+                    .WithOrigins("http://localhost:4200")
+                    .Build();
+
+            });
+        });
 
         return services;
     }

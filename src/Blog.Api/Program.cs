@@ -43,10 +43,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 // -----CORS---- 
-app.UseCors(x => x
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader());
+app.UseCors("EnableCors");
 
 // ----- Auth -----
 app.UseCustomizedAuth();
