@@ -22,7 +22,6 @@ This Project is a full-stack application of Asp.Net Core 6.0. It is based on Dom
 - Domain Events
 - Domain Notification
 - CQRS
-- Unit Of Work
 - Repository & Generic Repository
 - Inversion of Control / Dependency injection
 - ORM
@@ -32,7 +31,6 @@ This Project is a full-stack application of Asp.Net Core 6.0. It is based on Dom
 
 # TODO
 - [x] Use multiple environments
-- [x] Transaction (Unit of Work)
 - [x] Validation (FluentValidation)
 - [x] Response wrapper
 - [x] Async/Await
@@ -47,7 +45,6 @@ This Project is a full-stack application of Asp.Net Core 6.0. It is based on Dom
 - [x] Events
 - [x] Scoped over Transient
 - [x] Use `abstract` keyword to appropriate class
-- [x] Use `IQueryable`, `IEnumerable`, `IList` interfaces
 - [x] Use .Net Core 6.0 for Class Library
 - [x] Hashing
 - [x] File storage: Upload/Download
