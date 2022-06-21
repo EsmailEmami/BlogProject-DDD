@@ -7,13 +7,15 @@ import {BlogDetailCommentsComponent} from './components/blog-detail-comments/blo
 import {BlogDetailTagsComponent} from './components/blog-detail-tags/blog-detail-tags.component';
 import {BlogDetailCategoriesComponent} from './components/blog-detail-categories/blog-detail-categories.component';
 import {SharedModule} from "../../shared/shared.module";
+import { BlogDetailAddCommentComponent } from './components/blog-detail-add-comment/blog-detail-add-comment.component';
 
 
 @NgModule({
   declarations: [
     BlogDetailCommentsComponent,
     BlogDetailTagsComponent,
-    BlogDetailCategoriesComponent
+    BlogDetailCategoriesComponent,
+    BlogDetailAddCommentComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import {SharedModule} from "../../shared/shared.module";
     exports: [
         BlogDetailTagsComponent,
         BlogDetailCategoriesComponent,
-        BlogDetailCommentsComponent
+        BlogDetailCommentsComponent,
+        BlogDetailAddCommentComponent
     ],
   providers: [
     BlogService,
