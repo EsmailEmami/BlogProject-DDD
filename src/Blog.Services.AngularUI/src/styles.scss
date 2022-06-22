@@ -1449,3 +1449,63 @@ $x3: -$left-pos + $dot-spacing;
     $x1 0 0 -1px $dot-after-color;
   }
 }
+
+.modal-dialog {
+  max-width: 98%;
+  border: 2px solid #565656;
+  border-radius: 6px;
+  height: auto;
+}
+
+.modal-header-custom {
+  padding: 10px 16px;
+  border-bottom: 2px solid #e4e4e4;
+  background: #dbdbdb;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  position: relative;
+
+  .header-title {
+    font-weight: bold;
+    display: inline-block;
+    margin: 0;
+    font-size: 15px;
+    color: #2c2b2b;
+  }
+
+  .close {
+    position: absolute;
+    color: #2c2b2b;
+    left: 13px;
+    top: 4px;
+    font-size: 25px;
+    font-weight: bold;
+
+    &:hover, &:focus {
+      text-decoration: none;
+      cursor: pointer;
+    }
+  }
+}
+
+.modal-body-custom {
+  padding: 20px 16px 11px 16px;
+  background: #fff;
+}
+
+
+.modal-footer-custom {
+  padding: 10px 20px;
+
+  button {
+    margin-top: 0;
+    width: 100%;
+    padding: 10px;
+  }
+}
+
+@media (min-width: 1050px) {
+  .modal-dialog {
+    max-width: 1000px;
+  }
+}

@@ -8,6 +8,7 @@ import {BehaviorSubject, map, Observable, Subject} from "rxjs";
 import {NotificationService} from "./notification.service";
 import {appConstants} from "../constants/appConstants";
 import {User} from "../models/User";
+import {UserDashboardRequest} from "../models/requests/user/userDashboardRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,33 @@ export class AuthService extends RestService {
               private router: Router,
               private notificationService: NotificationService) {
     super(http);
+  }
+
+  updateCurrentUser(dashboard: UserDashboardRequest): void {
+    const storedUser = JSON.parse(this.localStorageService
+      .getValueByKey(appConstants.storedUser));
+
+    const user = new User(
+      storedUser['id'],
+      dashboard.firstName,
+      dashboard.lastName,
+      dashboard.email
+    );
+
+    let storedData: any = {
+      id: user.id,
+      firstName: user.firstName,
+      lastName: user.lastName,
+      email: user.email,
+      expire: storedUser['expire']
+    }
+
+    localStorage.removeItem(appConstants.storedUser);
+
+    // store user details and jwt token in local storage to keep user logged in between page refreshes
+    this.localStorageService.setValue(appConstants.storedUser, JSON.stringify(storedData));
+
+    this.currentUser$.next(user);
   }
 
   setCurrentUser(): void {
@@ -49,6 +77,7 @@ export class AuthService extends RestService {
       // @ts-ignore
       this.currentUser$.next(null);
       this.isLogged.next(false);
+      this.tokenStorageToken.clearToken();
     }
   }
 

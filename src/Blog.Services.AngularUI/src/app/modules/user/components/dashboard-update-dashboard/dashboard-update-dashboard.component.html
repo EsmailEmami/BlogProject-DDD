@@ -1,0 +1,72 @@
+<div class="modal-header-custom">
+  <h2 class="header-title">ویرایش مشخصات</h2>
+  <span class="close" (click)="closeModal()">&times;</span>
+</div>
+
+<form class="form" [formGroup]="dashboardForm" (ngSubmit)="onSubmit()" *ngIf="dashboardForm != null">
+  <div class="modal-body-custom">
+    <div class="row">
+
+      <div class="col-sm-12 col-md-6">
+        <input type="text" class="form-control" formControlName="firstName" placeholder="نام">
+        <span *ngIf="controls['firstName'].touched">
+              <p *ngIf="controls['firstName'].errors?.['required']">
+                لطفا نام را وارد کنید
+              </p>
+               <p *ngIf="controls['firstName'].errors?.['minlength']">
+                نام وارد شده نمیتواند کمتر از 3 کاراکتر باشد
+              </p>
+              <p *ngIf="controls['firstName'].errors?.['maxlength']">
+                نام وارد شده نمیتواند بیشتر از 50 کاراکتر باشد
+              </p>
+            </span>
+      </div>
+
+      <div class="col-sm-12 col-md-6">
+        <input type="text" class="form-control" formControlName="lastName" placeholder="نام و نام خانوادگی">
+        <span *ngIf="controls['lastName'].touched">
+              <p *ngIf="controls['lastName'].errors?.['required']">
+                لطفا نام و نام خانوادگی را وارد کنید
+              </p>
+               <p *ngIf="controls['lastName'].errors?.['minlength']">
+                نام و نام خانوادگی وارد شده نمیتواند کمتر از 3 کاراکتر باشد
+              </p>
+              <p *ngIf="controls['lastName'].errors?.['maxlength']">
+                نام و نام خانوادگی وارد شده نمیتواند بیشتر از 50 کاراکتر باشد
+              </p>
+            </span>
+      </div>
+
+      <div class="col-sm-12">
+        <input type="email" class="form-control" formControlName="email" placeholder="ایمیل">
+        <span *ngIf="controls['email'].touched">
+              <p *ngIf="controls['email'].errors?.['required']">
+                لطفا ایمیل را وارد کنید
+              </p>
+               <p *ngIf="controls['email'].errors?.['email']">
+                 لطفا ایمیل خود را درست وارد کنید
+              </p>
+              <p *ngIf="controls['email'].errors?.['maxlength']">
+                ایمیل وارد شده نمیتواند بیشتر از 100 کاراکتر باشد
+              </p>
+            </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer-custom">
+    <div class="row">
+
+      <div class="col-6">
+        <button class="btn btn-success text-white" type="submit">ویرایش</button>
+      </div>
+      <div class="col-6">
+        <button type="button" class="btn btn-danger text-white" (click)="closeModal()">
+          خروج
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+</form>

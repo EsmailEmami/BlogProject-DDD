@@ -2,12 +2,17 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {BlogsResolver} from "./resolvers/blogs.resolver";
 import {BlogDetailResolver} from "./resolvers/blog-detail.resolver";
+import {AuthGuard} from "../../core/guards/auth.guard";
 
 const routes: Routes = [
   {
     path: 'detail/:blogId',
     loadChildren: () => import('./pages/blog-detail/blog-detail.module').then(m => m.BlogDetailModule),
-    resolve: {'blog': BlogDetailResolver}
+    resolve: {'blog': BlogDetailResolver},
+
+    data: {
+      allowAnonymous: true
+    }
   },
   {
     path: 'add',

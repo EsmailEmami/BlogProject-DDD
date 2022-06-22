@@ -43,6 +43,7 @@ public class CommentController : ApiController
         return Response();
     }
 
+    [AllowAnonymous]
     [HttpGet("blog-comments")]
     public async Task<IActionResult> BlogComments([FromQuery] Guid blogId)
     {

@@ -18,8 +18,12 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    return this.authenticationService.currentUser.pipe(map((response) => {
+    if (route.data['allowAnonymous'] != undefined && route.data['allowAnonymous'] == true) {
+      return true;
+    }
 
+
+    return this.authenticationService.currentUser.pipe(map((response) => {
       if (response) {
         return true;
       }
