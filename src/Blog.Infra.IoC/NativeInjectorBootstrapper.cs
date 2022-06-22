@@ -92,7 +92,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RegisterNewBlogCategoryCommand, bool>, BlogCategoryCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveBlogCategoryCommand, bool>, BlogCategoryCommandHandler>();
         // - Comments 
-        services.AddScoped<IRequestHandler<RegisterNewCommentCommand, Guid>, CommentCommandHandler>();
+        services.AddScoped<IRequestHandler<RegisterNewCommentCommand, CommentForShowViewModel>, CommentCommandHandler>();
         // - Tag
         services.AddScoped<IRequestHandler<RegisterNewTagCommand, Guid>, TagCommandHandler>();
         services.AddScoped<IRequestHandler<UpdateTagCommand, bool>, TagCommandHandler>();

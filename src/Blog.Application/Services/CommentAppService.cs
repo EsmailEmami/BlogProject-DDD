@@ -2,6 +2,7 @@
 using Blog.Application.Interfaces;
 using Blog.Domain.Commands.Comment;
 using Blog.Domain.Core.Bus;
+using Blog.Domain.Models;
 using Blog.Domain.Queries.Comment;
 using Blog.Domain.ViewModels.Comment;
 
@@ -18,10 +19,10 @@ public class CommentAppService : ICommentAppService
         _mapper = mapper;
     }
 
-    public async Task<Guid> AddCommentAsync(AddCommentViewModel comment)
+    public async Task<CommentForShowViewModel> AddCommentAsync(AddCommentViewModel comment)
     {
         RegisterNewCommentCommand command = _mapper.Map<RegisterNewCommentCommand>(comment);
-        return await _bus.SendCommand<RegisterNewCommentCommand, Guid>(command);
+        return await _bus.SendCommand<RegisterNewCommentCommand, CommentForShowViewModel>(command);
     }
 
     public async Task<List<CommentForShowViewModel>> GetBlogCommentsAsync(Guid blogId)

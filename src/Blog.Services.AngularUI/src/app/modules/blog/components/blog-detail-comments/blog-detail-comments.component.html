@@ -1,7 +1,45 @@
-<div *ngIf="comments.length > 0">
+<form class="form" [formGroup]="addCommentForm" (ngSubmit)="onSubmit()">
+  <div class="form-row">
+    <div class="col-12">
+      <input type="text" class="form-control" formControlName="title" placeholder="عنوان بازخورد">
+      <span *ngIf="controls['title'].touched">
+              <p *ngIf="controls['title'].errors?.['required']">
+                لطفا عنوان بازخورد را وارد کنید
+              </p>
+               <p *ngIf="controls['title'].errors?.['minlength']">
+                 عنوان بازخورد وارد شده نمیتواند کمتر از 5 کاراکتر باشد
+              </p>
+              <p *ngIf="controls['title'].errors?.['maxlength']">
+                عنوان بازخورد وارد شده نمیتواند بیشتر از 150 کاراکتر باشد
+              </p>
+            </span>
+    </div>
+    <div class="col-12">
+      <textarea class="form-control" formControlName="commentMessage" placeholder="بازخورد"></textarea>
+      <span *ngIf="controls['commentMessage'].touched">
+              <p *ngIf="controls['commentMessage'].errors?.['required']">
+                لطفا بازخورد را وارد کنید
+              </p>
+               <p *ngIf="controls['commentMessage'].errors?.['minlength']">
+                 بازخورد وارد شده نمیتواند کمتر از 10 کاراکتر باشد
+              </p>
+              <p *ngIf="controls['commentMessage'].errors?.['maxlength']">
+                بازخورد وارد شده نمیتواند بیشتر از 1000 کاراکتر باشد
+              </p>
+            </span>
+    </div>
+    <div class="col-12">
+      <div class="text-left">
+        <button class="btn btn-primary">ثبت نظر</button>
+      </div>
+    </div>
+  </div>
+</form>
+
+<div *ngIf="comments != null && comments.length > 0">
   <div *ngFor="let comment of comments"
        class="comment">
-    <h5>{{comment.fullName}} | {{comment.commentDate | persianDate}}</h5>
+    <h5>{{comment.commentDate | persianDateTime}} | {{comment.fullName}}</h5>
     <p>{{comment.title}}</p>
     <p>{{comment.commentMessage}}</p>
   </div>

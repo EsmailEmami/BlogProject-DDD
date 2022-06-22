@@ -28,23 +28,16 @@ public class CommentController : ApiController
         _commentHubContext = commentHubContext;
     }
 
-    [AllowAnonymous]
     [HttpPost("add-comment")]
     public async Task<IActionResult> AddComment([FromBody] AddCommentViewModel comment)
     {
         comment.UserId = _user.UserId;
 
-        Guid commentId = await _commentAppService.AddCommentAsync(comment);
+        CommentForShowViewModel insertedComment = await _commentAppService.AddCommentAsync(comment);
 
         if (IsValidOperation())
         {
-            CommentForShowViewModel newComment = new CommentForShowViewModel()
-            {
-                CommentId = commentId,
-                CommentDate = new DateTime(),
-            };
-
-            await _commentHubContext.Clients.Group(comment.BlogId.ToString()).SendAsync("ReceiveNewComment", newComment);
+            await _commentHubContext.Clients.Group(comment.BlogId.ToString()).SendAsync("ReceiveNewComment", insertedComment);
         }
 
         return Response();

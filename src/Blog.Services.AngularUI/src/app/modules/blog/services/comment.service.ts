@@ -4,8 +4,8 @@ import {HttpClient, HttpParams} from "@angular/common/http";
 import {CommentForShowRequest} from "../../../core/models/requests/comment/commentForShowRequest";
 import {HubConnection, HubConnectionBuilder, IHttpConnectionOptions} from "@microsoft/signalr";
 import {TokenStorageService} from "../../../core/token-storage.service";
-import {environment} from "../../../../environments/environment";
 import {AddCommentRequest} from "../../../core/models/requests/comment/addCommentRequest";
+import {BehaviorSubject, Observable} from "rxjs";
 
 const CONTROLLER_NAME: string = 'comment/'
 
@@ -15,6 +15,9 @@ const CONTROLLER_NAME: string = 'comment/'
 export class CommentService extends RestService {
 
   private hubConnection: HubConnection;
+
+  // @ts-ignore
+  private $newComment: BehaviorSubject<CommentForShowRequest> = new BehaviorSubject<CommentForShowRequest>(null);
 
   constructor(http: HttpClient,
               private token: TokenStorageService) {
@@ -42,9 +45,15 @@ export class CommentService extends RestService {
       });
   }
 
-  public addReceiveNewCommentListener(): void {
+  public receiveNewCommentListener(): Observable<CommentForShowRequest> {
+    return this.$newComment
+  }
+
+  private addReceiveNewCommentListener(): void {
     this.hubConnection.on('ReceiveNewComment', (data: CommentForShowRequest) => {
-      console.log(data);
+      if (data != null) {
+        this.$newComment.next(data);
+      }
     });
   }
 

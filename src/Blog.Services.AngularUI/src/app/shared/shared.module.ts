@@ -10,6 +10,7 @@ import {RouterModule} from "@angular/router";
 import {PersianDatePipe} from "./pipes/persian-date.pipe";
 import {SeparatePipe} from "./pipes/separate.pipe";
 import { BlogImagePipe } from './pipes/blog-image.pipe';
+import { PersianDateTimePipe } from './pipes/persian-date-time.pipe';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { BlogImagePipe } from './pipes/blog-image.pipe';
     PersianDatePipe,
     SeparatePipe,
     BlogComponent,
-    BlogImagePipe
+    BlogImagePipe,
+    PersianDateTimePipe
   ],
   imports: [
     CommonModule,
@@ -32,6 +34,7 @@ import { BlogImagePipe } from './pipes/blog-image.pipe';
     SiteFooterComponent,
     ImagePickerComponent,
     PersianDatePipe,
+    PersianDateTimePipe,
     SeparatePipe,
     BlogImagePipe,
     BlogComponent,

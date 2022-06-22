@@ -3,6 +3,7 @@ using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.ViewModels.Comment;
 using Dapper;
+using Dapper.Contrib.Extensions;
 
 namespace Blog.Infra.Data.Repository;
 
@@ -29,5 +30,19 @@ public class CommentRepository : Repository<Comment>, ICommentRepository
         {
             blogId
         }).ToList();
+    }
+
+    public new CommentForShowViewModel Add(Comment obj)
+    {
+        string query = "INSERT INTO [User].[Comments] ([UserId],[BlogId],[Title],[CommentMessage]) " +
+                       "VALUES (@UserId, @BlogId, @Title, @CommentMessage)";
+
+        return Db.QuerySingleOrDefault<CommentForShowViewModel>(query, new
+        {
+            obj.UserId,
+            obj.BlogId,
+            obj.Title,
+            obj.CommentMessage
+        });
     }
 }

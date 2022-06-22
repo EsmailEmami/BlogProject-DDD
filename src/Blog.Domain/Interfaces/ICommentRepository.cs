@@ -6,4 +6,5 @@ namespace Blog.Domain.Interfaces;
 public interface ICommentRepository : IRepository<Comment>
 {
     List<CommentForShowViewModel> GetBlogComments(Guid blogId);
+    new CommentForShowViewModel Add(Comment obj);
 }
