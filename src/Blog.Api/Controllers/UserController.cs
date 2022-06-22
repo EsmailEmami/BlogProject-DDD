@@ -85,6 +85,7 @@ public class UserController : ApiController
     [HttpPut("update-password")]
     public IActionResult UpdatePassword([FromBody] UpdateUserPasswordViewModel userData)
     {
+        userData.UserId = _user.UserId; 
         _userAppService.UpdateUserPassword(userData);
         return Response();
     }

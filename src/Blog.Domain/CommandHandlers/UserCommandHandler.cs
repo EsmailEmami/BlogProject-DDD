@@ -119,7 +119,7 @@ public class UserCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        if (!_passwordHasher.Check(_passwordHasher.Hash(request.CurrentPassword), user.Password))
+        if (!_passwordHasher.Check(user.Password, request.CurrentPassword))
         {
             Bus.RaiseEvent(new DomainNotification(request.MessageType, "رمز فعلی شما اشتباه است."));
             return Task.FromResult(false);

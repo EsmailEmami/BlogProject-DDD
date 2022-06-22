@@ -6,6 +6,9 @@ import {NotificationService} from "../../../../core/services/notification.servic
 import {
   DashboardUpdateDashboardComponent
 } from "../../components/dashboard-update-dashboard/dashboard-update-dashboard.component";
+import {
+  DashboardUpdatePasswordComponent
+} from "../../components/dashboard-update-password/dashboard-update-password.component";
 
 @Component({
   selector: 'app-dashboard',
@@ -40,6 +43,16 @@ export class DashboardComponent implements OnInit {
     }).catch(e => {
       if (e) {
         this.notificationService.showError(e);
+      }
+    });
+  }
+
+  editPassword() {
+    const modalRef = this.modalService.open(DashboardUpdatePasswordComponent);
+
+    modalRef.result.then((data: string) => {
+      if (data) {
+        this.notificationService.showSuccess(data);
       }
     });
   }
