@@ -1,22 +1,27 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../../../core/services/auth.service";
 import {BlogService} from "../../services/blog.service";
 import {NotificationService} from "../../../../core/services/notification.service";
 import {UpdateBlogRequest} from "../../../../core/models/requests/blog/updateBlogRequest";
-import {blogImagePath} from "../../../../core/constants/pathConstants";
+import {CategoryService} from "../../services/category.service";
+import {TagService} from "../../services/tag.service";
+import {CategoryForShowRequest} from "../../../../core/models/requests/category/categoryForShowRequest";
+import {TagForShowRequest} from "../../../../core/models/requests/tag/tagForShowRequest";
+
+declare function multiSelectDropdown(): any;
 
 @Component({
   selector: 'app-update-blog',
   templateUrl: './update-blog.component.html',
 })
-export class UpdateBlogComponent implements OnInit {
+export class UpdateBlogComponent implements OnInit, AfterViewChecked {
 
   public blogForm!: FormGroup;
-  public loading = false;
-  private blog!: UpdateBlogRequest;
-  public imageSrc: string = blogImagePath;
+  public blog!: UpdateBlogRequest;
+  public categories: CategoryForShowRequest[] = [];
+  public tags: TagForShowRequest[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -24,7 +29,9 @@ export class UpdateBlogComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private blogService: BlogService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private categoryService: CategoryService,
+    private tagService: TagService
   ) {
   }
 
@@ -39,8 +46,6 @@ export class UpdateBlogComponent implements OnInit {
     this.blogService.getBlogForUpdate(blogId)
       .then((data: UpdateBlogRequest) => {
         this.blog = data;
-
-        this.imageSrc = this.imageSrc + this.blog.imageFile;
 
         this.blogForm = this.formBuilder.group({
           blogTitle: [this.blog.blogTitle,
@@ -63,13 +68,21 @@ export class UpdateBlogComponent implements OnInit {
               Validators.minLength(2000)
             ])
           ],
-          imageFile: [this.blog.imageFile,
-            Validators.required
-          ],
+          imageFile: [''],
           readTime: [this.blog.readTime,
             Validators.compose([
               Validators.required,
               Validators.maxLength(10)
+            ])
+          ],
+          categories: [this.blog.categories,
+            Validators.compose([
+              Validators.required
+            ])
+          ],
+          tags: [this.blog.tags,
+            Validators.compose([
+              Validators.required
             ])
           ]
         });
@@ -77,6 +90,13 @@ export class UpdateBlogComponent implements OnInit {
       }, () => {
         this.router.navigate(['']).then();
       });
+
+    this.categoryService.getCategories().then(categories => this.categories = categories);
+    this.tagService.getTags().then(tags => this.tags = tags);
+  }
+
+  ngAfterViewChecked(): void {
+    setTimeout(multiSelectDropdown, 1000)
   }
 
   get controls() {
@@ -93,7 +113,6 @@ export class UpdateBlogComponent implements OnInit {
     if (this.blogForm.invalid) {
       return;
     }
-    this.loading = true;
 
     const request = new UpdateBlogRequest(
       this.blog.id,
@@ -103,6 +122,8 @@ export class UpdateBlogComponent implements OnInit {
       this.controls['description'].value,
       this.controls['imageFile'].value,
       this.controls['readTime'].value,
+      this.controls['tags'].value,
+      this.controls['categories'].value,
     );
 
     this.blogService.updateBlog(request)
@@ -110,8 +131,6 @@ export class UpdateBlogComponent implements OnInit {
         this.notificationService.showSuccess("مقاله با موفقیت ویرایش شد.");
         this.router.navigate(['']).then(_ => this.blogForm.reset());
       });
-
-    this.loading = false;
   }
 
 }

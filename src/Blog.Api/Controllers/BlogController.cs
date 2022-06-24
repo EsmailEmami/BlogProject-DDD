@@ -24,12 +24,18 @@ public class BlogController : ApiController
         _blogTagAppService = blogTagAppService;
     }
 
+    #region blogs
+
     [HttpGet("blogs")]
     public async Task<IActionResult> Blogs()
     {
         List<BlogForShowViewModel> blogs = await _blogAppService.GetBlogs();
         return Response(blogs);
     }
+
+    #endregion
+
+    #region author blogs
 
     [HttpGet("author-blogs")]
     public async Task<IActionResult> AuthorBlogs([FromQuery] Guid authorId)
@@ -38,6 +44,9 @@ public class BlogController : ApiController
         return Response(blogs);
     }
 
+    #endregion
+
+    #region add blog
 
     [HttpPost("add-blog")]
     public async Task<IActionResult> AddBlog([FromBody] AddBlogViewModel blog)
@@ -50,34 +59,35 @@ public class BlogController : ApiController
 
         Guid blogId = await _blogAppService.Register(blog);
 
-        if (IsValidOperation())
+        if (!IsValidOperation())
+            return Response();
+
+        foreach (Guid tag in blog.Tags)
         {
-            foreach (Guid tag in blog.Tags)
+            bool result = await _blogTagAppService.AddBlogTagAsync(blogId, tag);
+            if (!result)
             {
-                bool result = await _blogTagAppService.AddBlogTagAsync(blogId, tag);
-                if (!result)
-                {
-                    _blogAppService.DeleteBlog(blogId);
-                    return Response();
-                }
+                _blogAppService.DeleteBlog(blogId);
+                return Response();
             }
         }
 
-        if (IsValidOperation())
+        foreach (Guid category in blog.Categories)
         {
-            foreach (Guid category in blog.Categories)
+            bool result = await _blogCategoryAppService.AddBlogCategoryAsync(blogId, category);
+            if (!result)
             {
-                bool result = await _blogCategoryAppService.AddBlogCategoryAsync(blogId, category);
-                if (!result)
-                {
-                    _blogAppService.DeleteBlog(blogId);
-                    return Response();
-                }
+                _blogAppService.DeleteBlog(blogId);
+                return Response();
             }
         }
 
         return Response(blogId);
     }
+
+    #endregion
+
+    #region update blog
 
     [HttpGet("get-blog-for-update")]
     public async Task<IActionResult> UpdateBlog([FromQuery] Guid blogId)
@@ -101,38 +111,39 @@ public class BlogController : ApiController
             return Response();
 
         // add relations
-        if (IsValidOperation())
+
+        foreach (Guid tag in blog.Tags)
         {
-            foreach (Guid tag in blog.Tags)
+            bool result = await _blogTagAppService.AddBlogTagAsync(blog.Id, tag);
+            if (!result)
             {
-                bool result = await _blogTagAppService.AddBlogTagAsync(blog.Id, tag);
-                if (!result)
-                {
-                    _blogAppService.DeleteBlog(blog.Id);
-                    return Response();
-                }
+                _blogAppService.DeleteBlog(blog.Id);
+                return Response();
             }
         }
 
-        if (IsValidOperation())
+        foreach (Guid category in blog.Categories)
         {
-            foreach (Guid category in blog.Categories)
+            bool result = await _blogCategoryAppService.AddBlogCategoryAsync(blog.Id, category);
+            if (!result)
             {
-                bool result = await _blogCategoryAppService.AddBlogCategoryAsync(blog.Id, category);
-                if (!result)
-                {
-                    _blogAppService.DeleteBlog(blog.Id);
-                    return Response();
-                }
+                _blogAppService.DeleteBlog(blog.Id);
+                return Response();
             }
         }
 
         return Response();
     }
 
+    #endregion
+
+    #region blog detail
+
     [HttpGet("detail")]
     public async Task<IActionResult> BlogDetail([FromQuery] Guid blogId)
     {
         return Response(await _blogAppService.GetBlogDetailAsync(blogId));
     }
+
+    #endregion
 }

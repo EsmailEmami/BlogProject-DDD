@@ -1,4 +1,5 @@
 ﻿using Blog.Domain.Commands.Blog;
+using Blog.Domain.Common.Extensions;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Events.Blog;
@@ -36,7 +37,7 @@ public class BlogCommandHandler : CommandHandler,
 
         _blogRepository.Add(blog);
 
-        //Bus.RaiseEvent(new BlogRegisteredEvent(blog.Id, request.ImageFile, imageFile));
+        Bus.RaiseEvent(new BlogRegisteredEvent(blog.Id, request.ImageFile, imageFile));
 
         return Task.FromResult(blog.Id);
     }
@@ -84,7 +85,12 @@ public class BlogCommandHandler : CommandHandler,
             return Task.FromResult(false);
         }
 
-        blog.SetWeittenAt(existingBlog.WrittenAt);
+        blog.SetWrittenAt(existingBlog.WrittenAt);
+
+        if (string.IsNullOrEmpty(request.ImageFile))
+        {
+            blog.SetImageFile(existingBlog.ImageFile);
+        }
 
         if (existingBlog.Id != blog.Id)
         {
@@ -97,7 +103,7 @@ public class BlogCommandHandler : CommandHandler,
 
         _blogRepository.Update(blog);
 
-        Bus.RaiseEvent(new BlogUpdatedEvent(request.ImageFile, imageFile, existingBlog.ImageFile));
+        Bus.RaiseEvent(new BlogUpdatedEvent(blog.Id, request.ImageFile, imageFile, existingBlog.ImageFile));
 
         return Task.FromResult(true);
     }

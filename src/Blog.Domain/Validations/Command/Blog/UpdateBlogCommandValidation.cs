@@ -11,9 +11,6 @@ public class UpdateBlogCommandValidation : BlogCommandValidation<UpdateBlogComma
         ValidateTitle();
         ValidateSummary();
         ValidateDescription();
-        ValidateImageFile();
         ValidateReadTime();
-        ValidateTags();
-        ValidateCategories();
     }
 }

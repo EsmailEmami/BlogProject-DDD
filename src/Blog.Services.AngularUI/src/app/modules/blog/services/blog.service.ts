@@ -32,23 +32,11 @@ export class BlogService extends RestService {
   }
 
   public updateBlog(request: UpdateBlogRequest) {
-    return this.post(BLOG_CONTROLLER_NAME + 'update-blog', request).toPromise();
+    return this.put(BLOG_CONTROLLER_NAME + 'update-blog', request).toPromise();
   }
 
   public blogList() {
     return this.get(BLOG_CONTROLLER_NAME + 'blogs').toPromise();
-  }
-
-  public blogTags(blogId: string): Promise<TagForShowRequest[]> {
-    const params = new HttpParams()
-      .append('blogId', blogId);
-    return this.get(TAG_CONTROLLER_NAME + 'blog-tags', params).toPromise();
-  }
-
-  public blogCategories(blogId: string): Promise<CategoryForShowRequest[]> {
-    const params = new HttpParams()
-      .append('blogId', blogId);
-    return this.get(Category_CONTROLLER_NAME + 'blog-categories', params).toPromise();
   }
 
   public blogDetail(blogId: string): Promise<BlogDetailRequest> {

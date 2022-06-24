@@ -44,7 +44,7 @@
             </span>
           </div>
           <div class="col-sm-12 col-lg-4">
-            <app-image-picker (imagePick)="uploadFile($event)" [src]="imageSrc"></app-image-picker>
+            <app-image-picker (imagePick)="uploadFile($event)" [src]="blog.imageFile | blogImage"></app-image-picker>
 
             <span *ngIf="controls['imageFile'].touched">
               <p *ngIf="controls['imageFile'].errors?.['required']"
@@ -52,6 +52,17 @@
                 لطفا تصویر را وارد کنید
               </p>
             </span>
+          </div>
+          <div class="col-sm-12 col-lg-6">
+            <select set formControlName="categories" multiple placeholder="دسته بندی ها">
+              <option *ngFor="let category of categories"
+                      [ngValue]="category.categoryId">{{category.categoryTitle}}</option>
+            </select>
+          </div>
+          <div class="col-sm-12 col-lg-6">
+            <select set formControlName="tags" multiple placeholder="تگ ها">
+              <option *ngFor="let tag of tags" [ngValue]="tag.tagId">{{tag.tagName}}</option>
+            </select>
           </div>
           <div class="col-12">
             <textarea type="text" class="form-control" formControlName="description" placeholder="توضیحات"></textarea>

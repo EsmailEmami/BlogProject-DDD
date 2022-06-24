@@ -12,7 +12,5 @@ public class RegisterNewBlogCommandValidation : BlogCommandValidation<RegisterNe
         ValidateDescription();
         ValidateImageFile();
         ValidateReadTime();
-        ValidateTags();
-        ValidateCategories();
     }
 }

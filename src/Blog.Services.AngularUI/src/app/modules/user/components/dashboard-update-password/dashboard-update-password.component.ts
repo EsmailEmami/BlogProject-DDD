@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {UserService} from "../../services/user.service";
-import {UserDashboardRequest} from "../../../../core/models/requests/user/userDashboardRequest";
 import {AuthService} from "../../../../core/services/auth.service";
 import {UpdateUserPasswordRequest} from "../../../../core/models/requests/user/updateUserPasswordRequest";
 

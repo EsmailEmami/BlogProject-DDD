@@ -31,7 +31,7 @@ public class CategoryRepository : Repository<Category>, ICategoryRepository
         string query = "SELECT [Id] AS [CategoryId],[CategoryTitle] " +
                        "FROM [Category].[Categories] WHERE [Id] = @CategoryId;";
 
-        return Db.QuerySingleOrDefault<UpdateCategoryViewModel>(query);
+        return Db.QuerySingleOrDefault<UpdateCategoryViewModel>(query, new { categoryId });
     }
 
     public List<CategoryForShowViewModel> GetAllCategories()

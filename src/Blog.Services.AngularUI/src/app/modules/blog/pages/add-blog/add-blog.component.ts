@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewChecked, AfterViewInit, Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../core/services/auth.service";
@@ -6,15 +6,22 @@ import {BlogService} from "../../services/blog.service";
 import {AddBlogRequest} from "../../../../core/models/requests/blog/addBlogRequest";
 import {NotificationService} from "../../../../core/services/notification.service";
 import {LoaderService} from "../../../../core/services/loader.service";
+import {CategoryForShowRequest} from "../../../../core/models/requests/category/categoryForShowRequest";
+import {TagForShowRequest} from "../../../../core/models/requests/tag/tagForShowRequest";
+import {CategoryService} from "../../services/category.service";
+import {TagService} from "../../services/tag.service";
+
+declare function multiSelectDropdown(): any;
 
 @Component({
   selector: 'app-add-blog',
   templateUrl: './add-blog.component.html'
 })
-export class AddBlogComponent implements OnInit {
+export class AddBlogComponent implements OnInit, AfterViewChecked {
 
   public blogForm!: FormGroup;
-
+  public categories: CategoryForShowRequest[] = [];
+  public tags: TagForShowRequest[] = [];
   private userId!: string;
 
   constructor(
@@ -23,7 +30,9 @@ export class AddBlogComponent implements OnInit {
     private authService: AuthService,
     private blogService: BlogService,
     private notificationService: NotificationService,
-    private loader: LoaderService
+    private loader: LoaderService,
+    private categoryService: CategoryService,
+    private tagService: TagService
   ) {
   }
 
@@ -64,8 +73,25 @@ export class AddBlogComponent implements OnInit {
           Validators.required,
           Validators.maxLength(10)
         ])
+      ],
+      categories: ['',
+        Validators.compose([
+          Validators.required
+        ])
+      ],
+      tags: ['',
+        Validators.compose([
+          Validators.required
+        ])
       ]
     });
+
+    this.categoryService.getCategories().then(categories => this.categories = categories);
+    this.tagService.getTags().then(tags => this.tags = tags);
+  }
+
+  ngAfterViewChecked(): void {
+    setTimeout(multiSelectDropdown, 1000)
   }
 
   get controls() {
@@ -82,6 +108,7 @@ export class AddBlogComponent implements OnInit {
     if (this.blogForm.invalid) {
       return;
     }
+
     this.loader.start();
 
     const request = new AddBlogRequest(
@@ -91,6 +118,8 @@ export class AddBlogComponent implements OnInit {
       this.controls['description'].value,
       this.controls['imageFile'].value,
       this.controls['readTime'].value,
+      this.controls['tags'].value,
+      this.controls['categories'].value,
     );
 
     this.blogService.addBlog(request)

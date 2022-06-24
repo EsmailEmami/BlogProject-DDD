@@ -54,18 +54,4 @@ public abstract class BlogCommandValidation<TCommand, TResult> : AbstractValidat
             .NotEmpty().WithMessage("لطفا مدت زمان خواندن مقاله را وارد کنید")
             .MaximumLength(10).WithMessage("مدت زمان خواندن مقاله وارد شده باید حداکثر 10 کاراکتر باشد");
     }
-
-    protected void ValidateTags()
-    {
-        RuleFor(c => c.Tags)
-            .NotEmpty().WithMessage("لطفا تگ را انتخاب کنید")
-            .Must(c => c.Count > 0).WithMessage("لطفا تگ را انتخاب کنید");
-    }
-
-    protected void ValidateCategories()
-    {
-        RuleFor(c => c.Categories)
-            .NotEmpty().WithMessage("لطفا دسته بندی را انتخاب کنید")
-            .Must(c => c.Count > 0).WithMessage("لطفا دسته بندی را انتخاب کنید");
-    }
 }

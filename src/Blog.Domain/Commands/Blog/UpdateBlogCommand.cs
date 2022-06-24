@@ -5,7 +5,7 @@ namespace Blog.Domain.Commands.Blog;
 public class UpdateBlogCommand : BlogCommand<bool>
 {
     public UpdateBlogCommand(Guid id, Guid authorId, string blogTitle, string summary, string description,
-        string imageFile, string readTime, List<Guid> tags, List<Guid> categories)
+        string imageFile, string readTime)
     {
         Id = id;
         AuthorId = authorId;
@@ -14,8 +14,6 @@ public class UpdateBlogCommand : BlogCommand<bool>
         Description = description;
         ImageFile = imageFile;
         ReadTime = readTime;
-        Tags = tags;
-        Categories = categories;
     }
 
     public override bool IsValid()

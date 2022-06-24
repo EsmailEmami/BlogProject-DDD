@@ -50,12 +50,21 @@ public class BlogEventHandler :
     {
         try
         {
-            Image image = ImageExtension.Base64ToImage(notification.ImageBase64String);
-            image.AddImage(notification.ImageName, PathConstant.BlogImageServer, notification.LastImageName);
+            if (!string.IsNullOrEmpty(notification.ImageBase64String))
+            {
+                Image image = ImageExtension.Base64ToImage(notification.ImageBase64String);
+                image.AddImage(notification.ImageName, PathConstant.BlogImageServer, notification.LastImageName);
+            }
             return Task.CompletedTask;
         }
         catch
         {
+            Models.Blog? blog = _blogRepository.GetById(notification.BlogId);
+
+            blog!.SetImageFile(notification.LastImageName);
+
+            _blogRepository.Update(blog);
+
             _bus.RaiseEvent(new DomainNotification("image not found error", "تصویر یافت نشد"));
             return Task.FromCanceled(cancellationToken);
         }

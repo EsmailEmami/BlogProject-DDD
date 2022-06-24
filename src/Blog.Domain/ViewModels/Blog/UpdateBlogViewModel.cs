@@ -12,6 +12,6 @@ public class UpdateBlogViewModel
     public string Description { get; set; }
     public string ImageFile { get; set; }
     public string ReadTime { get; set; }
-    public List<Guid> Tags { get; set; }
-    public List<Guid> Categories { get; set; }
+    public List<Guid> Tags { get; set; } = new();
+    public List<Guid> Categories { get; set; } = new();
 }

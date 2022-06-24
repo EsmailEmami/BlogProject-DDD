@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BlogService} from "../../services/blog.service";
 import {TagForShowRequest} from "../../../../core/models/requests/tag/tagForShowRequest";
+import {TagService} from "../../services/tag.service";
 
 @Component({
   selector: 'app-blog-detail-tags',
@@ -12,11 +13,11 @@ export class BlogDetailTagsComponent implements OnInit {
 
   public tags: TagForShowRequest[] = [];
 
-  constructor(private blogService: BlogService) {
+  constructor(private tagService: TagService) {
   }
 
   ngOnInit(): void {
-    this.blogService.blogTags(this.blogId)
+    this.tagService.getBlogTags(this.blogId)
       .then(tags => this.tags = tags);
   }
 

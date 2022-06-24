@@ -11,6 +11,4 @@ public abstract class BlogCommand<TResult> : Command<TResult>
     public string Description { get; protected set; }
     public string ImageFile { get; protected set; }
     public string ReadTime { get; protected set; }
-    public List<Guid> Tags { get; protected set; }
-    public List<Guid> Categories { get; protected set; }
 }

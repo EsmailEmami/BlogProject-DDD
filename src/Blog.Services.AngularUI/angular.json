@@ -34,6 +34,7 @@
               "src/assets/css/bootstrap.rtl.min.css",
               "src/assets/css/font-awesome.min.css",
               "src/assets/css/owl.carousel.css",
+              "src/assets/css/select.css",
               "src/assets/css/owl.theme.default.css",
               "node_modules/ngx-toastr/toastr.css",
               "src/styles.scss"
@@ -42,7 +43,8 @@
               "src/assets/js/jquery.js",
               "src/assets/js/bootstrap.min.js",
               "src/assets/js/owl.carousel.min.js",
-              "src/assets/js/index.js"
+              "src/assets/js/index.js",
+              "src/assets/js/select.js"
             ]
           },
           "configurations": {

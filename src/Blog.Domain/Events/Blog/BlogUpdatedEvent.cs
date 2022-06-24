@@ -4,14 +4,16 @@ namespace Blog.Domain.Events.Blog;
 
 public class BlogUpdatedEvent : Event
 {
-    public BlogUpdatedEvent(string imageBase64String, string imageName, string lastImageName)
+    public BlogUpdatedEvent(Guid blogId, string imageBase64String, string imageName, string lastImageName)
     {
+        BlogId = blogId;
         ImageBase64String = imageBase64String;
         ImageName = imageName;
         LastImageName = lastImageName;
     }
 
-    public string ImageBase64String { get; private set; }
-    public string ImageName { get; private set; }
-    public string LastImageName { get; private set; }
+    public Guid BlogId { get; }
+    public string ImageBase64String { get; }
+    public string ImageName { get; }
+    public string LastImageName { get; }
 }

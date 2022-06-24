@@ -6,7 +6,7 @@ import {blogImagePath} from "../../core/constants/pathConstants";
 })
 export class BlogImagePipe implements PipeTransform {
 
-  transform(value: string): unknown {
+  transform(value: string): string {
     return blogImagePath + value;
   }
 

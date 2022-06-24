@@ -36,11 +36,11 @@ public static class ImageExtension
         }
     }
 
-    private static byte[] DecodeUrlBase64(string base64String) =>
-        Convert.FromBase64String(base64String[(base64String.LastIndexOf(',') + 1)..]);
-
     public static void DeleteImage(string imagePath)
     {
         File.Delete(imagePath);
     }
+
+    private static byte[] DecodeUrlBase64(string base64String) =>
+        Convert.FromBase64String(base64String[(base64String.LastIndexOf(',') + 1)..]);
 }

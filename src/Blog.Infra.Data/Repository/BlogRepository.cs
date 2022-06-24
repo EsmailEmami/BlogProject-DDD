@@ -27,14 +27,59 @@ public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
 
     public UpdateBlogViewModel? GetBlogForUpdate(Guid blogId)
     {
-        string query = "SELECT [Id],[AuthorId],[BlogTitle],[Summary],[Description],[ImageFile],[ReadTime] " +
-                       "FROM [Blog].[Blogs] " +
-                       "WHERE [Id] = @BlogId";
+        // method 1
 
-        return Db.QuerySingleOrDefault<UpdateBlogViewModel>(query, new
-        {
-            blogId
-        });
+
+        //string query = "SELECT [Blogs].[Id], " +
+        //               "[Blogs].[AuthorId], " +
+        //               "[Blogs].[BlogTitle], " +
+        //               "[Blogs].[Summary], " +
+        //               "[Blogs].[Description], " +
+        //               "[Blogs].[ImageFile], " +
+        //               "[Blogs].[ReadTime], " +
+        //               "[Tag].[BlogTags].[TagId] AS [Tags], " +
+        //               "[Category].[BlogCategories].[CategoryId] AS [Categories] " +
+        //               "FROM [Blog].[Blogs] " +
+        //               "INNER JOIN [Tag].[BlogTags] ON [Blog].[Blogs].[Id] = [Tag].[BlogTags].[BlogId] " +
+        //               "INNER JOIN [Category].[BlogCategories] ON [Blog].[Blogs].[Id] = [Category].[BlogCategories].[BlogId] " +
+        //               "WHERE [Blogs].[Id] = @BlogId";
+
+        //Dictionary<Guid, UpdateBlogViewModel> blogDictionary = new Dictionary<Guid, UpdateBlogViewModel>();
+
+        //UpdateBlogViewModel? blog = Db.Query<UpdateBlogViewModel, Guid, Guid, UpdateBlogViewModel>(query,
+        //    (main, tag, category) =>
+        //    {
+        //        if (!blogDictionary.TryGetValue(main.Id, out UpdateBlogViewModel? blogDic))
+        //        {
+        //            blogDic = main;
+        //            blogDictionary.Add(blogDic.Id, blogDic);
+        //        }
+
+        //        blogDic.Tags.Add(tag);
+        //        blogDic.Categories.Add(category);
+        //        return blogDic;
+        //    }, new { blogId },
+        //    splitOn: "Tags, Categories").FirstOrDefault();
+
+        //blog!.Tags = blog.Tags.Distinct().ToList();
+        //blog!.Categories = blog.Categories.Distinct().ToList();
+
+        // ----------------------------------------------------------------------------------------------
+
+        // method 2
+
+        string query = "SELECT [Id], [AuthorId], [BlogTitle], [Summary], [Description], [ImageFile], [ReadTime] " +
+                       "FROM [Blog].[Blogs] WHERE [Id] = @BlogId; " +
+                       "SELECT [CategoryId] FROM [Category].[BlogCategories] WHERE [BlogId] = @BlogId; " +
+                       "SELECT [TagId] FROM [Tag].[BlogTags] WHERE [BlogId] = @BlogId;";
+
+        using var list = Db.QueryMultiple(query, new { blogId });
+
+        UpdateBlogViewModel blog = list.ReadFirstOrDefault<UpdateBlogViewModel>();
+        blog.Categories = list.Read<Guid>().ToList();
+        blog.Tags = list.Read<Guid>().ToList();
+
+        return blog;
     }
 
     public List<BlogForShowViewModel> GetAuthorBlogs(Guid authorId)

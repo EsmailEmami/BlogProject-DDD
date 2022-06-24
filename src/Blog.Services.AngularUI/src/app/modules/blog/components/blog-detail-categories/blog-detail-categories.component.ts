@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {BlogService} from "../../services/blog.service";
 import {CategoryForShowRequest} from "../../../../core/models/requests/category/categoryForShowRequest";
+import {CategoryService} from "../../services/category.service";
 
 @Component({
   selector: 'app-blog-detail-categories',
@@ -12,11 +13,11 @@ export class BlogDetailCategoriesComponent implements OnInit {
 
   public categories: CategoryForShowRequest[] = [];
 
-  constructor(private blogService: BlogService) {
+  constructor(private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
-    this.blogService.blogCategories(this.blogId)
+    this.categoryService.getBlogCategories(this.blogId)
       .then(categories => this.categories = categories);
   }
 }

@@ -44,8 +44,13 @@ public class Blog : Entity
 
     #endregion
 
-    public void SetWeittenAt(DateTime writtenAt)
+    public void SetWrittenAt(DateTime writtenAt)
     {
         WrittenAt = writtenAt;
+    }
+
+    public void SetImageFile(string imageFile)
+    {
+        ImageFile = imageFile;
     }
 }
