@@ -1,8 +1,9 @@
 ﻿using Blog.Domain.Validations.Command.User;
+using Blog.Domain.ViewModels.User;
 
 namespace Blog.Domain.Commands.User;
 
-public class RegisterNewUserCommand : UserCommand<Guid>
+public class RegisterNewUserCommand : UserCommand<UserForShowViewModel>
 {
     public RegisterNewUserCommand(string firstName, string lastName, string email, string password, string confirmPassword)
     {

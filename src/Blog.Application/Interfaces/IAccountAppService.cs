@@ -4,6 +4,6 @@ namespace Blog.Application.Interfaces;
 
 public interface IAccountAppService : IDisposable
 {
-    void Register(RegisterViewModel register);
+    Task<UserForShowViewModel> RegisterAsync(RegisterViewModel register);
     Task<bool> LoginAsync(LoginViewModel login);
 }

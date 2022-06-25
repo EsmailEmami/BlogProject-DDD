@@ -34,4 +34,7 @@ public class User : Entity
     #endregion
 
     public void SetPassword(string password) => Password = password;
+    
+    [Write(false)]
+    public string FullName => FirstName + " " + LastName;
 }

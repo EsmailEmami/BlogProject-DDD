@@ -18,10 +18,17 @@ public class AccountAppService : IAccountAppService
         _bus = bus;
     }
 
-    public void Register(RegisterViewModel register)
+    public async Task<UserForShowViewModel> RegisterAsync(RegisterViewModel register)
     {
         RegisterNewUserCommand registerCommand = _mapper.Map<RegisterNewUserCommand>(register);
-        _bus.SendCommand<RegisterNewUserCommand, Guid>(registerCommand);
+        try
+        {
+            return await _bus.SendCommand<RegisterNewUserCommand, UserForShowViewModel>(registerCommand);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public async Task<bool> LoginAsync(LoginViewModel login)

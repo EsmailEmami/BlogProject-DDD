@@ -7,9 +7,11 @@ using Blog.Domain.ViewModels.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Blog.Services.Api.Controllers;
 
+[Authorize]
 public class UserController : ApiController
 {
     #region constructor

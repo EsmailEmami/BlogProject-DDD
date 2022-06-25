@@ -5,12 +5,13 @@ using Blog.Domain.Events.User;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.Services.Hash;
+using Blog.Domain.ViewModels.User;
 using MediatR;
 
 namespace Blog.Domain.CommandHandlers;
 
 public class UserCommandHandler : CommandHandler,
-    IRequestHandler<RegisterNewUserCommand, Guid>,
+    IRequestHandler<RegisterNewUserCommand, UserForShowViewModel>,
     IRequestHandler<UpdateUserCommand, bool>,
     IRequestHandler<RemoveUserCommand, bool>,
     IRequestHandler<UpdateUserPasswordCommand, bool>
@@ -27,27 +28,27 @@ public class UserCommandHandler : CommandHandler,
         _passwordHasher = passwordHasher;
     }
 
-    public Task<Guid> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken)
+    public Task<UserForShowViewModel> Handle(RegisterNewUserCommand request, CancellationToken cancellationToken)
     {
         if (!request.IsValid())
         {
             NotifyValidationErrors(request);
-            return Task.FromResult(Guid.Empty);
+            throw new InvalidOperationException();
         }
 
         User user = new User(Guid.NewGuid(), request.FirstName, request.LastName, request.Email, _passwordHasher.Hash(request.Password));
 
         if (_userRepository.IsEmailExists(user.Email))
         {
-            Bus.RaiseEvent(new DomainNotification(request.MessageType, "your entered email address has been taken."));
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "ایمیل وارد شده در سیستم موجود است"));
+            throw new InvalidOperationException();
         }
 
         _userRepository.Add(user);
 
         Bus.RaiseEvent(new UserRegisteredEvent(user.Id, user.FirstName, user.LastName, user.Email));
 
-
-        return Task.FromResult(user.Id);
+        return Task.FromResult(new UserForShowViewModel(){UserId = user.Id, FullName = user.FullName , Email = user.Email});
     }
 
     public Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)

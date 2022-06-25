@@ -33,7 +33,7 @@ public class CategoryAppService : ICategoryAppService
         }
         catch
         {
-            return null;
+            return new CategoryForShowViewModel();
         }
     }
 

@@ -48,6 +48,7 @@ app.UseCors("EnableCors");
 app.UseCustomizedAuth();
 
 app.MapHub<CommentHub>(nameof(CommentHub));
+app.MapHub<UserManagerHub>(nameof(UserManagerHub));
 
 app.MapControllers();
 

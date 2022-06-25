@@ -81,7 +81,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<UpdateBlogCommand, bool>, BlogCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveBlogCommand, bool>, BlogCommandHandler>();
         // - User
-        services.AddScoped<IRequestHandler<RegisterNewUserCommand, Guid>, UserCommandHandler>();
+        services.AddScoped<IRequestHandler<RegisterNewUserCommand, UserForShowViewModel>, UserCommandHandler>();
         services.AddScoped<IRequestHandler<UpdateUserCommand, bool>, UserCommandHandler>();
         services.AddScoped<IRequestHandler<RemoveUserCommand, bool>, UserCommandHandler>();
         services.AddScoped<IRequestHandler<UpdateUserPasswordCommand, bool>, UserCommandHandler>();

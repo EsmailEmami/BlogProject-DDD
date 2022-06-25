@@ -8,6 +8,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using System.Security.Claims;
+using Blog.Application.SignalR;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Blog.Services.Api.Controllers;
 
@@ -18,16 +20,19 @@ public class AccountController : ApiController
     private readonly IAccountAppService _accountAppService;
     private readonly IUserAppService _userAppService;
     private readonly IJwtFactory _jwtFactory;
+    private readonly IHubContext<UserManagerHub> _userHub;
 
     public AccountController(INotificationHandler<DomainNotification> notifications,
         IMediatorHandler mediator,
         IAccountAppService accountAppService,
         IUserAppService userAppService,
-        IJwtFactory jwtFactory) : base(notifications, mediator)
+        IJwtFactory jwtFactory,
+        IHubContext<UserManagerHub> userHub) : base(notifications, mediator)
     {
         _accountAppService = accountAppService;
         _userAppService = userAppService;
         _jwtFactory = jwtFactory;
+        _userHub = userHub;
     }
 
     #endregion
@@ -35,7 +40,7 @@ public class AccountController : ApiController
     #region register
 
     [HttpPost("register")]
-    public IActionResult Register([FromBody] RegisterViewModel register)
+    public async Task<IActionResult> Register([FromBody] RegisterViewModel register)
     {
         if (!ModelState.IsValid)
         {
@@ -43,7 +48,12 @@ public class AccountController : ApiController
             return Response(register);
         }
 
-        _accountAppService.Register(register);
+        UserForShowViewModel user = await _accountAppService.RegisterAsync(register);
+
+        if (IsValidOperation())
+        {
+            await _userHub.Clients.All.SendAsync("ReceiveRegisteredUser", user);
+        }
 
         return Response();
     }
