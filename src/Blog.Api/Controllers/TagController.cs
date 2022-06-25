@@ -28,10 +28,10 @@ public class TagController : ApiController
     }
 
     [HttpPost("add-tag")]
-    public IActionResult AddTag([FromBody] AddTagViewModel tag)
+    public async Task<IActionResult> AddTag([FromBody] AddTagViewModel tag)
     {
-        _tagAppService.AddTag(tag);
-        return Response();
+        TagForShowViewModel result = await _tagAppService.AddTagAsync(tag);
+        return Response(result);
     }
 
     [HttpGet("get-tag-for-update")]

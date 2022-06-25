@@ -1,8 +1,9 @@
 ﻿using Blog.Domain.Validations.Command.Tag;
+using Blog.Domain.ViewModels.Tag;
 
 namespace Blog.Domain.Commands.Tag;
 
-public class RegisterNewTagCommand : TagCommand<Guid>
+public class RegisterNewTagCommand : TagCommand<TagForShowViewModel>
 {
     public RegisterNewTagCommand(string tagName)
     {

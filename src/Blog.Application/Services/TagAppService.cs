@@ -18,10 +18,17 @@ public class TagAppService : ITagAppService
         _bus = bus;
     }
 
-    public void AddTag(AddTagViewModel tag)
+    public async Task<TagForShowViewModel> AddTagAsync(AddTagViewModel tag)
     {
         RegisterNewTagCommand command = _mapper.Map<RegisterNewTagCommand>(tag);
-        _bus.SendCommand<RegisterNewTagCommand, Guid>(command);
+        try
+        {
+            return await _bus.SendCommand<RegisterNewTagCommand, TagForShowViewModel>(command);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public void UpdateTag(UpdateTagViewModel tag)

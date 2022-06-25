@@ -1,0 +1,39 @@
+<div class="modal-header-custom">
+  <h2 class="header-title">ویرایش تگ </h2>
+  <span class="close" (click)="closeModal()">&times;</span>
+</div>
+
+<form class="form" [formGroup]="tagForm" (ngSubmit)="onSubmit()" *ngIf="tagForm != null">
+  <div class="modal-body-custom">
+    <div class="row">
+      <div class="col-12">
+        <input type="text" class="form-control" formControlName="tagName" placeholder="عنوان تگ">
+        <span *ngIf="controls['tagName'].touched">
+              <p *ngIf="controls['tagName'].errors?.['required']">
+                لطفا عنوان تگ را وارد کنید
+              </p>
+               <p *ngIf="controls['tagName'].errors?.['minlength']">
+                عنوان تگ وارد شده نمیتواند کمتر از 3 کاراکتر باشد
+              </p>
+              <p *ngIf="controls['tagName'].errors?.['maxlength']">
+                عنوان تگ وارد شده نمیتواند بیشتر از 20 کاراکتر باشد
+              </p>
+            </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer-custom">
+    <div class="row">
+
+      <div class="col-6">
+        <button class="btn btn-success text-white" type="submit">ویرایش</button>
+      </div>
+      <div class="col-6">
+        <button type="button" class="btn btn-danger text-white" (click)="closeModal()">
+          خروج
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

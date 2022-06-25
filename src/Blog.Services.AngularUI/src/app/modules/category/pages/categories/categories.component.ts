@@ -1,15 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {CategoryService} from "../../services/category.service";
 import {CategoryForShowRequest} from "../../../../core/models/requests/category/categoryForShowRequest";
-import {
-  DashboardUpdatePasswordComponent
-} from "../../../user/components/dashboard-update-password/dashboard-update-password.component";
 import {UpdateCategoryRequest} from "../../../../core/models/requests/category/updateCategoryRequest";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {NotificationService} from "../../../../core/services/notification.service";
 import {UpdateCategoryComponent} from "../../components/update-category/update-category.component";
 import {AddCategoryComponent} from "../../components/add-category/add-category.component";
-import {AddCategoryRequest} from "../../../../core/models/requests/category/addCategoryRequest";
 
 @Component({
   selector: 'app-categories',

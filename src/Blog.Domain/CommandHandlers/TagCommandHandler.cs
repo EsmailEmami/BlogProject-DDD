@@ -5,11 +5,12 @@ using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using MediatR;
 using System.Data.SqlClient;
+using Blog.Domain.ViewModels.Tag;
 
 namespace Blog.Domain.CommandHandlers;
 
 public class TagCommandHandler : CommandHandler,
-    IRequestHandler<RegisterNewTagCommand, Guid>,
+    IRequestHandler<RegisterNewTagCommand, TagForShowViewModel>,
     IRequestHandler<UpdateTagCommand, bool>,
     IRequestHandler<RemoveTagCommand, bool>
 {
@@ -19,12 +20,12 @@ public class TagCommandHandler : CommandHandler,
         _tagRepository = tagRepository;
     }
 
-    public Task<Guid> Handle(RegisterNewTagCommand request, CancellationToken cancellationToken)
+    public Task<TagForShowViewModel> Handle(RegisterNewTagCommand request, CancellationToken cancellationToken)
     {
         if (!request.IsValid())
         {
             NotifyValidationErrors(request);
-            return Task.FromResult(Guid.Empty);
+            throw new InvalidOperationException();
         }
 
         Tag tag = new Tag(Guid.NewGuid(), request.TagName);
@@ -39,9 +40,11 @@ public class TagCommandHandler : CommandHandler,
             {
                 Bus.RaiseEvent(new DomainNotification("index errror from SQL", "نام تگ وارد شده ثبت شده است"));
             }
+
+            throw;
         }
 
-        return Task.FromResult(tag.Id);
+        return Task.FromResult(new TagForShowViewModel { TagId = tag.Id, TagName = tag.TagName });
     }
 
     public Task<bool> Handle(UpdateTagCommand request, CancellationToken cancellationToken)
