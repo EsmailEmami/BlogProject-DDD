@@ -1,8 +1,9 @@
 ﻿using Blog.Domain.Validations.Command.Category;
+using Blog.Domain.ViewModels.Category;
 
 namespace Blog.Domain.Commands.Category;
 
-public class RegisterNewCategoryCommand : CategoryCommand<Guid>
+public class RegisterNewCategoryCommand : CategoryCommand<CategoryForShowViewModel>
 {
     public RegisterNewCategoryCommand(string title)
     {

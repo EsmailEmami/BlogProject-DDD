@@ -129,7 +129,7 @@ export class UpdateBlogComponent implements OnInit, AfterViewChecked {
     this.blogService.updateBlog(request)
       .then(_ => {
         this.notificationService.showSuccess("مقاله با موفقیت ویرایش شد.");
-        this.router.navigate(['']).then(_ => this.blogForm.reset());
+        this.router.navigate(['blog/blogs']).then(_ => this.blogForm.reset());
       });
   }
 

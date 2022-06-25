@@ -125,7 +125,7 @@ export class AddBlogComponent implements OnInit, AfterViewChecked {
     this.blogService.addBlog(request)
       .then(_ => {
         this.notificationService.showSuccess("مقاله با موفقیت منتشر شد.");
-        this.router.navigate(['']).then(_ => this.blogForm.reset());
+        this.router.navigate(['blog/blogs']).then(_ => this.blogForm.reset());
       });
 
     this.loader.stop();

@@ -5,11 +5,12 @@ using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using MediatR;
 using System.Data.SqlClient;
+using Blog.Domain.ViewModels.Category;
 
 namespace Blog.Domain.CommandHandlers;
 
 public class CategoryCommandHandler : CommandHandler,
-    IRequestHandler<RegisterNewCategoryCommand, Guid>,
+    IRequestHandler<RegisterNewCategoryCommand, CategoryForShowViewModel>,
     IRequestHandler<UpdateCategoryCommand, bool>
 {
     private readonly ICategoryRepository _categoryRepository;
@@ -18,12 +19,12 @@ public class CategoryCommandHandler : CommandHandler,
         _categoryRepository = categoryRepository;
     }
 
-    public Task<Guid> Handle(RegisterNewCategoryCommand request, CancellationToken cancellationToken)
+    public Task<CategoryForShowViewModel> Handle(RegisterNewCategoryCommand request, CancellationToken cancellationToken)
     {
         if (!request.IsValid())
         {
             NotifyValidationErrors(request);
-            return Task.FromResult(Guid.Empty);
+            throw new InvalidOperationException();
         }
 
         Category category = new Category(Guid.NewGuid(), request.CategoryTitle);
@@ -38,9 +39,11 @@ public class CategoryCommandHandler : CommandHandler,
             {
                 Bus.RaiseEvent(new DomainNotification("index errror from SQL", "نام دسته بندی وارد شده ثبت شده است"));
             }
+
+            throw;
         }
 
-        return Task.FromResult(category.Id);
+        return Task.FromResult(new CategoryForShowViewModel { CategoryId = category.Id, CategoryTitle = category.CategoryTitle });
     }
 
     public Task<bool> Handle(UpdateCategoryCommand request, CancellationToken cancellationToken)

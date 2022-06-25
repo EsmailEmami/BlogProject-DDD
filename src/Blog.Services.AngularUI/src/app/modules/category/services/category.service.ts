@@ -16,7 +16,7 @@ export class CategoryService extends RestService {
     super(http);
   }
 
-  public addCategory(request: AddCategoryRequest) {
+  public addCategory(request: AddCategoryRequest): Promise<CategoryForShowRequest> {
     return this.post(CONTROLLER_NAME + 'add-category', request).toPromise();
   }
 

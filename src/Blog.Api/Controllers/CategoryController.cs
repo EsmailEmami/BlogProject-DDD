@@ -28,7 +28,7 @@ public class CategoryController : ApiController
     [HttpPost("add-category")]
     [ProducesResponseType((int)HttpStatusCode.OK)]
     [ProducesResponseType(typeof(List<string>), (int)HttpStatusCode.BadRequest)]
-    public IActionResult AddCategory([FromBody] AddCategoryViewModel category)
+    public async Task<IActionResult> AddCategory([FromBody] AddCategoryViewModel category)
     {
         if (!ModelState.IsValid)
         {
@@ -36,8 +36,8 @@ public class CategoryController : ApiController
             return Response();
         }
 
-        _categoryAppService.AddCategoryAsync(category);
-        return Response();
+        CategoryForShowViewModel result = await _categoryAppService.AddCategoryAsync(category);
+        return Response(result);
     }
 
 

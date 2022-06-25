@@ -1,0 +1,39 @@
+<div class="modal-header-custom">
+  <h2 class="header-title">افزودن دسته بندی </h2>
+  <span class="close" (click)="closeModal()">&times;</span>
+</div>
+
+<form class="form" [formGroup]="categoryForm" (ngSubmit)="onSubmit()" *ngIf="categoryForm != null">
+  <div class="modal-body-custom">
+    <div class="row">
+      <div class="col-12">
+        <input type="text" class="form-control" formControlName="categoryTitle" placeholder="عنوان دسته بندی">
+        <span *ngIf="controls['categoryTitle'].touched">
+              <p *ngIf="controls['categoryTitle'].errors?.['required']">
+                لطفا عنوان دسته بندی را وارد کنید
+              </p>
+               <p *ngIf="controls['categoryTitle'].errors?.['minlength']">
+                عنوان دسته بندی وارد شده نمیتواند کمتر از 3 کاراکتر باشد
+              </p>
+              <p *ngIf="controls['categoryTitle'].errors?.['maxlength']">
+                عنوان دسته بندی وارد شده نمیتواند بیشتر از 20 کاراکتر باشد
+              </p>
+            </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer-custom">
+    <div class="row">
+
+      <div class="col-6">
+        <button class="btn btn-success text-white" type="submit">افزودن</button>
+      </div>
+      <div class="col-6">
+        <button type="button" class="btn btn-danger text-white" (click)="closeModal()">
+          خروج
+        </button>
+      </div>
+    </div>
+  </div>
+</form>

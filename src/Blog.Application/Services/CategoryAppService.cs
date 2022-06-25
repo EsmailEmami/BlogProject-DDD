@@ -24,10 +24,17 @@ public class CategoryAppService : ICategoryAppService
 
         return await _bus.SendQuery<GetAllCategoriesQuery, List<CategoryForShowViewModel>>(query);
     }
-    public async Task<Guid> AddCategoryAsync(AddCategoryViewModel category)
+    public async Task<CategoryForShowViewModel> AddCategoryAsync(AddCategoryViewModel category)
     {
         RegisterNewCategoryCommand command = _mapper.Map<RegisterNewCategoryCommand>(category);
-        return await _bus.SendCommand<RegisterNewCategoryCommand, Guid>(command);
+        try
+        {
+            return await _bus.SendCommand<RegisterNewCategoryCommand, CategoryForShowViewModel>(command);
+        }
+        catch
+        {
+            return null;
+        }
     }
 
     public void UpdateCategory(UpdateCategoryViewModel category)
