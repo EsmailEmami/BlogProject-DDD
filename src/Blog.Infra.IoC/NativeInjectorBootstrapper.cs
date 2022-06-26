@@ -115,6 +115,8 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<GetUserByEmailQuery, User>, UserQueryHandler>();
         services.AddScoped<IRequestHandler<GetUserDashboardQuery, DashboardViewModel>, UserQueryHandler>();
         services.AddScoped<IRequestHandler<IsUserExistsQuery, bool>, UserQueryHandler>();
+        services.AddScoped<IRequestHandler<GetUsersQuery, List<UserForShowViewModel>>, UserQueryHandler>();
+        services.AddScoped<IRequestHandler<GetUsersCountQuery, int>, UserQueryHandler>();
         // - Category
         services.AddScoped<IRequestHandler<GetCategoryForUpdateQuery, UpdateCategoryViewModel>, CategoryQueryHandler>();
         services.AddScoped<IRequestHandler<GetAllCategoriesQuery, List<CategoryForShowViewModel>>, CategoryQueryHandler>();

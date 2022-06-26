@@ -13,7 +13,9 @@ namespace Blog.Domain.QueryHandlers;
 public class UserQueryHandler : QueryHandler,
     IRequestHandler<IsUserExistsQuery, bool>,
     IRequestHandler<GetUserByEmailQuery, User>,
-    IRequestHandler<GetUserDashboardQuery, DashboardViewModel>
+    IRequestHandler<GetUserDashboardQuery, DashboardViewModel>,
+    IRequestHandler<GetUsersQuery, List<UserForShowViewModel>>,
+    IRequestHandler<GetUsersCountQuery, int>
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
@@ -39,7 +41,7 @@ public class UserQueryHandler : QueryHandler,
             return Task.FromResult(false);
         }
 
-        if (_passwordHasher.Check(existedHashPassword, request.Password)) 
+        if (_passwordHasher.Check(existedHashPassword, request.Password))
             return Task.FromResult(true);
 
 
@@ -83,5 +85,15 @@ public class UserQueryHandler : QueryHandler,
         }
 
         return Task.FromResult(userDashboard);
+    }
+
+    public Task<List<UserForShowViewModel>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(_userRepository.GetUsers(request.Skip, request.Take, request.Search));
+    }
+
+    public Task<int> Handle(GetUsersCountQuery request, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(_userRepository.GetUsersCount(request.Search));
     }
 }

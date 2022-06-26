@@ -1,4 +1,5 @@
-﻿using Blog.Domain.Models;
+﻿using Blog.Application.ViewModels.User;
+using Blog.Domain.Models;
 using Blog.Domain.ViewModels.User;
 
 namespace Blog.Application.Interfaces;
@@ -10,4 +11,5 @@ public interface IUserAppService : IDisposable
     void Remove(Guid userId);
     Task<DashboardViewModel?> GetUserDashboardAsync(Guid userId);
     void UpdateUserPassword(UpdateUserPasswordViewModel user);
+    Task<FilterUsersViewModel> GetUsers(int pageId, int take, string? search);
 }

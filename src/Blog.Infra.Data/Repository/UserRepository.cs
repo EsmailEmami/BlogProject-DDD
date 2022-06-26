@@ -60,4 +60,30 @@ public class UserRepository : Repository<User>, IUserRepository
             Id = userId
         });
     }
+
+    public List<UserForShowViewModel> GetUsers(int skip, int take, string? search)
+    {
+        DynamicParameters parameters = new DynamicParameters();
+        parameters.Add("@Skip", skip);
+        parameters.Add("@Take", take);
+
+        if (!string.IsNullOrEmpty(search)) parameters.Add("@Search", search);
+        
+        return Db.Query<UserForShowViewModel>("[User].[uspGetUsers]", parameters,
+            commandType: CommandType.StoredProcedure).ToList();
+    }
+
+    public int GetUsersCount(string? search)
+    {
+        string query = "SELECT COUNT(*) FROM [User].[Users]";
+
+        if (!string.IsNullOrEmpty(search))
+        {
+            query += " WHERE ([FirstName] LIKE N'%@Search%') OR " +
+                     "([LastName] LIKE N'%@Search%') OR " +
+                     "([Email] LIKE N'%@Search%')";
+        }
+
+        return Db.QuerySingleOrDefault<int>(query, new { search });
+    }
 }

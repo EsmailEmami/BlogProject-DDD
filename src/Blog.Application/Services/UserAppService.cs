@@ -1,5 +1,8 @@
 ﻿using AutoMapper;
+using Blog.Application.Generator;
 using Blog.Application.Interfaces;
+using Blog.Application.ViewModels;
+using Blog.Application.ViewModels.User;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Interfaces;
@@ -65,6 +68,21 @@ public class UserAppService : IUserAppService
     {
         UpdateUserPasswordCommand command = _mapper.Map<UpdateUserPasswordCommand>(user);
         _bus.SendCommand<UpdateUserPasswordCommand, bool>(command);
+    }
+
+    public async Task<FilterUsersViewModel> GetUsers(int pageId, int take, string? search)
+    {
+        GetUsersCountQuery usersCountQuery = new GetUsersCountQuery(search);
+        int count = await _bus.SendQuery<GetUsersCountQuery, int>(usersCountQuery);
+        
+        int pagesCount = (int)Math.Ceiling(count / (double)take);
+        BasePaging pager = Pager.Build(pagesCount, pageId, take);
+
+        GetUsersQuery usersQuery = new GetUsersQuery(pager.SkipEntity, pager.TakeEntity, search);
+        List<UserForShowViewModel> users = await _bus.SendQuery<GetUsersQuery, List<UserForShowViewModel>>(usersQuery);
+
+        return new FilterUsersViewModel(search).SetUsers(users)
+            .SetPaging(pager);
     }
 
     public void Dispose() => GC.SuppressFinalize(this);

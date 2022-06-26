@@ -4,7 +4,9 @@ using Blog.Domain.Core.Notifications;
 using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.Queries.Tag;
+using Blog.Domain.Queries.User;
 using Blog.Domain.ViewModels.Tag;
+using Blog.Domain.ViewModels.User;
 using MediatR;
 
 namespace Blog.Domain.QueryHandlers;
@@ -12,7 +14,7 @@ namespace Blog.Domain.QueryHandlers;
 public class TagQueryHandler : QueryHandler,
     IRequestHandler<GetTagsQuery, List<TagForShowViewModel>>,
     IRequestHandler<GetTagForUpdateQuery, UpdateTagViewModel>,
-    IRequestHandler<GetBlogTagsQuery,List<TagForShowViewModel>>
+    IRequestHandler<GetBlogTagsQuery, List<TagForShowViewModel>>
 {
     private readonly ITagRepository _tagRepository;
     public TagQueryHandler(IMediatorHandler bus, ITagRepository tagRepository) : base(bus)

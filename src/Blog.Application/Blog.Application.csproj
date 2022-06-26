@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <Folder Include="AutoMapper\" />
+    <Folder Include="Generator\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
