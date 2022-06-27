@@ -1509,3 +1509,79 @@ $x3: -$left-pos + $dot-spacing;
     max-width: 1000px;
   }
 }
+
+.data-filter {
+  padding: 10px 0;
+
+  .input {
+    position: relative;
+    width: 100%;
+
+    input {
+      width: 100%;
+      padding: 10px 15px;
+      font-size: 1rem;
+      font-weight: 400;
+      height: 45px;
+      border: 1px solid #ced4da;
+      border-radius: 4px;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      position: relative;
+      outline: none;
+
+      &:focus {
+        box-shadow: 0 0 7px 0 #dcdcdcc4;
+      }
+    }
+
+    button {
+      position: absolute;
+      left: 5px;
+      top: 0;
+      background: transparent;
+      outline: none;
+      border: none;
+      height: 45px;
+      line-height: 48px;
+      font-size: 17px;
+      color: #959595;
+    }
+  }
+}
+
+ul.pagination-custom {
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  list-style: none;
+  margin: 2rem 0 0 0;
+}
+
+.pagination-custom li {
+  display: inline-block;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  transition: background-color .3s;
+  border: 2px solid #edebeb;
+  border-radius: 25px;
+  margin: 0 4px;
+  text-align: center;
+  line-height: 40px
+}
+
+.pagination-custom li.disabled {
+  display: none;
+}
+
+.pagination-custom li.active {
+  background-color: #FC5400;
+  border: 2px solid #232323;
+  color: white;
+}
+
+.pagination-custom li:hover:not(.active) {
+  background-color: #edebeb;
+}

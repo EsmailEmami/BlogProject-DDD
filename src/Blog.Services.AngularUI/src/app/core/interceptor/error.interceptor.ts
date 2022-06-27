@@ -28,8 +28,6 @@ export class ServerErrorInterceptor implements HttpInterceptor {
         catchError((error: HttpErrorResponse) => {
           errorResult = errorService.getServerErrorMessage(error).error;
 
-          debugger;
-
           try {
             errorResult.forEach(value => {
               notifier.showError(value);

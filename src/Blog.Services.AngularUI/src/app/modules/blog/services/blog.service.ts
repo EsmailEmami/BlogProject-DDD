@@ -6,6 +6,7 @@ import {UpdateBlogRequest} from "../../../core/models/requests/blog/updateBlogRe
 import {TagForShowRequest} from "../../../core/models/requests/tag/tagForShowRequest";
 import {CategoryForShowRequest} from "../../../core/models/requests/category/categoryForShowRequest";
 import {BlogDetailRequest} from "../../../core/models/requests/blog/blogDetailRequest";
+import {BlogForShowRequest} from "../../../core/models/requests/blog/blogForShowRequest";
 
 const BLOG_CONTROLLER_NAME: string = 'blog/';
 const TAG_CONTROLLER_NAME: string = 'tag/';
@@ -35,7 +36,7 @@ export class BlogService extends RestService {
     return this.put(BLOG_CONTROLLER_NAME + 'update-blog', request).toPromise();
   }
 
-  public blogList() {
+  public blogList(): Promise<BlogForShowRequest[]> {
     return this.get(BLOG_CONTROLLER_NAME + 'blogs').toPromise();
   }
 

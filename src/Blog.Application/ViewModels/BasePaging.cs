@@ -2,8 +2,6 @@
 
 public class BasePaging
 {
-    
-
     public int PageId { get; private set; } = 1;
     public int PagesCount { get; private set; }
     public int ActivePage { get; private set; }

@@ -13,7 +13,6 @@ import {BlogService} from "../services/blog.service";
 export class BlogsResolver implements Resolve<BlogForShowRequest[]> {
 
   constructor(
-    private router: Router,
     private blogService: BlogService) {
   }
 
