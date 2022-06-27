@@ -1,15 +1,14 @@
 ﻿using Blog.Application.Interfaces;
-using Blog.Domain.ViewModels.User;
+using Blog.Application.SignalR;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Models;
+using Blog.Domain.ViewModels.User;
 using Blog.Infra.CrossCutting.Identity.Interfaces;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net;
-using System.Security.Claims;
-using Blog.Application.SignalR;
 using Microsoft.AspNetCore.SignalR;
+using System.Security.Claims;
 
 namespace Blog.Services.Api.Controllers;
 

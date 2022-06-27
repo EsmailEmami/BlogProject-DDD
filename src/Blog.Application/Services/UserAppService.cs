@@ -72,14 +72,29 @@ public class UserAppService : IUserAppService
 
     public async Task<FilterUsersViewModel> GetUsers(int pageId, int take, string? search)
     {
-        GetUsersCountQuery usersCountQuery = new GetUsersCountQuery(search);
+        GetUsersCountQuery usersCountQuery = new(search);
         int count = await _bus.SendQuery<GetUsersCountQuery, int>(usersCountQuery);
-        
+
         int pagesCount = (int)Math.Ceiling(count / (double)take);
         BasePaging pager = Pager.Build(pagesCount, pageId, take);
 
-        GetUsersQuery usersQuery = new GetUsersQuery(pager.SkipEntity, pager.TakeEntity, search);
+        GetUsersQuery usersQuery = new(pager.SkipEntity, pager.TakeEntity, search);
         List<UserForShowViewModel> users = await _bus.SendQuery<GetUsersQuery, List<UserForShowViewModel>>(usersQuery);
+
+        return new FilterUsersViewModel(search).SetUsers(users)
+            .SetPaging(pager);
+    }
+
+    public async Task<FilterUsersViewModel> GetAdmins(int pageId, int take, string? search)
+    {
+        GetAdminsCountQuery adminsCountQuery = new(search);
+        int count = await _bus.SendQuery<GetAdminsCountQuery, int>(adminsCountQuery);
+
+        int pagesCount = (int)Math.Ceiling(count / (double)take);
+        BasePaging pager = Pager.Build(pagesCount, pageId, take);
+
+        GetAdminsQuery adminsQuery = new(pager.SkipEntity, pager.TakeEntity, search);
+        List<UserForShowViewModel> users = await _bus.SendQuery<GetAdminsQuery, List<UserForShowViewModel>>(adminsQuery);
 
         return new FilterUsersViewModel(search).SetUsers(users)
             .SetPaging(pager);

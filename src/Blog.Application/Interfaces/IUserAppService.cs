@@ -12,4 +12,5 @@ public interface IUserAppService : IDisposable
     Task<DashboardViewModel?> GetUserDashboardAsync(Guid userId);
     void UpdateUserPassword(UpdateUserPasswordViewModel user);
     Task<FilterUsersViewModel> GetUsers(int pageId, int take, string? search);
+    Task<FilterUsersViewModel> GetAdmins(int pageId, int take, string? search);
 }

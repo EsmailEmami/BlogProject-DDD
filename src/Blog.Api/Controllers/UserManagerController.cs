@@ -28,4 +28,15 @@ public class UserManagerController : ApiController
     }
 
     #endregion
+
+    #region Admins
+
+    [HttpGet("admins")]
+    public async Task<IActionResult> Admins([FromQuery] int pageId, [FromQuery] int take, [FromQuery] string? search)
+    {
+        FilterUsersViewModel admins = await _userAppService.GetAdmins(pageId, take, search);
+        return Response(admins);
+    }
+
+    #endregion
 }

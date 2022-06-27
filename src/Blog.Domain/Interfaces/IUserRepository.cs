@@ -10,5 +10,7 @@ public interface IUserRepository : IRepository<User>
     string GetUserPasswordByEmail(string email);
     DashboardViewModel GetUserDashboard(Guid userId);
     List<UserForShowViewModel> GetUsers(int skip, int take, string? search);
+    List<UserForShowViewModel> GetAdmins(int skip, int take, string? search);
     int GetUsersCount(string? search);
+    int GetAdminsCount(string? search);
 }

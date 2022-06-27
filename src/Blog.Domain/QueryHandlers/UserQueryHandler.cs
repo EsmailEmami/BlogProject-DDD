@@ -15,7 +15,9 @@ public class UserQueryHandler : QueryHandler,
     IRequestHandler<GetUserByEmailQuery, User>,
     IRequestHandler<GetUserDashboardQuery, DashboardViewModel>,
     IRequestHandler<GetUsersQuery, List<UserForShowViewModel>>,
-    IRequestHandler<GetUsersCountQuery, int>
+    IRequestHandler<GetAdminsQuery, List<UserForShowViewModel>>,
+    IRequestHandler<GetUsersCountQuery, int>,
+    IRequestHandler<GetAdminsCountQuery, int>
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
@@ -89,11 +91,37 @@ public class UserQueryHandler : QueryHandler,
 
     public Task<List<UserForShowViewModel>> Handle(GetUsersQuery request, CancellationToken cancellationToken)
     {
-        return Task.FromResult(_userRepository.GetUsers(request.Skip, request.Take, request.Search));
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            throw new InvalidOperationException();
+        }
+
+        List<UserForShowViewModel> users = _userRepository.GetUsers(request.Skip, request.Take, request.Search);
+
+        return Task.FromResult(users);
     }
 
     public Task<int> Handle(GetUsersCountQuery request, CancellationToken cancellationToken)
     {
         return Task.FromResult(_userRepository.GetUsersCount(request.Search));
+    }
+
+    public Task<int> Handle(GetAdminsCountQuery request, CancellationToken cancellationToken)
+    {
+        return Task.FromResult(_userRepository.GetAdminsCount(request.Search));
+    }
+
+    public Task<List<UserForShowViewModel>> Handle(GetAdminsQuery request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            throw new InvalidOperationException();
+        }
+
+        List<UserForShowViewModel> admins = _userRepository.GetAdmins(request.Skip, request.Take, request.Search);
+
+        return Task.FromResult(admins);
     }
 }
