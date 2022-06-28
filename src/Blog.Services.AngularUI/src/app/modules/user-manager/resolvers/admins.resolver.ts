@@ -4,13 +4,13 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import {UserService} from "../services/user.service";
 import {FilterUsersRequest} from "../../../core/models/requests/user/filterUsersRequest";
+import {UserService} from "../services/user.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersResolver implements Resolve<FilterUsersRequest> {
+export class AdminsResolver implements Resolve<FilterUsersRequest> {
 
   constructor(private userService: UserService) {
   }
@@ -24,6 +24,7 @@ export class UsersResolver implements Resolve<FilterUsersRequest> {
 
     const search: string | null = route.queryParams['search'];
 
-    return this.userService.getUsers(pageId, 5, search!);
+    return this.userService.getAdmins(pageId, 5, search!);
   }
 }
+

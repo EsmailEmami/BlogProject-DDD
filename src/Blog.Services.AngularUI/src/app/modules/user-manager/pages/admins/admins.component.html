@@ -1,0 +1,56 @@
+<div class="single_post">
+  <div class="container-fluid container-xxl">
+    <div class="post_content">
+      <h4 class="top-title">ادمین ها</h4>
+      <div class="data-filter">
+        <div class="row">
+          <div class="col-sm-12 col-md-6 col-lg-4 mb-2">
+            <div class="input">
+              <input type="text" placeholder="دنبال چی میگردی..." [(ngModel)]="admins.search"
+                     (keyup.enter)="getAdmins()">
+              <button type="button" (click)="getAdmins()"><i class="far fa-search"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <table class="table table-hover">
+        <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">نام و نام خانوادگی</th>
+          <th scope="col">ایمیل</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of admins.users; let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{user.fullName}}</td>
+          <td>{{user.email}}</td>
+          <td>
+            <button class="btn btn-warning text-white">ویرایش</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div *ngIf="admins.users.length == 0" class="alert alert-warning">
+        کاربری برای نمایش یافت نشد.
+      </div>
+
+      <ul class="pagination-custom">
+        <li [ngClass]="{'disabled': admins.activePage == 1}" (click)="getAdmins(admins.activePage - 1)">
+          <i class="far fa-angle-right"></i>
+        </li>
+        <li [ngClass]="{'active': page == admins.activePage}" *ngFor="let page of pages"
+            (click)="getAdmins(page)">
+          {{page}}
+        </li>
+        <li [ngClass]="{'disabled': admins.activePage >= admins.endPage}"
+            (click)="getAdmins(admins.activePage + 1)">
+          <i class="far fa-angle-left"></i>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="clear-fix"></div>

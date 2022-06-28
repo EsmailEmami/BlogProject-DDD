@@ -72,4 +72,16 @@ export class UserService extends RestService {
 
     return this.get(CONTROLLER_NAME + 'users', params).toPromise();
   }
+
+  public getAdmins(pageId: number, take: number, search?: string): Promise<FilterUsersRequest> {
+    let params = new HttpParams()
+      .append('pageId', pageId)
+      .append('take', take)
+
+    if (search) {
+      params = params.append('search', search);
+    }
+
+    return this.get(CONTROLLER_NAME + 'admins', params).toPromise();
+  }
 }
