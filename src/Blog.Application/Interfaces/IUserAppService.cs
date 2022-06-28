@@ -13,4 +13,5 @@ public interface IUserAppService : IDisposable
     void UpdateUserPassword(UpdateUserPasswordViewModel user);
     Task<FilterUsersViewModel> GetUsers(int pageId, int take, string? search);
     Task<FilterUsersViewModel> GetAdmins(int pageId, int take, string? search);
+    Task<UpdateUserViewModel> GetUserForUpdateAsync(Guid userId);
 }

@@ -23,4 +23,6 @@ public class UpdateUserViewModel
     [Required(ErrorMessage = "لطفا {0} را وارد کنید.")]
     [MaxLength(100, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد .")]
     public string Email { get; set; }
+
+    public List<Guid> Roles { get; set; } = new();
 }

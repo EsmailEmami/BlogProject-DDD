@@ -13,4 +13,5 @@ public interface IUserRepository : IRepository<User>
     List<UserForShowViewModel> GetAdmins(int skip, int take, string? search);
     int GetUsersCount(string? search);
     int GetAdminsCount(string? search);
+    UpdateUserViewModel GetUserForUpdate(Guid userId);
 }

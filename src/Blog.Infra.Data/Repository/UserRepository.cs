@@ -114,4 +114,17 @@ public class UserRepository : Repository<User>, IUserRepository
 
         return Db.QuerySingleOrDefault<int>(query, new { search });
     }
+
+    public UpdateUserViewModel GetUserForUpdate(Guid userId)
+    {
+        string query = "SELECT [Id], [FirstName], [LastName], [Email] FROM [User].[Users] WHERE [Id] = @UserId; " +
+                       "SELECT [RoleId] FROM [Permission].[UserRoles] WHERE [UserId] = @UserId;";
+
+        using SqlMapper.GridReader list = Db.QueryMultiple(query, new { userId });
+
+        UpdateUserViewModel user = list.ReadFirstOrDefault<UpdateUserViewModel>();
+        user.Roles = list.Read<Guid>().ToList();
+
+        return user;
+    }
 }

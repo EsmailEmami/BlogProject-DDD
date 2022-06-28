@@ -17,7 +17,8 @@ public class UserQueryHandler : QueryHandler,
     IRequestHandler<GetUsersQuery, List<UserForShowViewModel>>,
     IRequestHandler<GetAdminsQuery, List<UserForShowViewModel>>,
     IRequestHandler<GetUsersCountQuery, int>,
-    IRequestHandler<GetAdminsCountQuery, int>
+    IRequestHandler<GetAdminsCountQuery, int>,
+    IRequestHandler<GetUserForUpdateQuery, UpdateUserViewModel>
 {
     private readonly IUserRepository _userRepository;
     private readonly IPasswordHasher _passwordHasher;
@@ -123,5 +124,17 @@ public class UserQueryHandler : QueryHandler,
         List<UserForShowViewModel> admins = _userRepository.GetAdmins(request.Skip, request.Take, request.Search);
 
         return Task.FromResult(admins);
+    }
+
+    public Task<UpdateUserViewModel> Handle(GetUserForUpdateQuery request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            throw new InvalidOperationException();
+        }
+
+        UpdateUserViewModel user = _userRepository.GetUserForUpdate(request.UserId);
+        return Task.FromResult(user);
     }
 }

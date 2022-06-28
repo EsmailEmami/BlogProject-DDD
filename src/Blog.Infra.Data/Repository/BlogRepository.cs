@@ -73,7 +73,7 @@ public class BlogRepository : Repository<Domain.Models.Blog>, IBlogRepository
                        "SELECT [CategoryId] FROM [Category].[BlogCategories] WHERE [BlogId] = @BlogId; " +
                        "SELECT [TagId] FROM [Tag].[BlogTags] WHERE [BlogId] = @BlogId;";
 
-        using var list = Db.QueryMultiple(query, new { blogId });
+        using SqlMapper.GridReader list = Db.QueryMultiple(query, new { blogId });
 
         UpdateBlogViewModel blog = list.ReadFirstOrDefault<UpdateBlogViewModel>();
         blog.Categories = list.Read<Guid>().ToList();

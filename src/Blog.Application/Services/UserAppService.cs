@@ -5,7 +5,6 @@ using Blog.Application.ViewModels;
 using Blog.Application.ViewModels.User;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Core.Bus;
-using Blog.Domain.Interfaces;
 using Blog.Domain.Models;
 using Blog.Domain.Queries.User;
 using Blog.Domain.ViewModels.User;
@@ -98,6 +97,12 @@ public class UserAppService : IUserAppService
 
         return new FilterUsersViewModel(search).SetUsers(users)
             .SetPaging(pager);
+    }
+
+    public async Task<UpdateUserViewModel> GetUserForUpdateAsync(Guid userId)
+    {
+        GetUserForUpdateQuery query = new(userId);
+        return await _bus.SendQuery<GetUserForUpdateQuery, UpdateUserViewModel>(query);
     }
 
     public void Dispose() => GC.SuppressFinalize(this);
