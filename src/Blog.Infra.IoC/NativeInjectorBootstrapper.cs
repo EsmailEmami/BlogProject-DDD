@@ -103,6 +103,7 @@ public static class NativeInjectorBootstrapper
         services.AddScoped<IRequestHandler<RemoveBlogTagCommand, bool>, BlogTagCommandHandler>();
         // - Role
         services.AddScoped<IRequestHandler<RegisterNewRoleCommand, Guid>, RoleCommandHandler>();
+        services.AddScoped<IRequestHandler<UpdateRoleCommand, Role>, RoleCommandHandler>();
         // - User Role 
         services.AddScoped<IRequestHandler<RegisterNewUserRoleCommand, bool>, UserRoleCommandHandler>();
 

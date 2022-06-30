@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {RoleService} from "../../services/role.service";
 import {UpdateRoleRequest} from "../../../../core/models/requests/role/updateRoleRequest";
-import {RoleForShowRequest} from "../../../../core/models/requests/role/roleForShowRequest";
 
 @Component({
   selector: 'app-update-role',
@@ -55,9 +54,8 @@ export class UpdateRoleComponent implements OnInit {
     );
 
     this.roleService.updateRole(request)
-      .then(() => {
-        const roleForShow = new RoleForShowRequest(request.roleId, request.roleName);
-        this.activeModal.close(roleForShow);
+      .then((data) => {
+        this.activeModal.close(data);
         this.roleForm.reset();
       });
   }

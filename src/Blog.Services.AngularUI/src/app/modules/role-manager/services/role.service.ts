@@ -25,7 +25,7 @@ export class RoleService extends RestService {
     return this.get(CONTROLLER_NAME + 'get-role-for-update', params).toPromise();
   }
 
-  public updateRole(role: UpdateRoleRequest): Promise<void> {
+  public updateRole(role: UpdateRoleRequest): Promise<RoleForShowRequest> {
     return this.put(CONTROLLER_NAME + 'update-role', role).toPromise();
   }
 

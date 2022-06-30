@@ -37,4 +37,11 @@ public class RoleController : ApiController
         UpdateRoleViewModel role = await _roleAppService.GetRoleForUpdateAsync(roleId);
         return Response(role);
     }
+
+    [HttpPut("update-role")]
+    public async Task<IActionResult> UpdateRole([FromBody] UpdateRoleViewModel role)
+    {
+        Role resultRole = await _roleAppService.UpdateRoleAsync(role);
+        return Response(resultRole);
+    }
 }

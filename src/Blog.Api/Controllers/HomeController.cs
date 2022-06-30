@@ -12,8 +12,11 @@ public class HomeController:ApiController
     }
 
     [HttpGet]
+    [HttpPut]
+    [HttpPost]
+    [HttpDelete]
     [Route("/error")]
-    public IActionResult HandleErrorDevelopment()
+    public IActionResult HandleError()
     {
         return Response();
     }

@@ -1,4 +1,5 @@
-﻿using Blog.Application.Interfaces;
+﻿using AutoMapper;
+using Blog.Application.Interfaces;
 using Blog.Domain.Commands.Role;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Models;
@@ -10,10 +11,12 @@ namespace Blog.Application.Services;
 public class RoleAppService : IRoleAppService
 {
     private readonly IMediatorHandler _bus;
+    private readonly IMapper _mapper;
 
-    public RoleAppService(IMediatorHandler bus)
+    public RoleAppService(IMediatorHandler bus, IMapper mapper)
     {
         _bus = bus;
+        _mapper = mapper;
     }
 
     public async Task<Guid> AddRoleAsync(string roleName)
@@ -39,6 +42,12 @@ public class RoleAppService : IRoleAppService
     {
         GetRoleForUpdateQuery query = new(roleId);
         return await _bus.SendQuery<GetRoleForUpdateQuery, UpdateRoleViewModel>(query);
+    }
+
+    public async Task<Role> UpdateRoleAsync(UpdateRoleViewModel role)
+    {
+        UpdateRoleCommand command = _mapper.Map<UpdateRoleCommand>(role);
+        return await _bus.SendCommand<UpdateRoleCommand, Role>(command);
     }
 
     public void Dispose()

@@ -8,4 +8,5 @@ public interface IRoleAppService :IDisposable
     Task<Guid> AddRoleAsync(string roleName);
     Task<List<Role>> GetAllRolesAsync();
     Task<UpdateRoleViewModel> GetRoleForUpdateAsync(Guid roleId);
+    Task<Role> UpdateRoleAsync(UpdateRoleViewModel role);
 }

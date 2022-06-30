@@ -7,7 +7,7 @@ import {
   HTTP_INTERCEPTORS,
   HttpErrorResponse
 } from '@angular/common/http';
-import {catchError, Observable, retry, throwError} from 'rxjs';
+import {catchError, Observable, throwError} from 'rxjs';
 import {ErrorService} from "../services/error-handling/error.service";
 import {NotificationService} from "../services/notification.service";
 

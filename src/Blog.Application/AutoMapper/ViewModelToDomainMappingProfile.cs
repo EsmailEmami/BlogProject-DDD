@@ -3,12 +3,14 @@ using Blog.Domain.Commands.Blog;
 using Blog.Domain.Commands.BlogCategory;
 using Blog.Domain.Commands.Category;
 using Blog.Domain.Commands.Comment;
+using Blog.Domain.Commands.Role;
 using Blog.Domain.Commands.Tag;
 using Blog.Domain.Commands.User;
 using Blog.Domain.Queries.User;
 using Blog.Domain.ViewModels.Blog;
 using Blog.Domain.ViewModels.Category;
 using Blog.Domain.ViewModels.Comment;
+using Blog.Domain.ViewModels.Role;
 using Blog.Domain.ViewModels.Tag;
 using Blog.Domain.ViewModels.User;
 
@@ -44,6 +46,9 @@ public class ViewModelToDomainMappingProfile : Profile
         // Comment
         CreateMap<AddCommentViewModel, RegisterNewCommentCommand>()
             .ConstructUsing(c => new RegisterNewCommentCommand(c.UserId, c.BlogId, c.Title, c.CommentMessage));
+        // Role
+        CreateMap<UpdateRoleViewModel, UpdateRoleCommand>()
+            .ConstructUsing(c => new UpdateRoleCommand(c.RoleId, c.RoleName));
 
         // Query
         // User
