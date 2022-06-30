@@ -77,7 +77,7 @@ public static class AuthExtension
                 builder.AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials()
-                    .WithOrigins("http://localhost:4200")
+                    .WithOrigins("http://localhost:4200", "http://localhost:8080")
                     .Build();
 
             });
