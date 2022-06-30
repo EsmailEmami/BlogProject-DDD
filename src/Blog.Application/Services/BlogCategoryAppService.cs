@@ -16,15 +16,8 @@ public class BlogCategoryAppService : IBlogCategoryAppService
 
     public async Task<bool> AddBlogCategoryAsync(Guid blogId, Guid categoryId)
     {
-        try
-        {
-            RegisterNewBlogCategoryCommand command = new RegisterNewBlogCategoryCommand(blogId, categoryId);
-            return await _bus.SendCommand<RegisterNewBlogCategoryCommand, bool>(command);
-        }
-        catch
-        {
-            return false;
-        }
+        RegisterNewBlogCategoryCommand command = new RegisterNewBlogCategoryCommand(blogId, categoryId);
+        return await _bus.SendCommand<RegisterNewBlogCategoryCommand, bool>(command);
     }
 
 
@@ -37,14 +30,7 @@ public class BlogCategoryAppService : IBlogCategoryAppService
     public async Task<List<Guid>> GetBlogCategories(Guid blogId)
     {
         GetBlogCategoriesIdByBlogQuery query = new GetBlogCategoriesIdByBlogQuery(blogId);
-        try
-        {
-            return await _bus.SendQuery<GetBlogCategoriesIdByBlogQuery, List<Guid>>(query);
-        }
-        catch
-        {
-            return new List<Guid>();
-        }
+        return await _bus.SendQuery<GetBlogCategoriesIdByBlogQuery, List<Guid>>(query);
     }
 
     public void Dispose() => GC.SuppressFinalize(this);

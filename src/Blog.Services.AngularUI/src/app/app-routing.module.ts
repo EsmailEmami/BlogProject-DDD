@@ -43,6 +43,11 @@ const routes: Routes = [
     loadChildren: () => import('./modules/user-manager/user-manager.module').then(m => m.UserManagerModule),
     canActivate: [AuthGuard]
   },
+  {
+    path: 'role',
+    loadChildren: () => import('./modules/role-manager/role-manager.module').then(m => m.RoleManagerModule),
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({

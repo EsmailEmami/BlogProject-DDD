@@ -1,7 +1,6 @@
 ﻿using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -34,7 +33,7 @@ public abstract class ApiController : ControllerBase
             return Ok(result);
         }
 
-        return BadRequest(_notifications.GetNotifications().Select(n => n.Value).ToList());
+        return BadRequest(Notifications.Select(n => n.Value).ToList());
     }
 
     protected new IActionResult Response()
@@ -44,17 +43,15 @@ public abstract class ApiController : ControllerBase
             return Ok();
         }
 
-        List<string> notificationKeys = _notifications.GetNotifications()
-            .Select(n => n.Key)
-            .ToList();
+        List<string> notificationKeys = Notifications.Select(n => n.Key).ToList();
 
         if (notificationKeys.Contains(HttpStatusCode.BadRequest.ToString()) ||
             notificationKeys.Contains(nameof(DomainNotification)))
         {
-            return BadRequest(_notifications.GetNotifications().Select(n => n.Value).ToList());
+            return BadRequest(Notifications.Select(n => n.Value).ToList());
         }
 
-        return NotFound(_notifications.GetNotifications().Select(n => n.Value).ToList());
+        return NotFound(Notifications.Select(n => n.Value).ToList());
     }
 
     protected void NotifyModelStateErrors()
@@ -70,13 +67,5 @@ public abstract class ApiController : ControllerBase
     protected void NotifyError(string code, string message)
     {
         _mediator.RaiseEvent(new DomainNotification(code, message));
-    }
-
-    protected void AddIdentityErrors(IdentityResult result)
-    {
-        foreach (var error in result.Errors)
-        {
-            NotifyError(result.ToString(), error.Description);
-        }
     }
 }

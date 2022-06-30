@@ -16,15 +16,8 @@ public class BlogTagAppService : IBlogTagAppService
 
     public async Task<bool> AddBlogTagAsync(Guid blogId, Guid tagId)
     {
-        try
-        {
-            RegisterNewBlogTagCommand command = new RegisterNewBlogTagCommand(blogId, tagId);
-            return await _bus.SendCommand<RegisterNewBlogTagCommand, bool>(command);
-        }
-        catch
-        {
-            return false;
-        }
+        RegisterNewBlogTagCommand command = new RegisterNewBlogTagCommand(blogId, tagId);
+        return await _bus.SendCommand<RegisterNewBlogTagCommand, bool>(command);
     }
 
     public void DeleteBlogTag(Guid blogTagId)
@@ -36,14 +29,7 @@ public class BlogTagAppService : IBlogTagAppService
     public async Task<List<Guid>> GetBlogTags(Guid blogId)
     {
         GetBlogTagsIdByBlogQuery query = new GetBlogTagsIdByBlogQuery(blogId);
-        try
-        {
-            return await _bus.SendQuery<GetBlogTagsIdByBlogQuery, List<Guid>>(query);
-        }
-        catch
-        {
-            return new List<Guid>();
-        }
+        return await _bus.SendQuery<GetBlogTagsIdByBlogQuery, List<Guid>>(query);
     }
 
     public void Dispose() => GC.SuppressFinalize(this);

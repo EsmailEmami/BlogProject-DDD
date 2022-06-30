@@ -33,7 +33,6 @@ public class BlogQueryHandler : QueryHandler,
         if (blog == null)
         {
             Bus.RaiseEvent(new DomainNotification("blog not found", "مقاله مورد نظر یافت نشد"));
-
             throw new EntityNotFoundException();
         }
 

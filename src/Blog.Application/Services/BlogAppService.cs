@@ -41,15 +41,7 @@ public class BlogAppService : IBlogAppService
     public async Task<UpdateBlogViewModel?> GetBlogForUpdate(Guid blogId)
     {
         GetBlogForUpdateQuery query = new GetBlogForUpdateQuery(blogId);
-
-        try
-        {
-            return await _bus.SendQuery<GetBlogForUpdateQuery, UpdateBlogViewModel>(query);
-        }
-        catch
-        {
-            return null;
-        }
+        return await _bus.SendQuery<GetBlogForUpdateQuery, UpdateBlogViewModel>(query);
     }
 
     public async Task<List<BlogForShowViewModel>> GetAuthorBlogs(Guid authorId)
@@ -67,15 +59,7 @@ public class BlogAppService : IBlogAppService
     public async Task<BlogDetailViewModel?> GetBlogDetailAsync(Guid blogId)
     {
         GetBlogDetailQuery query = new GetBlogDetailQuery(blogId);
-
-        try
-        {
-            return await _bus.SendQuery<GetBlogDetailQuery, BlogDetailViewModel>(query);
-        }
-        catch
-        {
-            return null;
-        }
+        return await _bus.SendQuery<GetBlogDetailQuery, BlogDetailViewModel>(query);
     }
 
     public void Dispose()

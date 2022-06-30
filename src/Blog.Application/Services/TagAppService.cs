@@ -21,14 +21,7 @@ public class TagAppService : ITagAppService
     public async Task<TagForShowViewModel> AddTagAsync(AddTagViewModel tag)
     {
         RegisterNewTagCommand command = _mapper.Map<RegisterNewTagCommand>(tag);
-        try
-        {
-            return await _bus.SendCommand<RegisterNewTagCommand, TagForShowViewModel>(command);
-        }
-        catch
-        {
-            return null;
-        }
+        return await _bus.SendCommand<RegisterNewTagCommand, TagForShowViewModel>(command);
     }
 
     public void UpdateTag(UpdateTagViewModel tag)
@@ -52,27 +45,13 @@ public class TagAppService : ITagAppService
     public async Task<UpdateTagViewModel?> GetTagForUpdateAsync(Guid tagId)
     {
         GetTagForUpdateQuery query = new GetTagForUpdateQuery(tagId);
-        try
-        {
-            return await _bus.SendQuery<GetTagForUpdateQuery, UpdateTagViewModel>(query);
-        }
-        catch
-        {
-            return null;
-        }
+        return await _bus.SendQuery<GetTagForUpdateQuery, UpdateTagViewModel>(query);
     }
 
     public async Task<List<TagForShowViewModel>> GetBlogTags(Guid blogId)
     {
         GetBlogTagsQuery query = new GetBlogTagsQuery(blogId);
-        try
-        {
-            return await _bus.SendQuery<GetBlogTagsQuery, List<TagForShowViewModel>>(query);
-        }
-        catch
-        {
-            return new List<TagForShowViewModel>();
-        }
+        return await _bus.SendQuery<GetBlogTagsQuery, List<TagForShowViewModel>>(query);
     }
 
     public void Dispose() => GC.SuppressFinalize(this);

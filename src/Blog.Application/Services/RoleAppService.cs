@@ -3,6 +3,7 @@ using Blog.Domain.Commands.Role;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Models;
 using Blog.Domain.Queries.Role;
+using Blog.Domain.ViewModels.Role;
 
 namespace Blog.Application.Services;
 
@@ -32,6 +33,12 @@ public class RoleAppService : IRoleAppService
     {
         GetAllRolesQuery query = new GetAllRolesQuery();
         return await _bus.SendQuery<GetAllRolesQuery, List<Role>>(query);
+    }
+
+    public async Task<UpdateRoleViewModel> GetRoleForUpdateAsync(Guid roleId)
+    {
+        GetRoleForUpdateQuery query = new(roleId);
+        return await _bus.SendQuery<GetRoleForUpdateQuery, UpdateRoleViewModel>(query);
     }
 
     public void Dispose()

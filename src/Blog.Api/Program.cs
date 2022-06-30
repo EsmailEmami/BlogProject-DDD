@@ -1,8 +1,10 @@
+using System.Net.Mime;
 using Blog.Application.SignalR;
 using Blog.Infra.CrossCutting.IoC;
 using Blog.Services.Api.Configurations;
 using Blog.Services.Api.SetupExtensions;
 using MediatR;
+using Microsoft.AspNetCore.Diagnostics;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -37,6 +39,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseCustomizedSwagger();
 }
+app.UseExceptionHandler("/error");
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

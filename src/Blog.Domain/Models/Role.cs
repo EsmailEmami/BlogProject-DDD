@@ -11,7 +11,7 @@ public class Role : Entity
     public Role(Guid roleId, string roleName)
     {
         Id = roleId;
-        RoleName = roleName.ToUpper().Trim();
+        RoleName = roleName.ToUpper().Trim().Replace(" ","");
 
         UserRoles = new List<UserRole>();
     }

@@ -37,7 +37,7 @@ public class BlogCategoryCommandHandler : CommandHandler,
             if (exception.Number == 547)
             {
                 Bus.RaiseEvent(new DomainNotification("SQL Exception", "متاسفانه هنگام ثبت دسته بندی های مقاله به مشکلی غیر منتظره برخوردیم."));
-                throw exception;
+                throw;
             }
         }
 

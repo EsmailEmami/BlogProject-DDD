@@ -17,29 +17,13 @@ public class UserRoleAppService : IUserRoleAppService
     public async Task<bool> AddUserRoleAsync(Guid userId, Guid roleId)
     {
         RegisterNewUserRoleCommand command = new RegisterNewUserRoleCommand(userId, roleId);
-
-        try
-        {
-            return await _bus.SendCommand<RegisterNewUserRoleCommand, bool>(command);
-        }
-        catch
-        {
-            return false;
-        }
+        return await _bus.SendCommand<RegisterNewUserRoleCommand, bool>(command);
     }
 
     public async Task<List<Guid>> GetAllUserRolesIdAsync(Guid userId)
     {
         GetAllUserRolesIdQuery query = new GetAllUserRolesIdQuery(userId);
-
-        try
-        {
-            return await _bus.SendQuery<GetAllUserRolesIdQuery, List<Guid>>(query);
-        }
-        catch
-        {
-            return new List<Guid>();
-        }
+        return await _bus.SendQuery<GetAllUserRolesIdQuery, List<Guid>>(query);
     }
 
     public void Dispose()

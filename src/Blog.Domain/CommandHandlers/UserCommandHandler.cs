@@ -48,7 +48,7 @@ public class UserCommandHandler : CommandHandler,
 
         Bus.RaiseEvent(new UserRegisteredEvent(user.Id, user.FirstName, user.LastName, user.Email));
 
-        return Task.FromResult(new UserForShowViewModel(){UserId = user.Id, FullName = user.FullName , Email = user.Email});
+        return Task.FromResult(new UserForShowViewModel{UserId = user.Id, FullName = user.FullName , Email = user.Email});
     }
 
     public Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)

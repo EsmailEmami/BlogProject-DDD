@@ -26,15 +26,7 @@ public class UserAppService : IUserAppService
     public async Task<User?> GetUserByEmailAsync(string email)
     {
         GetUserByEmailQuery query = new GetUserByEmailQuery(email);
-
-        try
-        {
-            return await _bus.SendQuery<GetUserByEmailQuery, User>(query);
-        }
-        catch
-        {
-            return null;
-        }
+        return await _bus.SendQuery<GetUserByEmailQuery, User>(query);
     }
 
     public void Update(UpdateUserViewModel user)
@@ -52,15 +44,7 @@ public class UserAppService : IUserAppService
     public async Task<DashboardViewModel?> GetUserDashboardAsync(Guid userId)
     {
         GetUserDashboardQuery query = new GetUserDashboardQuery(userId);
-
-        try
-        {
-            return await _bus.SendQuery<GetUserDashboardQuery, DashboardViewModel>(query);
-        }
-        catch
-        {
-            return null;
-        }
+        return await _bus.SendQuery<GetUserDashboardQuery, DashboardViewModel>(query);
     }
 
     public void UpdateUserPassword(UpdateUserPasswordViewModel user)

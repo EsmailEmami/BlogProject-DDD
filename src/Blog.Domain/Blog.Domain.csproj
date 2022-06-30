@@ -37,6 +37,7 @@
     <Folder Include="Validations\Query\Blog\" />
     <Folder Include="Validations\Query\Category\" />
     <Folder Include="Validations\Query\Comment\" />
+    <Folder Include="Validations\Query\Role\" />
     <Folder Include="Validations\Query\UserRole\" />
     <Folder Include="Validations\Query\User\" />
     <Folder Include="ViewModels\Comment\" />

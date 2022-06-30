@@ -27,14 +27,7 @@ public class CategoryAppService : ICategoryAppService
     public async Task<CategoryForShowViewModel> AddCategoryAsync(AddCategoryViewModel category)
     {
         RegisterNewCategoryCommand command = _mapper.Map<RegisterNewCategoryCommand>(category);
-        try
-        {
-            return await _bus.SendCommand<RegisterNewCategoryCommand, CategoryForShowViewModel>(command);
-        }
-        catch
-        {
-            return new CategoryForShowViewModel();
-        }
+        return await _bus.SendCommand<RegisterNewCategoryCommand, CategoryForShowViewModel>(command);
     }
 
     public void UpdateCategory(UpdateCategoryViewModel category)
@@ -43,31 +36,16 @@ public class CategoryAppService : ICategoryAppService
         _bus.SendCommand<UpdateCategoryCommand, bool>(command);
     }
 
-    public async Task<UpdateCategoryViewModel?> GetCategoryForUpdate(Guid categoryId)
+    public async Task<UpdateCategoryViewModel> GetCategoryForUpdate(Guid categoryId)
     {
         GetCategoryForUpdateQuery query = new GetCategoryForUpdateQuery(categoryId);
-
-        try
-        {
-            return await _bus.SendQuery<GetCategoryForUpdateQuery, UpdateCategoryViewModel>(query);
-        }
-        catch
-        {
-            return null;
-        }
+        return await _bus.SendQuery<GetCategoryForUpdateQuery, UpdateCategoryViewModel>(query);
     }
 
     public async Task<List<CategoryForShowViewModel>> GetBlogCategoriesAsync(Guid blogId)
     {
         GetBlogCategoriesQuery query = new GetBlogCategoriesQuery(blogId);
-        try
-        {
-            return await _bus.SendQuery<GetBlogCategoriesQuery, List<CategoryForShowViewModel>>(query);
-        }
-        catch
-        {
-            return new List<CategoryForShowViewModel>();
-        }
+        return await _bus.SendQuery<GetBlogCategoriesQuery, List<CategoryForShowViewModel>>(query);
     }
 
     public void Dispose()

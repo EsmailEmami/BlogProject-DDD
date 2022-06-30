@@ -1,0 +1,27 @@
+<div class="single_post">
+  <div class="container-fluid container-xxl">
+    <div class="post_content">
+      <h4 class="top-title">دسترسی ها</h4>
+      <button class="btn btn-success text-white float-end mb-3 w-25" (click)="addRole()">جدید</button>
+      <table class="table table-hover">
+        <thead class="table-dark">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">نام دسترسی</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let role of roles; let i = index">
+          <th scope="row">{{i + 1}}</th>
+          <td>{{role.roleName}}</td>
+          <td>
+            <button class="btn btn-warning text-white" (click)="editRole(role.id)">ویرایش</button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="clear-fix"></div>

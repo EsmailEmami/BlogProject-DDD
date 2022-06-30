@@ -1,6 +1,9 @@
 ﻿using Blog.Application.Interfaces;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
+using Blog.Domain.Models;
+using Blog.Domain.ViewModels.Role;
+using Blog.Domain.ViewModels.User;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,9 +24,17 @@ public class RoleController : ApiController
     }
 
     [HttpPost("add-role")]
-    public IActionResult AddRole([FromBody] string roleName)
+    [Consumes("application/json")]
+    public async Task<IActionResult> AddRole([FromBody] string roleName)
     {
-        _roleAppService.AddRoleAsync(roleName);
-        return Response();
+        Guid roleId = await _roleAppService.AddRoleAsync(roleName);
+        return Response(new Role(roleId, roleName));
+    }
+
+    [HttpGet("get-role-for-update")]
+    public async Task<IActionResult> GetRoleForUpdate([FromQuery] Guid roleId)
+    {
+        UpdateRoleViewModel role = await _roleAppService.GetRoleForUpdateAsync(roleId);
+        return Response(role);
     }
 }

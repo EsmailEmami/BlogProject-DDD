@@ -2,7 +2,6 @@
 using Blog.Application.Interfaces;
 using Blog.Domain.Commands.Comment;
 using Blog.Domain.Core.Bus;
-using Blog.Domain.Models;
 using Blog.Domain.Queries.Comment;
 using Blog.Domain.ViewModels.Comment;
 
@@ -28,15 +27,7 @@ public class CommentAppService : ICommentAppService
     public async Task<List<CommentForShowViewModel>> GetBlogCommentsAsync(Guid blogId)
     {
         GetBlogCommentsQuery query = new GetBlogCommentsQuery(blogId);
-
-        try
-        {
-            return await _bus.SendQuery<GetBlogCommentsQuery, List<CommentForShowViewModel>>(query);
-        }
-        catch
-        {
-            return new List<CommentForShowViewModel>();
-        }
+        return await _bus.SendQuery<GetBlogCommentsQuery, List<CommentForShowViewModel>>(query);
     }
 
     public void Dispose()

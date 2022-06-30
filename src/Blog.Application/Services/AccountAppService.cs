@@ -21,20 +21,12 @@ public class AccountAppService : IAccountAppService
     public async Task<UserForShowViewModel> RegisterAsync(RegisterViewModel register)
     {
         RegisterNewUserCommand registerCommand = _mapper.Map<RegisterNewUserCommand>(register);
-        try
-        {
-            return await _bus.SendCommand<RegisterNewUserCommand, UserForShowViewModel>(registerCommand);
-        }
-        catch
-        {
-            return null;
-        }
+        return await _bus.SendCommand<RegisterNewUserCommand, UserForShowViewModel>(registerCommand);
     }
 
     public async Task<bool> LoginAsync(LoginViewModel login)
     {
         IsUserExistsQuery query = _mapper.Map<IsUserExistsQuery>(login);
-
         return await _bus.SendQuery<IsUserExistsQuery, bool>(query);
     }
 
