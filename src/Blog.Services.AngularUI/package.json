@@ -21,6 +21,7 @@
     "@angular/service-worker": "^14.0.4",
     "@microsoft/signalr": "^6.0.6",
     "@ng-bootstrap/ng-bootstrap": "^12.1.2",
+    "@ngx-pwa/offline": "^13.0.2",
     "http-server": "^14.1.1",
     "ngx-image-compress": "^13.1.10",
     "ngx-toastr": "^14.3.0",
