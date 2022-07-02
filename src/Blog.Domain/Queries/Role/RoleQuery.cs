@@ -5,4 +5,5 @@ namespace Blog.Domain.Queries.Role;
 public abstract class RoleQuery<TResult> : Query<TResult>
 {
     public Guid RoleId { get; protected set; }
+    public List<string> Names { get; protected set; }
 }

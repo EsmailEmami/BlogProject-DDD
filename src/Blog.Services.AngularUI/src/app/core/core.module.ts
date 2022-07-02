@@ -7,6 +7,7 @@ import {LocalStorageService} from "./services/local-storage.service";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {AuthGuard} from "./guards/auth.guard";
 import {LoaderService} from "./services/loader.service";
+import {PermissionGuard} from "./guards/permission.guard";
 
 @NgModule({
   imports: [
@@ -23,6 +24,7 @@ import {LoaderService} from "./services/loader.service";
     AuthService,
     LoaderService,
     AuthGuard,
+    PermissionGuard,
     BrowserAnimationsModule,
     ToastrModule,
     NotificationService,

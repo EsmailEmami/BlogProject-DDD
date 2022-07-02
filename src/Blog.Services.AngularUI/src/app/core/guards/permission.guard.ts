@@ -6,8 +6,7 @@ import {AuthService} from "../services/auth.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
-
+export class PermissionGuard implements CanActivate {
   constructor(
     private authenticationService: AuthService,
     private router: Router
@@ -18,25 +17,23 @@ export class AuthGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
-    return this.authenticationService.currentUser.pipe(
+    let roles: string[] = route.data['roles'];
+
+    return this.authenticationService.checkPermission(roles).pipe(
       map((response) => {
         if (response) {
           return true;
         } else {
-          this.navigate(state.url);
+          this.navigate();
           return false;
         }
       }), catchError(_ => {
-        this.navigate(state.url);
+        this.navigate();
         return of(false);
       }));
   }
 
-  private navigate(url: string) {
-    this.router.navigate(['login'], {
-      queryParams: {
-        returnUrl: url
-      }
-    }).then();
+  private navigate() {
+    this.router.navigate(['404']).then();
   }
 }

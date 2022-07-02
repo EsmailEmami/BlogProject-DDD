@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Blog.Domain.Core.Bus;
-using Blog.Domain.Core.Commands;
+﻿using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
 using Blog.Domain.Core.Query;
-using MediatR;
 
 namespace Blog.Domain.QueryHandlers;
 

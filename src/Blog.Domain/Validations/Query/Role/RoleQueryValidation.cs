@@ -11,4 +11,10 @@ public abstract class RoleQueryValidation<TQuery, TResult> : AbstractValidator<T
         RuleFor(c => c.RoleId)
             .NotEqual(Guid.Empty);
     }
+    protected void ValidateNames()
+    {
+        RuleFor(c => c.Names)
+            .NotNull().WithMessage("لطفا مقام ها را وارد کنید")
+            .Must(c => c.Count > 0).WithMessage("لطفا مقام ها را وارد کنید");
+    }
 }

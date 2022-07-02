@@ -6,4 +6,5 @@ namespace Blog.Domain.Interfaces;
 public interface IRoleRepository : IRepository<Role>
 {
     UpdateRoleViewModel? GetRoleForUpdate(Guid roleId);
+    List<Guid> GetRolesIdByNames(List<string> rolesName);
 }

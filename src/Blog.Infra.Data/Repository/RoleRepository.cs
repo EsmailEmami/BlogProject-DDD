@@ -20,4 +20,13 @@ public class RoleRepository : Repository<Role>, IRoleRepository
 
         return Db.QuerySingleOrDefault<UpdateRoleViewModel>(query, new { roleId });
     }
+
+    public List<Guid> GetRolesIdByNames(List<string> rolesName)
+    {
+        string query = "SELECT [Id] " +
+                       "FROM [Permission].[Roles] " +
+                       "WHERE [RoleName] IN @Role";
+
+        return Db.Query<Guid>(query, new { Role = rolesName }).ToList();
+    }
 }

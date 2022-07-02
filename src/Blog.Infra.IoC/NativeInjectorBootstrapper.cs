@@ -139,6 +139,7 @@ public static class NativeInjectorBootstrapper
         // - Role
         services.AddScoped<IRequestHandler<GetAllRolesQuery, List<Role>>, RoleQueryHandler>();
         services.AddScoped<IRequestHandler<GetRoleForUpdateQuery, UpdateRoleViewModel>, RoleQueryHandler>();
+        services.AddScoped<IRequestHandler<GetRolesIdByNamesQuery, List<Guid>>, RoleQueryHandler>();
         // - User Role
         services.AddScoped<IRequestHandler<GetAllUserRolesIdQuery, List<Guid>>, UserRoleQueryHandler>();
 

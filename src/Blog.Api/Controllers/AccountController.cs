@@ -1,4 +1,5 @@
-﻿using Blog.Application.Interfaces;
+﻿using System.Net;
+using Blog.Application.Interfaces;
 using Blog.Application.SignalR;
 using Blog.Domain.Core.Bus;
 using Blog.Domain.Core.Notifications;
@@ -9,6 +10,8 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using System.Security.Claims;
+using Blog.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Blog.Services.Api.Controllers;
 
@@ -18,6 +21,9 @@ public class AccountController : ApiController
 
     private readonly IAccountAppService _accountAppService;
     private readonly IUserAppService _userAppService;
+    private readonly IUserRoleAppService _userRoleAppService;
+    private readonly IRoleAppService _roleAppService;
+    private readonly IUser _user;
     private readonly IJwtFactory _jwtFactory;
     private readonly IHubContext<UserManagerHub> _userHub;
 
@@ -26,12 +32,16 @@ public class AccountController : ApiController
         IAccountAppService accountAppService,
         IUserAppService userAppService,
         IJwtFactory jwtFactory,
-        IHubContext<UserManagerHub> userHub) : base(notifications, mediator)
+        IHubContext<UserManagerHub> userHub,
+        IUserRoleAppService userRoleAppService, IRoleAppService roleAppService, IUser user) : base(notifications, mediator)
     {
         _accountAppService = accountAppService;
         _userAppService = userAppService;
         _jwtFactory = jwtFactory;
         _userHub = userHub;
+        _userRoleAppService = userRoleAppService;
+        _roleAppService = roleAppService;
+        _user = user;
     }
 
     #endregion
@@ -86,6 +96,32 @@ public class AccountController : ApiController
             email = user.Email,
             token
         });
+    }
+
+    #endregion
+
+    #region Check Permission
+
+    [Authorize]
+    [HttpPost("check-permission")]
+    public async Task<IActionResult> CheckUserPermission([FromBody] List<string> rolesName)
+    {
+        List<Guid> rolesId = await _roleAppService.GetRolesIdAsync(rolesName);
+        List<Guid> userRolesId = await _userRoleAppService.GetAllUserRolesIdAsync(_user.UserId);
+
+        bool result = true;
+
+        foreach (Guid roleId in rolesId)
+        {
+            bool isValid = userRolesId.Contains(roleId);
+            if (!isValid)
+            {
+                result = false;
+                break;
+            }
+        }
+
+        return Response(result);
     }
 
     #endregion

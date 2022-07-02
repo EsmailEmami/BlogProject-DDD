@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from "./core/guards/auth.guard";
+import {PermissionGuard} from "./core/guards/permission.guard";
 
 const routes: Routes = [
   {
@@ -46,8 +47,19 @@ const routes: Routes = [
   {
     path: 'role',
     loadChildren: () => import('./modules/role-manager/role-manager.module').then(m => m.RoleManagerModule),
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, PermissionGuard],
+    data: {
+      roles: ['ROLEMANAGER','USERMANAGER']
+    }
   },
+  {
+    path: '**',
+    loadChildren: () => import('./core/pages/not-found/not-found.module').then(m => m.NotFoundModule),
+  },
+  {
+    path: '404',
+    loadChildren: () => import('./core/pages/not-found/not-found.module').then(m => m.NotFoundModule),
+  }
 ];
 
 @NgModule({

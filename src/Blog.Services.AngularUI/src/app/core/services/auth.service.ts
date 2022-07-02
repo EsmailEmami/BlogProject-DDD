@@ -135,6 +135,10 @@ export class AuthService extends RestService {
       }));
   }
 
+  checkPermission(roles: string[]): Observable<boolean> {
+    return this.post('account/check-permission', JSON.stringify(roles));
+  }
+
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem(appConstants.storedUser);

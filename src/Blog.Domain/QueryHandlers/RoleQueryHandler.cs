@@ -11,7 +11,8 @@ namespace Blog.Domain.QueryHandlers;
 
 public class RoleQueryHandler : QueryHandler,
     IRequestHandler<GetAllRolesQuery, List<Role>>,
-    IRequestHandler<GetRoleForUpdateQuery,UpdateRoleViewModel>
+    IRequestHandler<GetRoleForUpdateQuery, UpdateRoleViewModel>,
+    IRequestHandler<GetRolesIdByNamesQuery, List<Guid>>
 {
     private readonly IRoleRepository _roleRepository;
     public RoleQueryHandler(IMediatorHandler bus, IRoleRepository roleRepository) : base(bus)
@@ -41,5 +42,35 @@ public class RoleQueryHandler : QueryHandler,
         }
 
         return Task.FromResult(role);
+    }
+
+    public Task<List<Guid>> Handle(GetRolesIdByNamesQuery request, CancellationToken cancellationToken)
+    {
+        if (!request.IsValid())
+        {
+            NotifyValidationErrors(request);
+            throw new InvalidOperationException();
+        }
+
+        List<Guid> roles;
+
+        try
+        {
+            roles = _roleRepository.GetRolesIdByNames(request.Names);
+        }
+        catch
+        {
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "متاسفانه مشکلی پیش آمده است"));
+            throw;
+        }
+
+        if (roles.Count != request.Names.Count)
+        {
+            Bus.RaiseEvent(new DomainNotification(request.MessageType, "متاسفانه مشکلی پیش آمده است"));
+            throw new InvalidOperationException();
+        }
+
+
+        return Task.FromResult(roles);
     }
 }

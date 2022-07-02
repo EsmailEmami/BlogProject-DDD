@@ -50,6 +50,12 @@ public class RoleAppService : IRoleAppService
         return await _bus.SendCommand<UpdateRoleCommand, Role>(command);
     }
 
+    public async Task<List<Guid>> GetRolesIdAsync(List<string> rolesName)
+    {
+        GetRolesIdByNamesQuery query = new(rolesName);
+        return await _bus.SendQuery<GetRolesIdByNamesQuery, List<Guid>>(query);
+    }
+
     public void Dispose()
     {
         GC.SuppressFinalize(this);
