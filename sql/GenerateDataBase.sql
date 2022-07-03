@@ -1,6 +1,6 @@
 USE [master]
 GO
-/****** Object:  Database [Blog_DB]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Database [Blog_DB]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE DATABASE [Blog_DB]
 IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
 begin
@@ -69,22 +69,22 @@ ALTER DATABASE [Blog_DB] SET QUERY_STORE = OFF
 GO
 USE [Blog_DB]
 GO
-/****** Object:  Schema [Blog]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Schema [Blog]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE SCHEMA [Blog]
 GO
-/****** Object:  Schema [Category]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Schema [Category]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE SCHEMA [Category]
 GO
-/****** Object:  Schema [Permission]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Schema [Permission]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE SCHEMA [Permission]
 GO
-/****** Object:  Schema [Tag]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Schema [Tag]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE SCHEMA [Tag]
 GO
-/****** Object:  Schema [User]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Schema [User]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE SCHEMA [User]
 GO
-/****** Object:  Table [Blog].[Blogs]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Table [Blog].[Blogs]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -105,7 +105,7 @@ CREATE TABLE [Blog].[Blogs](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 GO
-/****** Object:  Table [Category].[BlogCategories]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Table [Category].[BlogCategories]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -121,7 +121,7 @@ CREATE TABLE [Category].[BlogCategories](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Category].[Categories]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Table [Category].[Categories]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -136,7 +136,7 @@ CREATE TABLE [Category].[Categories](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Permission].[Roles]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Table [Permission].[Roles]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -151,7 +151,7 @@ CREATE TABLE [Permission].[Roles](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Permission].[UserRoles]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Table [Permission].[UserRoles]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -163,7 +163,7 @@ CREATE TABLE [Permission].[UserRoles](
 	[IsDeleted] [bit] NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Tag].[BlogTags]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Table [Tag].[BlogTags]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -179,7 +179,7 @@ CREATE TABLE [Tag].[BlogTags](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [Tag].[Tags]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Table [Tag].[Tags]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -194,7 +194,7 @@ CREATE TABLE [Tag].[Tags](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [User].[Comments]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Table [User].[Comments]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -213,7 +213,7 @@ CREATE TABLE [User].[Comments](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [User].[Users]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Table [User].[Users]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -228,16 +228,42 @@ CREATE TABLE [User].[Users](
  CONSTRAINT [PK_Users] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UQ_Users_Email] UNIQUE NONCLUSTERED 
-(
-	[Email] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+INSERT [Blog].[Blogs] ([Id], [AuthorId], [BlogTitle], [Summary], [Description], [ImageFile], [WrittenAt], [ReadTime], [IsDeleted]) VALUES (N'7175763a-dab9-4317-bb15-3a198ee4b723', N'7de96742-2877-413c-a061-895db8bc0d23', N'ASA ASA SAS W', N'این یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی است', N'این یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی استاین یک مقاله تستی است', N'a083d6e97c53477d8d99195f788994c8.jpeg', CAST(N'2022-06-24T16:34:02.0000000' AS DateTime2), N'12:12', 0)
+GO
+INSERT [Category].[BlogCategories] ([Id], [BlogId], [CategoryId], [IsDeleted]) VALUES (N'9a6cbaed-6f70-4bf2-b5cb-bb858a91fe67', N'7175763a-dab9-4317-bb15-3a198ee4b723', N'cfba0eac-e434-46a0-ad5c-48ad366613d8', 0)
+GO
+INSERT [Category].[Categories] ([Id], [CategoryTitle], [IsDeleted]) VALUES (N'e0393123-d1a3-4fa9-a6eb-1bb43012d0cc', N'اقتصادی', 0)
+GO
+INSERT [Category].[Categories] ([Id], [CategoryTitle], [IsDeleted]) VALUES (N'cfba0eac-e434-46a0-ad5c-48ad366613d8', N'ورزشی', 0)
+GO
+INSERT [Category].[Categories] ([Id], [CategoryTitle], [IsDeleted]) VALUES (N'882ec2fd-ea0e-4123-9cc5-b4b7f2ef17ff', N'مجله', 0)
+GO
+INSERT [Category].[Categories] ([Id], [CategoryTitle], [IsDeleted]) VALUES (N'0509b2a3-cc24-4b55-99d3-e4abb73496cd', N'سیاسی', 0)
+GO
+INSERT [Permission].[Roles] ([Id], [RoleName], [IsDeleted]) VALUES (N'545d46d0-26ff-4428-9912-4a3c7ca6abe2', N'USERMANAGER', 0)
+GO
+INSERT [Permission].[Roles] ([Id], [RoleName], [IsDeleted]) VALUES (N'0a19dad5-1357-4737-bd64-c15a59c10482', N'ROLEMANAGER', 0)
+GO
+INSERT [Permission].[UserRoles] ([Id], [UserId], [RoleId], [IsDeleted]) VALUES (N'8033db1a-a17b-450c-ae0c-e09aa5b8057e', N'7de96742-2877-413c-a061-895db8bc0d23', N'545d46d0-26ff-4428-9912-4a3c7ca6abe2', 0)
+GO
+INSERT [Permission].[UserRoles] ([Id], [UserId], [RoleId], [IsDeleted]) VALUES (N'ce688714-d0a0-4e31-bae9-f878609fbb32', N'7de96742-2877-413c-a061-895db8bc0d23', N'0a19dad5-1357-4737-bd64-c15a59c10482', 0)
+GO
+INSERT [Tag].[BlogTags] ([Id], [BlogId], [TagId], [IsDeleted]) VALUES (N'ff34f11a-af0d-4c68-ada7-992eb334e977', N'7175763a-dab9-4317-bb15-3a198ee4b723', N'41eb7b46-a69a-4763-9eea-d96c73dbf0da', 0)
+GO
+INSERT [Tag].[BlogTags] ([Id], [BlogId], [TagId], [IsDeleted]) VALUES (N'e6102983-be26-483e-8307-f753b6fffddc', N'7175763a-dab9-4317-bb15-3a198ee4b723', N'4237de64-2304-462e-bd6e-8c873a483b59', 0)
+GO
+INSERT [Tag].[Tags] ([Id], [TagName], [IsDeleted]) VALUES (N'4237de64-2304-462e-bd6e-8c873a483b59', N'مجله خبری', 0)
+GO
+INSERT [Tag].[Tags] ([Id], [TagName], [IsDeleted]) VALUES (N'41eb7b46-a69a-4763-9eea-d96c73dbf0da', N'خبر', 0)
+GO
+INSERT [User].[Users] ([Id], [FirstName], [LastName], [Email], [Password], [IsDeleted]) VALUES (N'7de96742-2877-413c-a061-895db8bc0d23', N'esmail', N'emami', N'esmailemami84@gmail.com', N'10000.zLrSg/oj0TwFSXjyRXqRGA==.M8i6n0rbLxAUKkmfqyPjmnj3NHwDbFPER5gwEGDCtcE=', 0)
+GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UX_Category_Title]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Index [UX_Category_Title]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE UNIQUE NONCLUSTERED INDEX [UX_Category_Title] ON [Category].[Categories]
 (
 	[CategoryTitle] ASC
@@ -245,7 +271,7 @@ CREATE UNIQUE NONCLUSTERED INDEX [UX_Category_Title] ON [Category].[Categories]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UX_Roles_Name]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Index [UX_Roles_Name]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE UNIQUE NONCLUSTERED INDEX [UX_Roles_Name] ON [Permission].[Roles]
 (
 	[RoleName] ASC
@@ -253,7 +279,7 @@ CREATE UNIQUE NONCLUSTERED INDEX [UX_Roles_Name] ON [Permission].[Roles]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [UX_Tags_Name]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Index [UX_Tags_Name]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE UNIQUE NONCLUSTERED INDEX [UX_Tags_Name] ON [Tag].[Tags]
 (
 	[TagName] ASC
@@ -261,13 +287,21 @@ CREATE UNIQUE NONCLUSTERED INDEX [UX_Tags_Name] ON [Tag].[Tags]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [IX_Comments_Title]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Index [IX_Comments_Title]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE NONCLUSTERED INDEX [IX_Comments_Title] ON [User].[Comments]
 (
 	[Title] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_Users_Deleted]    Script Date: 6/26/2022 3:18:46 PM ******/
+SET ANSI_PADDING ON
+GO
+/****** Object:  Index [UQ_Users_Email]    Script Date: 7/3/2022 11:05:42 AM ******/
+ALTER TABLE [User].[Users] ADD  CONSTRAINT [UQ_Users_Email] UNIQUE NONCLUSTERED 
+(
+	[Email] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_Users_Deleted]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE NONCLUSTERED INDEX [IX_Users_Deleted] ON [User].[Users]
 (
 	[IsDeleted] ASC
@@ -275,7 +309,7 @@ CREATE NONCLUSTERED INDEX [IX_Users_Deleted] ON [User].[Users]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [IX_Users_FirstName]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Index [IX_Users_FirstName]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE NONCLUSTERED INDEX [IX_Users_FirstName] ON [User].[Users]
 (
 	[FirstName] ASC
@@ -283,7 +317,7 @@ CREATE NONCLUSTERED INDEX [IX_Users_FirstName] ON [User].[Users]
 GO
 SET ANSI_PADDING ON
 GO
-/****** Object:  Index [IX_Users_LastName]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Index [IX_Users_LastName]    Script Date: 7/3/2022 11:05:42 AM ******/
 CREATE NONCLUSTERED INDEX [IX_Users_LastName] ON [User].[Users]
 (
 	[LastName] ASC
@@ -414,7 +448,38 @@ ALTER TABLE [User].[Users]  WITH CHECK ADD  CONSTRAINT [CK_Users_LastNameMinLeng
 GO
 ALTER TABLE [User].[Users] CHECK CONSTRAINT [CK_Users_LastNameMinLength]
 GO
-/****** Object:  StoredProcedure [User].[uspGetUsers]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  StoredProcedure [User].[uspGetAdmins]    Script Date: 7/3/2022 11:05:42 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER OFF
+GO
+
+CREATE PROCEDURE [User].[uspGetAdmins]
+	@Skip INT = 0,
+	@Take INT = 5,
+	@Search NVARCHAR(25) = NULL
+AS
+BEGIN
+SET NOCOUNT ON;
+
+DECLARE @QUERY NVARCHAR(MAX) = "SELECT [Users].[Id] AS [UserId], CONCAT([Users].[FirstName], ' ' , [Users].[LastName]) AS [FullName], [Users].[Email] 
+FROM [User].[Users] 
+INNER JOIN [Permission].[UserRoles]
+ON [User].[Users].[Id] = [Permission].[UserRoles].[UserId] ";
+
+IF @Search IS NOT NULL
+BEGIN 
+SET @QUERY = @QUERY + "WHERE ([FirstName] LIKE N'%" + @Search + "%') 
+	OR ([LastName] LIKE N'%" + @Search + "%')
+	OR ([Email] LIKE N'%" + @Search + "%') ";
+END
+
+SET @QUERY  = @QUERY + "ORDER BY [FirstName] DESC, [LastName] DESC OFFSET " + CONVERT(nvarchar(MAX), @Skip) + " ROWS FETCH NEXT " + CONVERT(nvarchar(MAX), @Take) + " ROWS ONLY;";
+
+EXEC (@QUERY);
+END
+GO
+/****** Object:  StoredProcedure [User].[uspGetUsers]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -443,7 +508,7 @@ SET @QUERY  = @QUERY + "ORDER BY [FirstName] DESC, [LastName] DESC OFFSET " + CO
 EXEC (@QUERY);
 END
 GO
-/****** Object:  Trigger [Blog].[BlogUpdated]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Trigger [Blog].[BlogUpdated]    Script Date: 7/3/2022 11:05:42 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -453,13 +518,13 @@ ON [Blog].[Blogs]
 AFTER UPDATE
 AS 
 SET NOCOUNT ON
-DECLARE @UserId AS UNIQUEIDENTIFIER = (SELECT [Id] FROM [Inserted]);
-DELETE FROM [Tag].[BlogTags] WHERE [BlogId] = @UserId;
-DELETE FROM [Category].[BlogCategories] WHERE [BlogId] = @UserId;
+DECLARE @BlogId AS UNIQUEIDENTIFIER = (SELECT [Id] FROM [Inserted]);
+DELETE FROM [Tag].[BlogTags] WHERE [BlogId] = @BlogId;
+DELETE FROM [Category].[BlogCategories] WHERE [BlogId] = @BlogId;
 GO
 ALTER TABLE [Blog].[Blogs] ENABLE TRIGGER [BlogUpdated]
 GO
-/****** Object:  Trigger [User].[CommentInserted]    Script Date: 6/26/2022 3:18:46 PM ******/
+/****** Object:  Trigger [User].[CommentInserted]    Script Date: 7/3/2022 11:05:43 AM ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -479,6 +544,21 @@ FROM [Inserted]
     ON [Inserted].[UserId] = [User].[Users].[Id]  
 GO
 ALTER TABLE [User].[Comments] ENABLE TRIGGER [CommentInserted]
+GO
+/****** Object:  Trigger [User].[UserUpdated]    Script Date: 7/3/2022 11:05:43 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TRIGGER [User].[UserUpdated]
+ON [User].[Users]
+AFTER UPDATE
+AS 
+SET NOCOUNT ON
+DECLARE @UserId AS UNIQUEIDENTIFIER = (SELECT [Id] FROM [Inserted]);
+DELETE FROM [Permission].[UserRoles] WHERE [UserId] = @UserId;
+GO
+ALTER TABLE [User].[Users] ENABLE TRIGGER [UserUpdated]
 GO
 USE [master]
 GO
